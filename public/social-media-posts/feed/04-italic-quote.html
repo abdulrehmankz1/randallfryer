@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Feed 04 — Italic Quote</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bone:#f3ede0; --bone-soft:#ebe2cd; --bone-deep:#d8cdb1;
+    --ink:#0a1326; --ink-mute:#4b5364;
+    --signal:#9b2d2c; --signal-deep:#7a2422;
+    --ochre:#b58a4a; --ochre-soft:#d4ac6e;
+    --display:'Fraunces',serif; --sans:'Inter',sans-serif; --mono:'JetBrains Mono',monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#222;display:grid;place-items:center;min-height:100vh;padding:24px}
+  .stage{width:1080px;height:1080px;position:relative;overflow:hidden;
+    background:
+      radial-gradient(120% 90% at 30% 0%, #f8efd6 0%, #e9dec0 50%, #d8cdb1 100%);
+    color:var(--ink);font-family:var(--sans);
+    box-shadow:0 60px 120px -40px rgba(0,0,0,.45);
+  }
+  /* paper grain */
+  .stage::before{
+    content:"";position:absolute;inset:0;z-index:60;pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .05 0 0 0 0 .1 0 0 0 0 .18 0 0 0 .08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode:multiply;opacity:.55;
+  }
+  /* warm vignette */
+  .stage::after{
+    content:"";position:absolute;inset:0;z-index:55;pointer-events:none;
+    background:
+      radial-gradient(60% 50% at 50% 100%, rgba(10,19,38,.3), transparent 60%),
+      radial-gradient(50% 40% at 50% 0%, rgba(255,232,180,.45), transparent 60%);
+  }
+
+  /* Embossed seal — center */
+  .medal{
+    position:absolute;left:50%;top:60%;transform:translate(-50%,-50%);
+    width:880px;height:880px;border-radius:50%;
+    background:
+      radial-gradient(40% 40% at 35% 30%, rgba(10,19,38,.0) 0%, rgba(10,19,38,.08) 60%, rgba(10,19,38,.15) 100%);
+    box-shadow:
+      inset 0 60px 120px rgba(255,242,210,.45),
+      inset 0 -60px 120px rgba(10,19,38,.18),
+      0 80px 120px rgba(10,19,38,.16);
+    z-index:4;
+  }
+  .medal::before{
+    content:"";position:absolute;inset:80px;border-radius:50%;
+    border:1px solid rgba(10,19,38,.22);
+  }
+  .medal::after{
+    content:"";position:absolute;inset:140px;border-radius:50%;
+    border:1px dashed rgba(10,19,38,.16);
+  }
+
+  /* Hairline frame */
+  .frame{position:absolute;inset:56px;border:1px solid rgba(10,19,38,.18);z-index:8;pointer-events:none}
+
+  .meta{
+    position:absolute;left:96px;right:96px;top:96px;display:flex;justify-content:space-between;
+    font-family:var(--mono);font-size:13px;letter-spacing:.32em;text-transform:uppercase;
+    color:var(--ink-mute);z-index:20;
+  }
+  .meta b{color:var(--signal-deep);font-weight:600}
+
+  /* Pull quote */
+  .quote{
+    position:absolute;left:96px;right:96px;top:50%;transform:translateY(-52%);z-index:14;
+    text-align:center;
+  }
+  .quote .open{
+    font-family:var(--display);font-style:italic;font-weight:300;
+    font-size:300px;line-height:.8;color:var(--signal);opacity:.18;display:block;margin-bottom:-30px;
+  }
+  .quote p{
+    font-family:var(--display);font-style:italic;font-weight:400;
+    font-size:84px;line-height:1.05;letter-spacing:-.02em;color:var(--ink);
+    max-width:880px;margin:0 auto;
+  }
+  .quote p span{color:var(--signal-deep);font-weight:500}
+  .attr{
+    margin-top:46px;display:flex;align-items:center;justify-content:center;gap:18px;
+    font-family:var(--mono);font-size:13px;letter-spacing:.32em;text-transform:uppercase;color:var(--ink-mute);
+  }
+  .attr::before,.attr::after{content:"";display:block;width:60px;height:1px;background:var(--ink);opacity:.4}
+
+  /* Bottom corners */
+  .corner{
+    position:absolute;bottom:96px;font-family:var(--mono);font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-mute);
+    z-index:20;
+  }
+  .corner.l{left:96px}
+  .corner.r{right:96px;text-align:right}
+  .corner.r .big{
+    font-family:var(--display);font-style:italic;font-weight:400;font-size:46px;letter-spacing:-.02em;color:var(--ink);
+    display:block;margin-bottom:4px;
+  }
+
+  /* Marquee tags floating */
+  .tag{
+    position:absolute;font-family:var(--display);font-style:italic;font-weight:500;
+    color:var(--ink);opacity:.45;letter-spacing:-.01em;
+    z-index:6;
+  }
+  .tag::after{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--signal);margin-left:14px;vertical-align:5px;box-shadow:0 4px 12px rgba(155,45,44,.4)}
+  .tag.t1{top:200px;left:140px;font-size:36px;transform:rotate(-6deg)}
+  .tag.t2{top:240px;right:140px;font-size:32px;transform:rotate(8deg)}
+  .tag.t3{bottom:240px;left:200px;font-size:30px;transform:rotate(-3deg)}
+  .tag.t4{bottom:200px;right:180px;font-size:34px;transform:rotate(5deg)}
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="medal" aria-hidden></div>
+
+    <div class="frame"></div>
+
+    <div class="meta">
+      <span>Pulvinar · Et · Lorem</span>
+      <span>Vox №<b>IV</b> · MMXXVI</span>
+    </div>
+
+    <span class="tag t1">Fiscalis</span>
+    <span class="tag t2">Honestas</span>
+    <span class="tag t3">Apertus</span>
+    <span class="tag t4">Civitas</span>
+
+    <div class="quote">
+      <span class="open">"</span>
+      <p>Lorem ipsum <span>dolor sit amet,</span> consectetur adipiscing elit — sed do eiusmod.</p>
+      <div class="attr">Lorem Ipsum · Districtus XIV</div>
+    </div>
+
+    <div class="corner l">Lorem · Ipsum</div>
+    <div class="corner r">
+      <span class="big">IV / X</span>
+      Lorem ipsum dolor
+    </div>
+  </div>
+</body>
+</html>

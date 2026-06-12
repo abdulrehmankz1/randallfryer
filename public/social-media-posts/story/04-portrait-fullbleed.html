@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Story 04 — Portrait Full Bleed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bone:#f3ede0; --ink:#0a1326; --ink-mute:#4b5364;
+    --signal:#9b2d2c; --signal-deep:#7a2422;
+    --ochre:#b58a4a; --ochre-soft:#d4ac6e;
+    --display:'Fraunces',serif; --sans:'Inter',sans-serif; --mono:'JetBrains Mono',monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#222;display:grid;place-items:center;min-height:100vh;padding:24px}
+  .stage{width:1080px;height:1920px;position:relative;overflow:hidden;
+    background:#0a1326;color:#f3ede0;font-family:var(--sans);
+    box-shadow:0 60px 120px -40px rgba(0,0,0,.55);
+  }
+  /* Studio backdrop */
+  .bg{position:absolute;inset:0;z-index:2;
+    background:
+      radial-gradient(70% 50% at 50% 25%, rgba(212,172,110,.45) 0%, transparent 60%),
+      radial-gradient(60% 50% at 80% 90%, rgba(155,45,44,.45) 0%, transparent 60%),
+      linear-gradient(180deg, #1c2742 0%, #0a1326 60%, #050912 100%);
+  }
+  /* Light beam */
+  .beam{
+    position:absolute;left:50%;top:0;transform:translateX(-50%) rotate(2deg);
+    width:600px;height:1400px;
+    background:linear-gradient(180deg, rgba(255,232,180,.25) 0%, rgba(255,232,180,0) 100%);
+    filter:blur(40px);z-index:3;
+    clip-path:polygon(40% 0, 60% 0, 100% 100%, 0 100%);
+  }
+
+  /* Portrait (placeholder figure with gradient sculpting) */
+  .portrait{
+    position:absolute;left:50%;bottom:200px;transform:translateX(-50%);
+    width:780px;height:1140px;z-index:8;
+    filter:drop-shadow(-30px 60px 80px rgba(0,0,0,.6));
+  }
+  .portrait .head{
+    position:absolute;left:50%;top:0;transform:translateX(-50%);
+    width:380px;height:460px;border-radius:190px;
+    background:
+      radial-gradient(60% 50% at 38% 32%, rgba(243,213,170,.95) 0%, rgba(190,140,95,.9) 50%, rgba(82,52,38,.85) 100%);
+    box-shadow:
+      inset 30px 0 80px rgba(212,172,110,.6),
+      inset -60px -30px 100px rgba(0,0,0,.5),
+      -30px 30px 80px rgba(0,0,0,.55);
+  }
+  .portrait .head::before{ /* hair */
+    content:"";position:absolute;left:-12px;right:-12px;top:-30px;height:220px;
+    background:linear-gradient(180deg,#0a1326 0%, #18223b 80%, transparent 100%);
+    border-radius:200px 200px 100px 100px;
+    box-shadow:inset 0 -30px 50px rgba(212,172,110,.18);
+  }
+  .portrait .head::after{
+    content:"";position:absolute;inset:0;border-radius:inherit;
+    background:linear-gradient(108deg, transparent 50%, rgba(10,19,38,.55) 100%);
+  }
+  .portrait .neck{
+    position:absolute;left:50%;top:380px;transform:translateX(-50%);
+    width:160px;height:140px;
+    background:linear-gradient(180deg, rgba(190,140,95,.9) 0%, rgba(120,80,55,.8) 100%);
+    border-radius:60px 60px 0 0;
+    box-shadow:inset 30px 0 30px rgba(212,172,110,.6), inset -40px 0 30px rgba(0,0,0,.4);
+  }
+  .portrait .suit{
+    position:absolute;left:50%;bottom:0;transform:translateX(-50%);
+    width:760px;height:680px;
+    background:
+      linear-gradient(140deg, #18223b 0%, #0a1326 50%, #060b1c 100%);
+    border-radius:380px 380px 0 0/280px 280px 0 0;
+    box-shadow:inset 80px 80px 120px rgba(212,172,110,.18), inset -60px -10px 100px rgba(0,0,0,.6);
+  }
+  .portrait .shirt{
+    position:absolute;left:50%;top:480px;transform:translateX(-50%);
+    width:240px;height:520px;background:#f3ede0;
+    clip-path:polygon(50% 0, 100% 100%, 0 100%);
+    box-shadow:0 8px 0 rgba(10,19,38,.18);
+  }
+  .portrait .tie{
+    position:absolute;left:50%;top:520px;transform:translateX(-50%);
+    width:50px;height:340px;background:linear-gradient(180deg,var(--signal) 0%, var(--signal-deep) 100%);
+    clip-path:polygon(20% 0, 80% 0, 100% 100%, 0 100%);
+    box-shadow:0 0 40px rgba(155,45,44,.5);
+  }
+  .portrait .lapel-pin{
+    position:absolute;left:46%;top:580px;width:24px;height:24px;border-radius:50%;
+    background:radial-gradient(50% 50% at 35% 30%, #f7e1bd 0%, var(--ochre) 60%, var(--signal-deep) 100%);
+    box-shadow:0 4px 8px rgba(0,0,0,.55), inset 0 2px 4px rgba(255,232,180,.6);
+    z-index:5;
+  }
+
+  /* Sash badge */
+  .sash{
+    position:absolute;left:50%;top:1310px;transform:translateX(-50%) rotate(-3deg);z-index:18;
+    background:linear-gradient(90deg, var(--signal) 0%, var(--signal-deep) 100%);
+    color:#f3ede0;padding:18px 60px 18px 70px;
+    font-family:var(--mono);font-size:14px;letter-spacing:.4em;text-transform:uppercase;font-weight:600;
+    clip-path:polygon(0 0, 100% 0, 96% 50%, 100% 100%, 0 100%, 4% 50%);
+    box-shadow:0 24px 50px rgba(155,45,44,.5), inset 0 2px 0 rgba(255,200,180,.4);
+  }
+
+  /* Crimson rim */
+  .rim{
+    position:absolute;right:80px;top:200px;width:30px;height:900px;border-radius:30px;
+    background:linear-gradient(180deg, transparent 0%, rgba(155,45,44,.85) 40%, rgba(155,45,44,.6) 100%);
+    filter:blur(36px);z-index:6;
+  }
+
+  /* grain */
+  .stage::after{
+    content:"";position:absolute;inset:0;z-index:60;pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 .95 0 0 0 0 .85 0 0 0 .14 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode:overlay;opacity:.7;
+  }
+
+  /* Top meta */
+  .top{
+    position:absolute;left:120px;right:120px;top:140px;display:flex;justify-content:space-between;z-index:24;
+    font-family:var(--mono);font-size:14px;letter-spacing:.34em;text-transform:uppercase;color:rgba(243,237,224,.7);
+  }
+  .top b{color:#fff;font-weight:600}
+
+  /* Name plate */
+  .name{
+    position:absolute;left:0;right:0;top:240px;z-index:30;text-align:center;
+  }
+  .name .eye{
+    font-family:var(--mono);font-size:13px;letter-spacing:.4em;text-transform:uppercase;color:rgba(243,237,224,.55);
+    display:flex;align-items:center;justify-content:center;gap:18px;margin-bottom:24px;
+  }
+  .name .eye::before,.name .eye::after{content:"";display:block;width:60px;height:1px;background:rgba(243,237,224,.4)}
+  .name h1{
+    font-family:var(--display);font-weight:500;font-size:130px;line-height:.92;letter-spacing:-.035em;color:#f3ede0;
+    text-shadow:0 4px 30px rgba(0,0,0,.45);
+  }
+  .name h1 .it{font-style:italic;color:var(--ochre-soft);font-weight:400;display:block}
+
+  .foot{
+    position:absolute;left:120px;right:120px;bottom:140px;display:flex;justify-content:space-between;z-index:30;
+    font-family:var(--mono);font-size:13px;letter-spacing:.34em;text-transform:uppercase;color:rgba(243,237,224,.65);
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="bg"></div>
+    <div class="beam"></div>
+    <div class="rim"></div>
+
+    <div class="portrait" aria-hidden>
+      <div class="head"></div>
+      <div class="neck"></div>
+      <div class="suit"></div>
+      <div class="shirt"></div>
+      <div class="tie"></div>
+      <div class="lapel-pin"></div>
+    </div>
+
+    <div class="top">
+      <span><b>Lorem</b> · Ipsum · MMXXVI</span>
+      <span>File №IV</span>
+    </div>
+
+    <div class="name">
+      <div class="eye">Candidatus · Districtus XIV</div>
+      <h1>Lorem<br><span class="it">Ipsum.</span></h1>
+    </div>
+
+    <div class="sash">Lorem · Ipsum · Dolor</div>
+
+    <div class="foot">
+      <span>Lorem · Ipsum</span>
+      <span>Sigillum · IV</span>
+    </div>
+  </div>
+</body>
+</html>

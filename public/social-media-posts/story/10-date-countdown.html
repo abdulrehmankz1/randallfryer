@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Story 10 — Date Countdown</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bone:#f3ede0; --bone-soft:#ebe2cd; --bone-deep:#d8cdb1;
+    --ink:#0a1326; --ink-mute:#4b5364;
+    --signal:#9b2d2c; --signal-deep:#7a2422;
+    --ochre:#b58a4a; --ochre-soft:#d4ac6e;
+    --display:'Fraunces',serif; --sans:'Inter',sans-serif; --mono:'JetBrains Mono',monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#222;display:grid;place-items:center;min-height:100vh;padding:24px}
+  .stage{width:1080px;height:1920px;position:relative;overflow:hidden;
+    background:linear-gradient(180deg, #f3ede0 0%, #ebe2cd 60%, #d8cdb1 100%);
+    color:var(--ink);font-family:var(--sans);
+    box-shadow:0 60px 120px -40px rgba(0,0,0,.55);
+  }
+  .stage::before{
+    content:"";position:absolute;inset:0;z-index:60;pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .05 0 0 0 0 .1 0 0 0 0 .18 0 0 0 .08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode:multiply;opacity:.5;
+  }
+  /* Top glow */
+  .glow{
+    position:absolute;left:50%;top:-300px;transform:translateX(-50%);
+    width:1300px;height:900px;border-radius:50%;
+    background:radial-gradient(50% 50% at 50% 50%, rgba(255,232,180,.7) 0%, transparent 70%);
+    z-index:2;
+  }
+
+  .frame{position:absolute;inset:80px;border:1px solid rgba(10,19,38,.18);z-index:8;pointer-events:none}
+
+  .top{
+    position:absolute;left:120px;right:120px;top:140px;display:flex;justify-content:space-between;z-index:24;
+    font-family:var(--mono);font-size:14px;letter-spacing:.34em;text-transform:uppercase;color:var(--ink-mute);
+  }
+  .top .pulse{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--signal);box-shadow:0 0 0 6px rgba(155,45,44,.18), 0 0 30px var(--signal);margin-right:14px;vertical-align:1px}
+
+  /* Calendar header band */
+  .band{
+    position:absolute;left:120px;right:120px;top:280px;z-index:14;
+    background:var(--ink);color:var(--bone);
+    padding:24px 32px;display:flex;justify-content:space-between;align-items:center;
+    box-shadow:0 24px 50px rgba(10,19,38,.35);
+    transform:rotate(-1deg);
+    border:1px solid rgba(10,19,38,.6);
+  }
+  .band .l{font-family:var(--mono);font-size:14px;letter-spacing:.36em;text-transform:uppercase;color:rgba(243,237,224,.8)}
+  .band .r{font-family:var(--display);font-style:italic;font-weight:500;font-size:36px;color:#f3ede0;letter-spacing:-.015em}
+
+  /* Big date — 3D extrusion */
+  .month{
+    position:absolute;left:120px;right:120px;top:440px;z-index:18;
+    text-align:center;
+    font-family:var(--display);font-weight:500;font-style:italic;
+    font-size:130px;line-height:1;letter-spacing:-.02em;color:var(--signal-deep);
+    text-shadow:0 4px 0 rgba(122,36,34,.25);
+  }
+  .day{
+    position:absolute;left:0;right:0;top:580px;z-index:18;text-align:center;
+    font-family:var(--display);font-weight:500;
+    font-size:680px;line-height:.82;letter-spacing:-.07em;color:var(--ink);
+    text-shadow:
+      0 2px 0 rgba(10,19,38,.95),
+      0 5px 0 rgba(10,19,38,.85),
+      0 9px 0 rgba(10,19,38,.7),
+      0 14px 0 rgba(122,36,34,.85),
+      0 20px 0 rgba(122,36,34,.6),
+      0 28px 0 rgba(155,45,44,.45),
+      0 36px 50px rgba(10,19,38,.5),
+      0 60px 100px rgba(155,45,44,.3);
+  }
+  .year{
+    position:absolute;left:0;right:0;top:1170px;z-index:18;text-align:center;
+    font-family:var(--mono);font-size:18px;letter-spacing:.5em;text-transform:uppercase;color:var(--ink-mute);font-weight:600;
+    display:flex;align-items:center;justify-content:center;gap:24px;
+  }
+  .year::before,.year::after{content:"";display:block;width:90px;height:1px;background:var(--ink)}
+
+  /* Counter chips */
+  .chips{
+    position:absolute;left:120px;right:120px;top:1280px;z-index:20;display:flex;justify-content:space-between;gap:16px;
+  }
+  .chip{
+    flex:1;background:linear-gradient(180deg, rgba(243,237,224,.95), rgba(216,205,177,.85));
+    border:1px solid rgba(10,19,38,.2);padding:30px 18px;text-align:center;
+    box-shadow:0 18px 40px rgba(10,19,38,.18), inset 0 1px 0 rgba(255,255,255,.5);
+    backdrop-filter:blur(4px);
+  }
+  .chip .n{
+    font-family:var(--display);font-weight:500;font-size:84px;line-height:.9;color:var(--ink);letter-spacing:-.03em;
+    text-shadow:0 2px 0 rgba(155,45,44,.4), 0 4px 0 rgba(122,36,34,.25);
+  }
+  .chip .n .it{font-style:italic;color:var(--signal-deep)}
+  .chip .l{
+    margin-top:8px;font-family:var(--mono);font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--ink-mute);
+  }
+
+  /* CTA */
+  .cta{
+    position:absolute;left:50%;bottom:330px;transform:translateX(-50%);z-index:24;
+    display:inline-flex;align-items:center;gap:14px;
+    background:var(--signal);color:#f3ede0;
+    padding:24px 42px;border-radius:999px;
+    font-family:var(--mono);font-size:14px;letter-spacing:.34em;text-transform:uppercase;font-weight:600;
+    box-shadow:0 26px 50px rgba(155,45,44,.5), inset 0 1px 0 rgba(255,200,180,.45);
+  }
+  .cta::after{content:"→";font-family:var(--display);font-size:20px}
+
+  /* Footer with seal */
+  .foot{
+    position:absolute;left:120px;right:120px;bottom:140px;display:flex;justify-content:space-between;align-items:end;z-index:24;
+    font-family:var(--mono);font-size:13px;letter-spacing:.34em;text-transform:uppercase;color:var(--ink-mute);
+  }
+  .foot .badge{
+    width:120px;height:120px;border-radius:50%;
+    background:radial-gradient(50% 50% at 35% 30%, #f7e1bd 0%, var(--ochre) 60%, var(--signal-deep) 100%);
+    border:1px solid rgba(10,19,38,.4);
+    box-shadow:0 12px 24px rgba(10,19,38,.35), inset 0 6px 12px rgba(255,232,180,.5);
+    display:grid;place-items:center;
+    transform:rotate(-10deg);
+    font-family:var(--display);font-weight:600;font-style:italic;font-size:36px;color:var(--ink);
+  }
+  .foot .badge::before{
+    content:"";position:absolute;inset:8px;border-radius:50%;border:1px dashed rgba(10,19,38,.5);
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="glow"></div>
+    <div class="frame"></div>
+
+    <div class="top">
+      <span><span class="pulse"></span>Dies · Diem · MMXXVI</span>
+      <span>File №X</span>
+    </div>
+
+    <div class="band">
+      <span class="l">Capitulum · Diem</span>
+      <span class="r">Calendarium</span>
+    </div>
+
+    <div class="month">— Maius —</div>
+    <div class="day">19</div>
+    <div class="year">A · D · M M X X V I</div>
+
+    <div class="chips">
+      <div class="chip"><div class="n">47</div><div class="l">Dies</div></div>
+      <div class="chip"><div class="n">12</div><div class="l">Horae</div></div>
+      <div class="chip"><div class="n">36</div><div class="l">Momentae</div></div>
+      <div class="chip"><div class="n it">19</div><div class="l">Punctae</div></div>
+    </div>
+
+    <span class="cta">Lorem · Ipsum →</span>
+
+    <div class="foot">
+      <span>Lorem · Ipsum · Districtus XIV</span>
+      <span class="badge">XIV</span>
+    </div>
+  </div>
+</body>
+</html>

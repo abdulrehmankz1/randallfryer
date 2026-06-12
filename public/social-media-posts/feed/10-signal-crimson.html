@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Feed 10 — Signal Crimson</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bone:#f3ede0; --bone-soft:#ebe2cd;
+    --ink:#0a1326; --ink-mute:#4b5364;
+    --signal:#9b2d2c; --signal-deep:#7a2422;
+    --ochre:#b58a4a; --ochre-soft:#d4ac6e;
+    --display:'Fraunces',serif; --sans:'Inter',sans-serif; --mono:'JetBrains Mono',monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#222;display:grid;place-items:center;min-height:100vh;padding:24px}
+  .stage{width:1080px;height:1080px;position:relative;overflow:hidden;
+    background:
+      radial-gradient(70% 60% at 30% 30%, #b53a39 0%, var(--signal) 40%, var(--signal-deep) 75%, #4d1716 100%);
+    color:var(--bone);font-family:var(--sans);
+    box-shadow:0 60px 120px -40px rgba(0,0,0,.55);
+  }
+  /* lens flare */
+  .stage::before{
+    content:"";position:absolute;inset:0;z-index:5;pointer-events:none;
+    background:
+      radial-gradient(35% 35% at 75% 22%, rgba(255,210,170,.45) 0%, transparent 60%),
+      radial-gradient(50% 50% at 18% 90%, rgba(0,0,0,.55), transparent 60%);
+  }
+  /* grain */
+  .stage::after{
+    content:"";position:absolute;inset:0;z-index:60;pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 .95 0 0 0 0 .85 0 0 0 .14 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode:overlay;opacity:.6;
+  }
+  .frame{position:absolute;inset:56px;border:1px solid rgba(243,237,224,.28);z-index:8;pointer-events:none}
+
+  /* Bone glass card */
+  .card{
+    position:absolute;left:96px;right:96px;top:230px;bottom:230px;z-index:14;
+    background:linear-gradient(180deg, rgba(243,237,224,.92) 0%, rgba(235,226,205,.85) 100%);
+    color:var(--ink);
+    border:1px solid rgba(243,237,224,.4);
+    box-shadow:
+      0 60px 100px rgba(10,19,38,.45),
+      0 24px 40px rgba(10,19,38,.35),
+      inset 0 1px 0 rgba(255,255,255,.45);
+    transform:rotate(-2deg);
+    padding:64px 72px;
+    backdrop-filter:blur(20px);
+  }
+  .card::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .05 0 0 0 0 .1 0 0 0 0 .18 0 0 0 .08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode:multiply;opacity:.4;
+  }
+  .card .eye{
+    font-family:var(--mono);font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:var(--signal-deep);font-weight:600;
+    display:flex;align-items:center;gap:14px;
+  }
+  .card .eye::before{content:"";width:46px;height:1px;background:var(--signal-deep)}
+  .card h1{
+    margin-top:22px;
+    font-family:var(--display);font-weight:500;font-size:120px;line-height:.92;letter-spacing:-.035em;color:var(--ink);
+  }
+  .card h1 .it{font-style:italic;font-weight:400;color:var(--signal-deep)}
+  .card .meta{
+    margin-top:34px;display:flex;justify-content:space-between;align-items:end;gap:30px;
+  }
+  .card .meta .body{
+    max-width:500px;font-family:var(--sans);font-size:15px;line-height:1.6;color:var(--ink-mute);
+  }
+  .card .meta .body b{color:var(--ink);font-weight:600}
+  .card .cta{
+    display:inline-flex;align-items:center;gap:12px;
+    background:var(--ink);color:var(--bone);
+    padding:18px 24px;
+    font-family:var(--mono);font-size:12px;letter-spacing:.3em;text-transform:uppercase;font-weight:600;
+    border-radius:999px;
+    box-shadow:0 18px 30px rgba(10,19,38,.35);
+  }
+  .card .cta::after{content:"→";font-family:var(--display);font-size:18px}
+
+  /* Top meta */
+  .top-meta{
+    position:absolute;left:96px;right:96px;top:96px;display:flex;justify-content:space-between;z-index:20;
+    font-family:var(--mono);font-size:13px;letter-spacing:.32em;text-transform:uppercase;color:rgba(243,237,224,.85);
+  }
+  .top-meta b{color:#fff;font-weight:600}
+  .top-meta .pulse{display:inline-block;width:8px;height:8px;border-radius:50%;background:#f3ede0;box-shadow:0 0 0 6px rgba(243,237,224,.18);margin-right:10px;vertical-align:1px}
+
+  /* Bottom marquee */
+  .marquee{
+    position:absolute;left:0;right:0;bottom:88px;z-index:20;overflow:hidden;
+    border-top:1px solid rgba(243,237,224,.32);border-bottom:1px solid rgba(243,237,224,.32);
+    padding:18px 0;
+    background:rgba(0,0,0,.18);
+    backdrop-filter:blur(2px);
+  }
+  .marquee .row{display:flex;align-items:center;gap:40px;white-space:nowrap;}
+  .marquee .row span{
+    font-family:var(--display);font-style:italic;font-weight:500;font-size:36px;letter-spacing:-.01em;color:rgba(243,237,224,.95);
+  }
+  .marquee .row em{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--bone);font-style:normal;flex:none}
+
+  /* Top corner badge */
+  .badge{
+    position:absolute;right:96px;top:170px;z-index:20;
+    width:170px;height:170px;border-radius:50%;
+    border:1px dashed rgba(243,237,224,.7);
+    display:grid;place-items:center;
+    color:rgba(243,237,224,.95);
+    transform:rotate(8deg);
+  }
+  .badge svg{position:absolute;inset:0;width:100%;height:100%}
+  .badge .ctr{
+    font-family:var(--display);font-style:italic;font-weight:500;font-size:46px;color:#f3ede0;
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="frame"></div>
+
+    <div class="top-meta">
+      <span><span class="pulse"></span><b>Lorem</b> · Ipsum · MMXXVI</span>
+      <span>File №<b>X</b> / Lorem</span>
+    </div>
+
+    <div class="badge" aria-hidden>
+      <svg viewBox="0 0 170 170">
+        <defs><path id="b10" d="M 30 85 A 55 55 0 1 1 140 85 A 55 55 0 1 1 30 85"/></defs>
+        <text font-family="JetBrains Mono" font-size="11" letter-spacing="6" fill="#f3ede0">
+          <textPath href="#b10" startOffset="0">LOREM · IPSUM · DOLOR · SIT · </textPath>
+        </text>
+      </svg>
+      <span class="ctr">X</span>
+    </div>
+
+    <div class="card">
+      <div class="eye">Vox Ultima · Capitulum X</div>
+      <h1>Lorem <span class="it">ipsum</span><br>dolor sit.</h1>
+      <div class="meta">
+        <p class="body">
+          <b>Lorem ipsum dolor sit amet,</b> consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna.
+        </p>
+        <span class="cta">Lorem · Ipsum</span>
+      </div>
+    </div>
+
+    <div class="marquee" aria-hidden>
+      <div class="row">
+        <span>Lorem</span><em></em>
+        <span>Ipsum</span><em></em>
+        <span>Dolor</span><em></em>
+        <span>Sit Amet</span><em></em>
+        <span>Consectetur</span><em></em>
+        <span>Adipiscing</span><em></em>
+        <span>Lorem</span><em></em>
+        <span>Ipsum</span><em></em>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

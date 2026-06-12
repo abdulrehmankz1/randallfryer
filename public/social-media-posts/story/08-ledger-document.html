@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Story 08 — Ledger Document</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bone:#f3ede0; --bone-soft:#ebe2cd; --bone-deep:#d8cdb1;
+    --paper:#efe5cb;
+    --ink:#0a1326; --ink-mute:#4b5364;
+    --signal:#9b2d2c; --signal-deep:#7a2422;
+    --ochre:#b58a4a; --ochre-soft:#d4ac6e;
+    --display:'Fraunces',serif; --sans:'Inter',sans-serif; --mono:'JetBrains Mono',monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#222;display:grid;place-items:center;min-height:100vh;padding:24px}
+  .stage{width:1080px;height:1920px;position:relative;overflow:hidden;
+    background:
+      radial-gradient(60% 40% at 50% 35%, #c4b692 0%, #998a6b 70%, #443c2a 100%);
+    color:var(--ink);font-family:var(--sans);
+    box-shadow:0 60px 120px -40px rgba(0,0,0,.55);
+  }
+  /* spot light */
+  .stage::before{
+    content:"";position:absolute;inset:0;z-index:4;
+    background:radial-gradient(50% 35% at 50% 40%, rgba(255,232,180,.35), transparent 70%);
+  }
+  /* grain */
+  .stage::after{
+    content:"";position:absolute;inset:0;z-index:60;pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .05 0 0 0 0 .08 0 0 0 0 .15 0 0 0 .14 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode:multiply;opacity:.5;
+  }
+
+  /* Parchment document */
+  .paper{
+    position:absolute;left:100px;right:100px;top:200px;bottom:420px;z-index:8;
+    background:linear-gradient(180deg, var(--paper) 0%, #e7dcc0 100%);
+    transform:rotate(-1.5deg);
+    box-shadow:
+      0 80px 100px rgba(0,0,0,.55),
+      0 30px 50px rgba(0,0,0,.4),
+      inset 0 1px 0 rgba(255,250,235,.55);
+    padding:90px 90px 110px;
+  }
+  .paper::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .15 0 0 0 0 .1 0 0 0 0 .05 0 0 0 .18 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode:multiply;opacity:.7;
+  }
+  /* deckled bottom edge */
+  .paper::after{
+    content:"";position:absolute;left:0;right:0;bottom:-6px;height:12px;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 6'%3E%3Cpath d='M0 0 L4 5 L8 2 L12 6 L16 1 L20 5 L24 2 L28 4 L32 1 L36 5 L40 2 L44 4 L48 0 L52 5 L56 1 L60 6 L64 2 L68 5 L72 1 L76 4 L80 2 L84 5 L88 1 L92 4 L96 0 L100 4 L100 6 L0 6 Z' fill='%23efe5cb'/%3E%3C/svg%3E") repeat-x;
+    background-size:100px 12px;
+  }
+
+  /* Header rule */
+  .paper .hdr{
+    border-top:3px solid var(--ink);border-bottom:1px solid var(--ink);padding:18px 0;
+    display:flex;justify-content:space-between;align-items:baseline;
+    font-family:var(--mono);font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--ink);
+  }
+  .paper .nameplate{
+    font-family:var(--display);font-weight:600;font-style:italic;font-size:42px;letter-spacing:-.02em;color:var(--ink);text-transform:none;
+  }
+
+  /* Body */
+  .paper h1{
+    margin-top:40px;font-family:var(--display);font-weight:500;font-size:140px;line-height:.92;letter-spacing:-.04em;color:var(--ink);
+  }
+  .paper h1 .it{font-style:italic;color:var(--signal-deep);font-weight:400}
+
+  .paper .deck{
+    margin-top:24px;font-family:var(--display);font-style:italic;font-weight:400;font-size:32px;line-height:1.3;color:var(--ink-mute);max-width:760px;
+  }
+
+  .paper .ledger{
+    margin-top:40px;border-top:1px dashed rgba(10,19,38,.4);
+  }
+  .paper .ledger .row{
+    display:flex;justify-content:space-between;align-items:baseline;
+    padding:22px 0;border-bottom:1px dashed rgba(10,19,38,.3);
+  }
+  .paper .ledger .lbl{font-family:var(--mono);font-size:13px;letter-spacing:.32em;text-transform:uppercase;color:var(--ink-mute)}
+  .paper .ledger .val{font-family:var(--display);font-weight:500;font-size:56px;color:var(--ink);letter-spacing:-.02em}
+  .paper .ledger .val .it{font-style:italic;color:var(--signal-deep);font-weight:400}
+  .paper .ledger .val .sm{font-family:var(--mono);font-size:18px;color:var(--ochre);font-weight:600;letter-spacing:.05em}
+
+  /* Signature line — outside the parchment, on the dark background */
+  .sig{
+    position:absolute;left:140px;right:320px;bottom:215px;
+    display:flex;flex-direction:column;gap:8px;z-index:14;
+  }
+  .sig .line{
+    border-top:1px solid rgba(243,237,224,.5);width:280px;padding-top:8px;
+    font-family:var(--mono);font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:rgba(243,237,224,.75);
+  }
+  .sig .line .name{
+    font-family:var(--display);font-style:italic;font-weight:500;font-size:34px;color:#f3ede0;letter-spacing:-.01em;display:block;margin-bottom:6px;text-transform:none;
+  }
+
+  /* Wax seal — sits below the document, doesn't cover ledger rows */
+  .wax{
+    position:absolute;right:110px;bottom:215px;width:170px;height:170px;border-radius:50%;
+    background:
+      radial-gradient(60% 60% at 35% 30%, #d34d4c 0%, var(--signal) 50%, #4d1716 100%);
+    box-shadow:
+      inset 0 20px 30px rgba(255,200,180,.4),
+      inset 0 -25px 40px rgba(0,0,0,.5),
+      0 18px 30px rgba(0,0,0,.5);
+    transform:rotate(8deg);z-index:18;
+    display:grid;place-items:center;
+    border:2px solid #4d1716;
+  }
+  .wax::before{
+    content:"";position:absolute;inset:18px;border-radius:50%;border:1px dashed rgba(255,232,200,.4);
+  }
+  .wax .mark{
+    font-family:var(--display);font-weight:600;font-style:italic;font-size:46px;color:#f3ede0;
+    text-shadow:0 2px 4px rgba(0,0,0,.4);
+  }
+  .wax::after{
+    content:"";position:absolute;left:50%;top:50%;width:160px;height:60px;background:rgba(155,45,44,.6);
+    transform:translate(-50%,-50%) rotate(-25deg);z-index:-1;border-radius:50%;filter:blur(4px);
+    box-shadow:0 8px 16px rgba(0,0,0,.4);
+  }
+
+  /* Top meta */
+  .top{
+    position:absolute;left:120px;right:120px;top:140px;display:flex;justify-content:space-between;z-index:24;
+    font-family:var(--mono);font-size:14px;letter-spacing:.34em;text-transform:uppercase;color:rgba(243,237,224,.85);
+  }
+
+  .foot{
+    position:absolute;left:120px;right:120px;bottom:140px;display:flex;justify-content:space-between;z-index:30;
+    font-family:var(--mono);font-size:13px;letter-spacing:.34em;text-transform:uppercase;color:rgba(243,237,224,.7);
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="top">
+      <span>Tabula · Lorem</span>
+      <span>File №VIII</span>
+    </div>
+
+    <article class="paper">
+      <div class="hdr">
+        <span>Vol. VIII · Pars I</span>
+        <span class="nameplate">Tabula Honesta</span>
+        <span>Pretium · Liber</span>
+      </div>
+      <h1>Lorem<br><span class="it">ipsum.</span></h1>
+      <p class="deck">— Consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+
+      <div class="ledger">
+        <div class="row"><span class="lbl">Lorem ipsum dolor</span><span class="val">$0<span class="sm">·00</span></span></div>
+        <div class="row"><span class="lbl">Sit amet · consectetur</span><span class="val">47</span></div>
+        <div class="row"><span class="lbl">Adipiscing elit · sed do</span><span class="val it">100%</span></div>
+      </div>
+    </article>
+
+    <div class="wax"><span class="mark">A·V</span></div>
+
+    <div class="sig">
+      <span class="line"><span class="name">Lorem Ipsum</span>Candidatus · Senatus · MMXXVI</span>
+    </div>
+
+    <div class="foot">
+      <span>Lorem · Ipsum</span>
+      <span>Sigillum · VIII</span>
+    </div>
+  </div>
+</body>
+</html>

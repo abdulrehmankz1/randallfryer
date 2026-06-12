@@ -8,10 +8,10 @@ import { cn } from "@/lib/cn";
 
 const NAV_LINKS = [
   { label: "About", href: "/about" },
-  { label: "Platform", href: "/platform" },
   { label: "Endorsements", href: "/endorsements" },
   { label: "Events", href: "/events" },
   { label: "News", href: "/news" },
+  { label: "Press Kit", href: "/social-media-posts" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -69,12 +69,12 @@ export default function Navbar() {
                   lightMode ? "text-bone" : "text-ink"
                 )}
               >
-                <span className="display-serif text-lg font-medium tracking-tight">
+                <span className="display-serif whitespace-nowrap text-lg font-medium tracking-tight">
                   Capital<span className="italic">Watch</span>
                 </span>
                 <span
                   className={cn(
-                    "font-mono text-[9px] uppercase tracking-[0.32em] transition-colors duration-300",
+                    "hidden font-mono text-[9px] uppercase tracking-[0.32em] transition-colors duration-300 sm:inline",
                     lightMode ? "text-bone/65" : "text-ink-mute"
                   )}
                 >
@@ -83,7 +83,7 @@ export default function Navbar() {
               </div>
             </Link>
 
-            <nav className="hidden items-center gap-8 lg:flex">
+            <nav className="hidden items-center gap-5 lg:flex xl:gap-8">
               {NAV_LINKS.map((link) => {
                 const active = pathname === link.href;
                 return (
@@ -91,7 +91,7 @@ export default function Navbar() {
                     key={link.label}
                     href={link.href}
                     className={cn(
-                      "link-underline font-mono text-[11px] uppercase tracking-[0.24em] transition-colors duration-300",
+                      "link-underline whitespace-nowrap font-mono text-[11px] uppercase tracking-[0.24em] transition-colors duration-300",
                       lightMode
                         ? active
                           ? "text-bone"
@@ -107,11 +107,11 @@ export default function Navbar() {
               })}
             </nav>
 
-            <div className="hidden items-center gap-2 md:flex">
+            <div className="flex items-center gap-2 sm:gap-3">
               <Link
                 href="/volunteer"
                 className={cn(
-                  "link-underline px-2 font-mono text-[11px] uppercase tracking-[0.24em] transition-colors duration-300",
+                  "link-underline hidden px-2 font-mono text-[11px] uppercase tracking-[0.24em] transition-colors duration-300 xl:inline-flex",
                   lightMode
                     ? "text-bone/85 hover:text-bone"
                     : "text-ink/80 hover:text-ink"
@@ -121,44 +121,45 @@ export default function Navbar() {
               </Link>
               <Link
                 href="/donate"
-                className="group relative inline-flex items-center gap-2 overflow-hidden rounded-pill bg-signal px-5 py-2.5 font-mono text-[11px] uppercase tracking-[0.24em] text-bone transition-colors hover:bg-ink"
+                className="group relative hidden items-center gap-2 overflow-hidden rounded-pill bg-signal px-5 py-2.5 font-mono text-[11px] uppercase tracking-[0.24em] text-bone transition-colors hover:bg-ink sm:inline-flex"
               >
                 <span className="relative z-10 flex items-center gap-2">
                   Donate
                   <span className="block h-1.5 w-1.5 rounded-full bg-bone/90" />
                 </span>
               </Link>
-            </div>
 
-            <button
-              type="button"
-              aria-label="Toggle menu"
-              onClick={() => setOpen((v) => !v)}
-              className={cn(
-                "relative flex h-10 w-10 items-center justify-center rounded-full border transition-colors duration-300 md:hidden",
-                lightMode
-                  ? "border-bone/30 text-bone"
-                  : "border-ink/15 text-ink"
-              )}
-            >
-              <span className="sr-only">Menu</span>
-              <span className="relative block h-3 w-5">
-                <span
-                  className={cn(
-                    "absolute left-0 top-0 h-px w-full transition-transform duration-300",
-                    lightMode ? "bg-bone" : "bg-ink",
-                    open ? "translate-y-[6px] rotate-45" : ""
-                  )}
-                />
-                <span
-                  className={cn(
-                    "absolute left-0 bottom-0 h-px w-full transition-transform duration-300",
-                    lightMode ? "bg-bone" : "bg-ink",
-                    open ? "-translate-y-[6px] -rotate-45" : ""
-                  )}
-                />
-              </span>
-            </button>
+              <button
+                type="button"
+                aria-label={open ? "Close menu" : "Open menu"}
+                aria-expanded={open}
+                onClick={() => setOpen((v) => !v)}
+                className={cn(
+                  "relative flex h-10 w-10 items-center justify-center rounded-full border transition-colors duration-300 lg:hidden",
+                  lightMode
+                    ? "border-bone/30 text-bone"
+                    : "border-ink/15 text-ink"
+                )}
+              >
+                <span className="sr-only">Menu</span>
+                <span className="relative block h-3 w-5">
+                  <span
+                    className={cn(
+                      "absolute left-0 top-0 h-px w-full transition-transform duration-300",
+                      lightMode ? "bg-bone" : "bg-ink",
+                      open ? "translate-y-[6px] rotate-45" : ""
+                    )}
+                  />
+                  <span
+                    className={cn(
+                      "absolute left-0 bottom-0 h-px w-full transition-transform duration-300",
+                      lightMode ? "bg-bone" : "bg-ink",
+                      open ? "-translate-y-[6px] -rotate-45" : ""
+                    )}
+                  />
+                </span>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -184,7 +185,7 @@ function MobileMenu({ close }) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3 }}
-      className="fixed inset-0 z-40 bg-bone md:hidden"
+      className="fixed inset-0 z-40 bg-bone lg:hidden"
     >
       <m.div
         initial={{ y: -40 }}

@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Story 07 — Marquee Stack</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bone:#f3ede0; --bone-soft:#ebe2cd; --bone-deep:#d8cdb1;
+    --ink:#0a1326; --ink-mute:#4b5364;
+    --signal:#9b2d2c; --signal-deep:#7a2422;
+    --ochre:#b58a4a; --ochre-soft:#d4ac6e;
+    --display:'Fraunces',serif; --sans:'Inter',sans-serif; --mono:'JetBrains Mono',monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#222;display:grid;place-items:center;min-height:100vh;padding:24px}
+  .stage{width:1080px;height:1920px;position:relative;overflow:hidden;
+    background:linear-gradient(180deg, #f3ede0 0%, #ebe2cd 100%);
+    color:var(--ink);font-family:var(--sans);
+    box-shadow:0 60px 120px -40px rgba(0,0,0,.55);
+  }
+  .stage::before{
+    content:"";position:absolute;inset:0;z-index:60;pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .05 0 0 0 0 .1 0 0 0 0 .18 0 0 0 .08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode:multiply;opacity:.5;
+  }
+
+  /* Top meta */
+  .top{
+    position:absolute;left:120px;right:120px;top:140px;display:flex;justify-content:space-between;z-index:24;
+    font-family:var(--mono);font-size:14px;letter-spacing:.34em;text-transform:uppercase;color:var(--ink-mute);
+  }
+
+  /* Stacked marquees */
+  .stack{
+    position:absolute;left:0;right:0;top:260px;bottom:380px;z-index:14;
+    display:flex;flex-direction:column;justify-content:space-around;gap:0;
+  }
+  .row{
+    position:relative;overflow:hidden;padding:30px 0;display:flex;align-items:center;gap:46px;white-space:nowrap;
+    border-top:1px solid rgba(10,19,38,.18);border-bottom:1px solid rgba(10,19,38,.18);
+  }
+  .row::before,.row::after{
+    content:"";position:absolute;top:0;bottom:0;width:120px;z-index:4;pointer-events:none;
+  }
+  .row::before{left:0;background:linear-gradient(90deg,#f3ede0 0%, transparent 100%)}
+  .row::after{right:0;background:linear-gradient(-90deg,#f3ede0 0%, transparent 100%)}
+  .row span{
+    font-family:var(--display);font-style:italic;font-weight:500;letter-spacing:-.02em;color:var(--ink);
+    flex:none;
+  }
+  .row em{display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--signal);
+    box-shadow:0 4px 12px rgba(155,45,44,.4);flex:none;font-style:normal}
+  /* Different sizes & alignments */
+  .r1{transform:translateX(-60px)}
+  .r1 span{font-size:130px;line-height:.9}
+  .r2{background:var(--ink);color:var(--bone);border-color:rgba(10,19,38,.4);transform:translateX(40px) rotate(0deg)}
+  .r2::before{background:linear-gradient(90deg,var(--ink) 0%, transparent 100%)}
+  .r2::after{background:linear-gradient(-90deg,var(--ink) 0%, transparent 100%)}
+  .r2 span{font-size:96px;line-height:.9;color:var(--bone)}
+  .r2 em{background:var(--ochre-soft);box-shadow:0 4px 12px rgba(212,172,110,.5)}
+  .r3{transform:translateX(-30px)}
+  .r3 span{font-size:104px;line-height:.9;color:var(--signal-deep)}
+  .r3 em{background:var(--ochre)}
+  .r4{background:linear-gradient(90deg,var(--signal) 0%,var(--signal-deep) 100%);border-color:rgba(10,19,38,.5);transform:translateX(20px)}
+  .r4::before{background:linear-gradient(90deg,var(--signal) 0%, transparent 100%)}
+  .r4::after{background:linear-gradient(-90deg,var(--signal-deep) 0%, transparent 100%)}
+  .r4 span{font-size:88px;line-height:.9;color:#f3ede0}
+  .r4 em{background:#f3ede0}
+  .r5{transform:translateX(-50px)}
+  .r5 span{font-size:120px;line-height:.9}
+
+  /* Floating crimson dot decoration */
+  .dot{
+    position:absolute;width:18px;height:18px;border-radius:50%;background:var(--signal);
+    box-shadow:0 0 0 10px rgba(155,45,44,.15), 0 0 30px var(--signal);z-index:30;
+  }
+  .d1{left:80px;top:280px}
+  .d2{right:90px;top:610px}
+  .d3{left:120px;top:980px}
+  .d4{right:140px;top:1310px}
+
+  .foot{
+    position:absolute;left:120px;right:120px;bottom:140px;display:flex;justify-content:space-between;z-index:24;
+    font-family:var(--mono);font-size:13px;letter-spacing:.34em;text-transform:uppercase;color:var(--ink-mute);
+  }
+
+  .title{
+    position:absolute;left:120px;right:120px;bottom:220px;z-index:24;
+    font-family:var(--mono);font-size:14px;letter-spacing:.4em;text-transform:uppercase;color:var(--ink-mute);
+    display:flex;justify-content:space-between;align-items:end;gap:30px;
+    padding-top:24px;border-top:1px solid rgba(10,19,38,.18);
+  }
+  .title h2{
+    font-family:var(--display);font-weight:500;font-size:48px;line-height:1;color:var(--ink);max-width:520px;text-transform:none;letter-spacing:-.02em;
+  }
+  .title h2 .it{font-style:italic;color:var(--signal-deep)}
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="top">
+      <span>Pars · VII</span>
+      <span>File №VII / Lorem</span>
+    </div>
+
+    <span class="dot d1"></span>
+    <span class="dot d2"></span>
+    <span class="dot d3"></span>
+    <span class="dot d4"></span>
+
+    <div class="stack">
+      <div class="row r1"><span>Honestas</span><em></em><span>Apertus</span><em></em><span>Civitas</span><em></em><span>Honestas</span><em></em></div>
+      <div class="row r2"><span>Fiscalis</span><em></em><span>Auditus</span><em></em><span>Publicus</span><em></em><span>Fiscalis</span><em></em></div>
+      <div class="row r3"><span>Salus</span><em></em><span>Domus</span><em></em><span>Lex</span><em></em><span>Salus</span><em></em></div>
+      <div class="row r4"><span>Verum</span><em></em><span>Lumen</span><em></em><span>Vox</span><em></em><span>Verum</span><em></em></div>
+      <div class="row r5"><span>Lorem</span><em></em><span>Ipsum</span><em></em><span>Dolor</span><em></em><span>Lorem</span><em></em></div>
+    </div>
+
+    <div class="title">
+      <h2>Lorem <span class="it">ipsum</span><br>dolor sit amet.</h2>
+      <span>Vox · VII / X</span>
+    </div>
+
+    <div class="foot">
+      <span>Lorem · Ipsum</span>
+      <span>MMXXVI · Districtus XIV</span>
+    </div>
+  </div>
+</body>
+</html>

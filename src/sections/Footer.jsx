@@ -12,9 +12,9 @@ const NAV_GROUPS = [
     links: [
       { label: "Home", href: "/" },
       { label: "About Adrian", href: "/about" },
-      { label: "Platform", href: "/platform" },
       { label: "Endorsements", href: "/endorsements" },
       { label: "News", href: "/news" },
+      { label: "Press Kit", href: "/social-media-posts" },
     ],
   },
   {

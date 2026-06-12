@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Feed 03 — Cinematic Portrait</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bone:#f3ede0; --ink:#0a1326; --ink-mute:#4b5364;
+    --signal:#9b2d2c; --signal-deep:#7a2422;
+    --ochre:#b58a4a; --ochre-soft:#d4ac6e;
+    --display:'Fraunces',serif; --sans:'Inter',sans-serif; --mono:'JetBrains Mono',monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#222;display:grid;place-items:center;min-height:100vh;padding:24px}
+  .stage{width:1080px;height:1080px;position:relative;overflow:hidden;
+    background:#0a1326;color:#f3ede0;font-family:var(--sans);
+    box-shadow:0 60px 120px -40px rgba(0,0,0,.55);
+  }
+  /* Right column dark photo backdrop */
+  .photo{
+    position:absolute;right:0;top:0;width:60%;height:100%;z-index:4;
+    background:
+      radial-gradient(80% 70% at 80% 20%, rgba(212,172,110,.4) 0%, transparent 55%),
+      radial-gradient(60% 60% at 20% 80%, rgba(155,45,44,.3) 0%, transparent 55%),
+      linear-gradient(135deg, #1c2742 0%, #0a1326 60%, #050912 100%);
+  }
+  /* Stylized portrait silhouette built from gradients (placeholder figure) */
+  .portrait{
+    position:absolute;right:6%;bottom:0;width:580px;height:760px;z-index:5;
+    filter:drop-shadow(-30px 40px 60px rgba(0,0,0,.6));
+  }
+  /* shoulder & suit */
+  .portrait .body{
+    position:absolute;left:50%;bottom:0;transform:translateX(-50%);
+    width:520px;height:420px;
+    background:
+      linear-gradient(140deg, #18223b 0%, #0a1326 50%, #060b1c 100%);
+    border-radius:260px 260px 0 0/180px 180px 0 0;
+    box-shadow:inset 60px 60px 80px rgba(212,172,110,.15), inset -40px -10px 80px rgba(0,0,0,.6);
+  }
+  .portrait .body::before{
+    content:"";position:absolute;left:50%;top:40px;transform:translateX(-50%);
+    width:200px;height:380px;background:#f3ede0;
+    clip-path:polygon(50% 0, 100% 100%, 0 100%);
+    box-shadow:0 6px 0 rgba(10,19,38,.18);
+  }
+  .portrait .tie{
+    position:absolute;left:50%;top:90px;transform:translateX(-50%);
+    width:36px;height:240px;background:linear-gradient(180deg,var(--signal) 0%, var(--signal-deep) 100%);
+    clip-path:polygon(20% 0, 80% 0, 100% 100%, 0 100%);
+    box-shadow:0 0 30px rgba(155,45,44,.45);
+  }
+  /* Head */
+  .portrait .head{
+    position:absolute;left:50%;top:-40px;transform:translateX(-50%);
+    width:280px;height:340px;border-radius:140px;
+    background:
+      radial-gradient(60% 50% at 40% 35%, rgba(232,196,158,.95) 0%, rgba(180,130,90,.85) 50%, rgba(82,52,38,.85) 100%);
+    box-shadow:
+      inset 30px 0 60px rgba(212,172,110,.6),
+      inset -50px -20px 80px rgba(0,0,0,.45),
+      -20px 30px 60px rgba(0,0,0,.55);
+  }
+  .portrait .head::before{ /* hair */
+    content:"";position:absolute;left:-10px;right:-10px;top:-20px;height:160px;
+    background:linear-gradient(180deg,#0a1326 0%, #18223b 80%, transparent 100%);
+    border-radius:160px 160px 80px 80px;
+    box-shadow:inset 0 -20px 40px rgba(212,172,110,.18);
+  }
+  .portrait .head::after{ /* shadow side */
+    content:"";position:absolute;inset:0;border-radius:inherit;
+    background:linear-gradient(105deg, transparent 50%, rgba(10,19,38,.5) 100%);
+  }
+
+  /* Crimson rim light */
+  .rim{
+    position:absolute;right:-40px;top:80px;width:30px;height:520px;border-radius:30px;
+    background:linear-gradient(180deg, transparent 0%, rgba(155,45,44,.85) 40%, rgba(155,45,44,.5) 100%);
+    filter:blur(28px);z-index:4;
+  }
+
+  /* Grain overlay */
+  .stage::after{
+    content:"";position:absolute;inset:0;z-index:50;pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 .95 0 0 0 0 .85 0 0 0 .14 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode:overlay;opacity:.7;
+  }
+
+  /* Left text column on bone strip */
+  .ledger{
+    position:absolute;left:0;top:0;width:46%;height:100%;z-index:8;
+    background:linear-gradient(180deg, var(--bone) 0%, #ebe2cd 60%, #d8cdb1 100%);
+    box-shadow:inset -40px 0 60px rgba(10,19,38,.25), 20px 0 60px rgba(0,0,0,.4);
+  }
+  .ledger::before{
+    content:"";position:absolute;inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .05 0 0 0 0 .08 0 0 0 0 .15 0 0 0 .12 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode:multiply;opacity:.45;
+  }
+
+  .meta{
+    position:absolute;left:64px;top:80px;
+    font-family:var(--mono);font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-mute);
+    z-index:14;
+  }
+  .meta .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--signal);margin-right:10px;vertical-align:1px;box-shadow:0 0 0 4px rgba(155,45,44,.15)}
+
+  .name-block{
+    position:absolute;left:64px;right:0;bottom:180px;z-index:14;color:var(--ink);
+  }
+  .eye{
+    font-family:var(--mono);font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--ink-mute);
+    display:flex;align-items:center;gap:14px;margin-bottom:18px;
+  }
+  .eye::before{content:"";width:30px;height:1px;background:var(--ink)}
+  h1{
+    font-family:var(--display);font-weight:500;font-size:104px;line-height:.92;letter-spacing:-.035em;
+    color:var(--ink);
+  }
+  h1 .it{font-style:italic;font-weight:400;color:var(--signal-deep)}
+  .role{
+    margin-top:30px;font-family:var(--mono);font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-mute);
+    max-width:380px;line-height:1.9;
+  }
+
+  /* Quote on right side */
+  .quote{
+    position:absolute;left:48%;top:88px;max-width:480px;z-index:18;
+    font-family:var(--display);font-style:italic;font-weight:400;
+    font-size:30px;line-height:1.3;letter-spacing:-.01em;color:rgba(243,237,224,.92);
+    text-shadow:0 2px 0 rgba(0,0,0,.4);
+  }
+  .quote::before{content:"\201C";position:absolute;left:-50px;top:-30px;font-size:160px;line-height:1;color:rgba(212,172,110,.5);font-style:normal}
+  .quote .src{
+    display:block;margin-top:24px;font-family:var(--mono);font-size:11px;letter-spacing:.3em;text-transform:uppercase;font-style:normal;color:rgba(243,237,224,.55);
+  }
+
+  /* File stamp */
+  .stamp{
+    position:absolute;right:60px;bottom:64px;z-index:18;
+    border:1px solid rgba(243,237,224,.45);padding:14px 22px;
+    font-family:var(--mono);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:rgba(243,237,224,.85);
+    background:rgba(10,19,38,.45);backdrop-filter:blur(8px);
+    transform:rotate(-3deg);
+  }
+  .stamp b{color:var(--ochre-soft)}
+
+  /* Floating seal medallion */
+  .seal{
+    position:absolute;left:62px;top:160px;width:110px;height:110px;border-radius:50%;
+    background:
+      radial-gradient(60% 60% at 40% 35%, #f3e0bc 0%, var(--ochre) 60%, var(--signal-deep) 100%);
+    box-shadow:0 18px 28px rgba(10,19,38,.4), inset 0 6px 12px rgba(255,235,200,.5);
+    display:grid;place-items:center;
+    transform:rotate(-12deg);z-index:14;
+    border:1px solid rgba(10,19,38,.25);
+  }
+  .seal::before{
+    content:"";position:absolute;inset:8px;border-radius:50%;border:1px dashed rgba(10,19,38,.55);
+  }
+  .seal .mark{
+    font-family:var(--display);font-weight:600;font-size:42px;color:var(--ink);
+    text-shadow:0 1px 0 rgba(255,235,200,.6);
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="photo"></div>
+    <div class="portrait" aria-hidden>
+      <div class="head"></div>
+      <div class="body"></div>
+      <div class="tie"></div>
+    </div>
+    <div class="rim"></div>
+
+    <div class="ledger"></div>
+
+    <div class="meta"><span class="dot"></span>Dossier · Lorem Ipsum · XIV</div>
+    <div class="seal" aria-hidden><span class="mark">A·V</span></div>
+
+    <div class="name-block">
+      <div class="eye">Lorem Ipsum · MMXXVI</div>
+      <h1>Lorem<br><span class="it">Ipsum.</span></h1>
+      <div class="role">Candidatus · Senatus Status · Districtus XIV</div>
+    </div>
+
+    <p class="quote">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.
+      <span class="src">— Lorem Dolor, MMXXVI</span>
+    </p>
+
+    <div class="stamp">Endorsed · <b>Lorem Ipsum</b></div>
+  </div>
+</body>
+</html>

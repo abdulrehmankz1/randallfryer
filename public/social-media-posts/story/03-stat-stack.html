@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Story 03 — Stat Stack</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bone:#f3ede0; --bone-soft:#ebe2cd;
+    --ink:#0a1326; --ink-mute:#4b5364;
+    --signal:#9b2d2c; --signal-deep:#7a2422;
+    --ochre:#b58a4a; --ochre-soft:#d4ac6e;
+    --display:'Fraunces',serif; --sans:'Inter',sans-serif; --mono:'JetBrains Mono',monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#222;display:grid;place-items:center;min-height:100vh;padding:24px}
+  .stage{width:1080px;height:1920px;position:relative;overflow:hidden;
+    background:#0a1326;color:#f3ede0;font-family:var(--sans);
+    box-shadow:0 60px 120px -40px rgba(0,0,0,.55);
+  }
+  /* Soft spotlights */
+  .stage::before{
+    content:"";position:absolute;inset:0;z-index:4;
+    background:
+      radial-gradient(50% 35% at 20% 10%, rgba(212,172,110,.25), transparent 70%),
+      radial-gradient(50% 30% at 80% 50%, rgba(155,45,44,.25), transparent 70%),
+      radial-gradient(60% 30% at 30% 95%, rgba(75,99,88,.3), transparent 70%);
+  }
+  /* grain */
+  .stage::after{
+    content:"";position:absolute;inset:0;z-index:60;pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 .95 0 0 0 0 .85 0 0 0 .14 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode:overlay;opacity:.7;
+  }
+  /* frame */
+  .frame{position:absolute;inset:80px;border:1px solid rgba(243,237,224,.15);z-index:8;pointer-events:none}
+
+  .meta{
+    position:absolute;left:120px;right:120px;top:130px;display:flex;justify-content:space-between;
+    font-family:var(--mono);font-size:14px;letter-spacing:.34em;text-transform:uppercase;color:rgba(243,237,224,.6);z-index:20;
+  }
+
+  .label{
+    position:absolute;left:120px;right:120px;top:240px;z-index:20;
+    font-family:var(--mono);font-size:14px;letter-spacing:.4em;text-transform:uppercase;color:rgba(243,237,224,.55);
+    display:flex;align-items:center;gap:18px;
+  }
+  .label::before{content:"";width:60px;height:1px;background:rgba(243,237,224,.5)}
+
+  .h-title{
+    position:absolute;left:120px;right:120px;top:320px;z-index:20;
+    font-family:var(--display);font-weight:500;font-size:88px;line-height:.94;letter-spacing:-.03em;color:#f3ede0;
+  }
+  .h-title .it{font-style:italic;color:var(--ochre-soft);font-weight:400}
+
+  /* Stack */
+  .stack{
+    position:absolute;left:120px;right:120px;top:580px;bottom:280px;z-index:20;
+    display:flex;flex-direction:column;justify-content:space-between;
+  }
+  .stat{
+    position:relative;border-top:1px solid rgba(243,237,224,.18);padding-top:24px;
+    display:flex;justify-content:space-between;align-items:end;gap:24px;
+  }
+  .stat:last-child{border-bottom:1px solid rgba(243,237,224,.18);padding-bottom:24px}
+  .stat .lbl{
+    font-family:var(--mono);font-size:13px;letter-spacing:.32em;text-transform:uppercase;color:rgba(243,237,224,.55);
+    max-width:280px;line-height:1.6;align-self:start;padding-top:30px;
+  }
+  .stat .num{
+    font-family:var(--display);font-weight:500;font-size:230px;line-height:.85;letter-spacing:-.05em;color:#f3ede0;
+    text-shadow:
+      0 2px 0 rgba(243,237,224,.4),
+      0 4px 0 rgba(155,45,44,.6),
+      0 8px 0 rgba(122,36,34,.5),
+      0 14px 30px rgba(155,45,44,.4),
+      0 30px 60px rgba(10,19,38,.5);
+  }
+  .stat .num .sm{font-family:var(--display);font-style:italic;font-weight:400;font-size:.45em;color:var(--ochre-soft);letter-spacing:-.02em;vertical-align:.4em}
+  .stat .num .pct{font-family:var(--display);font-style:italic;color:var(--signal)}
+
+  /* Side stripe */
+  .stripe{
+    position:absolute;left:80px;top:580px;bottom:280px;width:6px;z-index:18;
+    background:linear-gradient(180deg, var(--ochre) 0%, var(--signal) 100%);
+    box-shadow:0 0 30px rgba(155,45,44,.4);
+  }
+
+  /* Foot */
+  .foot{
+    position:absolute;left:120px;right:120px;bottom:130px;display:flex;justify-content:space-between;z-index:24;
+    font-family:var(--mono);font-size:13px;letter-spacing:.34em;text-transform:uppercase;color:rgba(243,237,224,.6);
+  }
+  .foot .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--signal);box-shadow:0 0 0 5px rgba(155,45,44,.18);margin-right:12px;vertical-align:1px}
+
+  /* Faint big numeral background */
+  .ghost{
+    position:absolute;right:-100px;top:50%;transform:translateY(-50%);
+    font-family:var(--display);font-style:italic;font-weight:300;
+    font-size:980px;line-height:.78;color:rgba(243,237,224,.05);letter-spacing:-.06em;z-index:6;
+    user-select:none;pointer-events:none;
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <span class="ghost" aria-hidden>0</span>
+    <div class="frame"></div>
+    <div class="stripe"></div>
+
+    <div class="meta">
+      <span>Mensura · Pars II</span>
+      <span>File №III</span>
+    </div>
+
+    <div class="label">Numeri — Lorem ipsum dolor</div>
+    <h2 class="h-title">Lorem<br><span class="it">numerus</span> ipsum.</h2>
+
+    <div class="stack">
+      <div class="stat">
+        <span class="lbl">Lorem ipsum dolor sit amet — consectetur.</span>
+        <span class="num">12<span class="sm">k+</span></span>
+      </div>
+      <div class="stat">
+        <span class="lbl">Sed do eiusmod tempor incididunt ut labore.</span>
+        <span class="num">47</span>
+      </div>
+      <div class="stat">
+        <span class="lbl">Ut enim ad minim veniam, quis nostrud.</span>
+        <span class="num">100<span class="pct">%</span></span>
+      </div>
+    </div>
+
+    <div class="foot">
+      <span><span class="dot"></span>Lorem · Ipsum · MMXXVI</span>
+      <span>Districtus XIV</span>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Feed 08 — Seal Medallion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bone:#f3ede0; --bone-soft:#ebe2cd; --bone-deep:#d8cdb1;
+    --ink:#0a1326; --ink-soft:#18223b; --ink-mute:#4b5364;
+    --signal:#9b2d2c; --signal-deep:#7a2422;
+    --ochre:#b58a4a; --ochre-soft:#d4ac6e;
+    --display:'Fraunces',serif; --sans:'Inter',sans-serif; --mono:'JetBrains Mono',monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#222;display:grid;place-items:center;min-height:100vh;padding:24px}
+  .stage{width:1080px;height:1080px;position:relative;overflow:hidden;
+    background:radial-gradient(80% 60% at 50% 50%, #142142 0%, #0a1326 50%, #050912 100%);
+    color:#f3ede0;font-family:var(--sans);
+    box-shadow:0 60px 120px -40px rgba(0,0,0,.55);
+  }
+  /* Background rings */
+  .rings{position:absolute;inset:0;z-index:2;display:grid;place-items:center;opacity:.6}
+  .rings svg{width:1400px;height:1400px}
+
+  /* Spotlight */
+  .stage::before{
+    content:"";position:absolute;inset:0;z-index:4;
+    background:
+      radial-gradient(50% 40% at 50% 38%, rgba(212,172,110,.35) 0%, transparent 70%),
+      radial-gradient(60% 60% at 50% 90%, rgba(155,45,44,.25) 0%, transparent 70%);
+  }
+  /* grain */
+  .stage::after{
+    content:"";position:absolute;inset:0;z-index:55;pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 .95 0 0 0 0 .85 0 0 0 .14 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode:overlay;opacity:.7;
+  }
+
+  .frame{position:absolute;inset:56px;border:1px solid rgba(243,237,224,.14);z-index:8;pointer-events:none}
+
+  .meta{
+    position:absolute;left:96px;right:96px;top:96px;display:flex;justify-content:space-between;
+    font-family:var(--mono);font-size:13px;letter-spacing:.32em;text-transform:uppercase;
+    color:rgba(243,237,224,.6);z-index:20;
+  }
+
+  /* Central seal */
+  .seal{
+    position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:14;
+    width:600px;height:600px;border-radius:50%;
+    background:
+      radial-gradient(50% 50% at 38% 30%, #f7e1bd 0%, var(--ochre-soft) 30%, var(--ochre) 55%, #6f5024 85%, #3a2914 100%);
+    box-shadow:
+      inset 0 60px 100px rgba(255,242,210,.65),
+      inset 0 -60px 120px rgba(0,0,0,.55),
+      inset -40px 0 100px rgba(122,36,34,.45),
+      0 80px 100px rgba(0,0,0,.55),
+      0 0 200px rgba(212,172,110,.4);
+  }
+  .seal .ring{position:absolute;border-radius:50%}
+  .seal .r1{inset:30px;border:1px solid rgba(10,19,38,.4)}
+  .seal .r2{inset:60px;border:1px dashed rgba(10,19,38,.3)}
+  .seal .r3{inset:90px;border:1px solid rgba(10,19,38,.22)}
+  .seal .gloss{
+    position:absolute;inset:30px;border-radius:50%;
+    background:linear-gradient(160deg, rgba(255,255,255,.5) 0%, rgba(255,255,255,0) 38%);
+    mix-blend-mode:screen;
+  }
+  .seal .crest{
+    position:absolute;inset:0;display:grid;place-items:center;
+  }
+  .seal .crest svg{width:300px;height:300px;filter:drop-shadow(0 4px 0 rgba(255,232,180,.55)) drop-shadow(0 -2px 0 rgba(10,19,38,.4))}
+  .seal .arc{
+    position:absolute;inset:0;display:grid;place-items:center;
+    font-family:var(--mono);font-size:14px;letter-spacing:.4em;text-transform:uppercase;color:rgba(10,19,38,.78);font-weight:600;
+  }
+
+  /* circular text using SVG */
+  .arc-svg{position:absolute;inset:0;width:100%;height:100%}
+  .arc-svg text{font-family:var(--mono);font-size:24px;letter-spacing:18px;text-transform:uppercase;font-weight:600;fill:#0a1326}
+
+  /* Eyebrow & footer */
+  .label{
+    position:absolute;left:50%;transform:translateX(-50%);top:230px;z-index:20;
+    font-family:var(--mono);font-size:13px;letter-spacing:.4em;text-transform:uppercase;color:rgba(243,237,224,.6);
+    display:flex;align-items:center;gap:18px;
+  }
+  .label::before,.label::after{content:"";display:block;width:60px;height:1px;background:rgba(243,237,224,.5)}
+
+  .title-bot{
+    position:absolute;left:0;right:0;bottom:180px;text-align:center;z-index:20;
+  }
+  .title-bot h1{
+    font-family:var(--display);font-weight:500;font-size:80px;line-height:.95;letter-spacing:-.025em;color:#f3ede0;
+  }
+  .title-bot h1 .it{font-style:italic;color:var(--ochre-soft);font-weight:400}
+  .title-bot .sub{
+    margin-top:18px;font-family:var(--mono);font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:rgba(243,237,224,.55);
+  }
+
+  .foot{
+    position:absolute;left:96px;right:96px;bottom:96px;display:flex;justify-content:space-between;z-index:24;
+    font-family:var(--mono);font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:rgba(243,237,224,.55);
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="rings" aria-hidden>
+      <svg viewBox="0 0 1400 1400" fill="none">
+        <defs>
+          <radialGradient id="g8" cx="50%" cy="50%" r="50%">
+            <stop offset="20%" stop-color="#d4ac6e" stop-opacity=".25"/>
+            <stop offset="100%" stop-color="#d4ac6e" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <g stroke="url(#g8)" stroke-width="1" fill="none">
+          <circle cx="700" cy="700" r="340"/>
+          <circle cx="700" cy="700" r="430"/>
+          <circle cx="700" cy="700" r="520"/>
+          <circle cx="700" cy="700" r="610"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="frame"></div>
+
+    <div class="meta">
+      <span>Sigillum · MMXXVI</span>
+      <span>VIII / X · File №08</span>
+    </div>
+
+    <div class="label">Insignia · Lorem Ipsum · Dolor</div>
+
+    <div class="seal" aria-hidden>
+      <div class="ring r1"></div>
+      <div class="ring r2"></div>
+      <div class="ring r3"></div>
+      <div class="gloss"></div>
+      <svg class="arc-svg" viewBox="0 0 600 600">
+        <defs>
+          <path id="arc-top" d="M 90 300 A 210 210 0 0 1 510 300"/>
+          <path id="arc-bot" d="M 90 300 A 210 210 0 0 0 510 300"/>
+        </defs>
+        <text>
+          <textPath href="#arc-top" startOffset="50%" text-anchor="middle">Lorem · Ipsum · MMXXVI</textPath>
+        </text>
+        <text>
+          <textPath href="#arc-bot" startOffset="50%" text-anchor="middle">Districtus · XIV · Senatus</textPath>
+        </text>
+      </svg>
+      <div class="crest">
+        <svg viewBox="0 0 200 200" fill="none">
+          <path d="M40 150 L160 150 L160 140 L40 140 Z" fill="#0a1326" opacity=".9"/>
+          <path d="M50 140 L50 90 M70 140 L70 90 M90 140 L90 90 M110 140 L110 90 M130 140 L130 90 M150 140 L150 90"
+            stroke="#0a1326" stroke-width="3" opacity=".9"/>
+          <path d="M40 90 L160 90 L160 80 L40 80 Z" fill="#0a1326" opacity=".9"/>
+          <path d="M100 80 Q60 80 60 50 Q60 30 100 30 Q140 30 140 50 Q140 80 100 80 Z" fill="#0a1326" opacity=".9"/>
+          <circle cx="100" cy="25" r="4" fill="#0a1326" opacity=".9"/>
+          <path d="M100 22 L100 8" stroke="#0a1326" stroke-width="2"/>
+          <path d="M30 165 L170 165" stroke="#0a1326" stroke-width="1" opacity=".5"/>
+          <path d="M30 170 L170 170" stroke="#0a1326" stroke-width="1" opacity=".5"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="title-bot">
+      <h1>Lorem dolor <span class="it">ipsum.</span></h1>
+      <div class="sub">— Consectetur · Adipiscing · MMXXVI —</div>
+    </div>
+
+    <div class="foot">
+      <span>Lorem · Ipsum</span>
+      <span>Sigillum №VIII</span>
+    </div>
+  </div>
+</body>
+</html>

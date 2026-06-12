@@ -26,7 +26,13 @@
       "WebFetch(domain:freedompulse.vercel.app)",
       "Bash(node run.js C:/Users/General/AppData/Local/Temp/playwright-rsvp.js)",
       "Bash(npx next *)",
-      "Bash(node run.js C:/Users/General/AppData/Local/Temp/playwright-test-campaign.js)"
+      "Bash(node run.js C:/Users/General/AppData/Local/Temp/playwright-test-campaign.js)",
+      "Bash(cp C:/Users/General/Documents/GitHub/capitalwatch/campaign/feed/*.html C:/Users/General/Documents/GitHub/capitalwatch/public/social-media-posts/feed/)",
+      "Bash(cp C:/Users/General/Documents/GitHub/capitalwatch/campaign/story/*.html C:/Users/General/Documents/GitHub/capitalwatch/public/social-media-posts/story/)",
+      "Bash(node run.js C:/Users/General/AppData/Local/Temp/playwright-test-social-page.js)",
+      "Bash(node run.js /tmp/playwright-test-navbar-qa.js)",
+      "PowerShell(Get-NetTCPConnection *)",
+      "PowerShell(Get-CimInstance *)"
     ]
   }
 }
