@@ -117,13 +117,9 @@ export default function PageHero({
                   fill
                   priority
                   sizes="(min-width: 1024px) 40vw, 100vw"
-                  className="object-cover opacity-90"
-                  style={{
-                    filter: "grayscale(100%) contrast(1.05) brightness(0.85)",
-                  }}
+                  className="object-cover object-[50%_22%]"
+                  style={{ filter: "contrast(1.02) saturate(1.02)" }}
                 />
-                <div aria-hidden className="duotone-strong absolute inset-0 mix-blend-multiply" />
-                <div aria-hidden className="duotone-tint absolute inset-0 mix-blend-color" />
               </m.div>
             </m.div>
           )}

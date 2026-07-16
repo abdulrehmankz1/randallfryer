@@ -94,14 +94,16 @@ export async function forwardToGhl(url, payload) {
 // RSVP still succeeds via the webhook. See ghl-forms-webhooks.md §4.
 
 const GHL_REST_BASE = "https://services.leadconnectorhq.com";
-const GHL_API_VERSION = "2021-04-15";
+// LeadConnector v2 pins the API version per resource family.
+const GHL_CONTACTS_VERSION = "2021-07-28";
+const GHL_CALENDARS_VERSION = "2021-04-15";
 // Campaign events calendar in GHL — do not change unless the calendar is recreated.
 const RSVP_CALENDAR_ID = process.env.GHL_RSVP_CALENDAR_ID || "UTM5EkrGwiZjQyc19WGN";
 
-function restHeaders() {
+function restHeaders(version) {
   return {
     Authorization: `Bearer ${process.env.GHL_API_KEY}`,
-    Version: GHL_API_VERSION,
+    Version: version,
     "Content-Type": "application/json",
     Accept: "application/json",
   };
@@ -129,7 +131,9 @@ export async function createRsvpAppointment({ email, eventName, startTime, endTi
     const searchUrl = `${GHL_REST_BASE}/contacts/search/duplicate?locationId=${encodeURIComponent(
       locationId
     )}&email=${encodeURIComponent(email)}`;
-    const searchRes = await fetch(searchUrl, { headers: restHeaders() });
+    const searchRes = await fetch(searchUrl, {
+      headers: restHeaders(GHL_CONTACTS_VERSION),
+    });
     if (!searchRes.ok) return null;
     const searchData = await searchRes.json();
     const contactId = searchData?.contact?.id || searchData?.id || null;
@@ -138,7 +142,7 @@ export async function createRsvpAppointment({ email, eventName, startTime, endTi
     // 3. Create the appointment.
     const apptRes = await fetch(`${GHL_REST_BASE}/calendars/events/appointments`, {
       method: "POST",
-      headers: restHeaders(),
+      headers: restHeaders(GHL_CALENDARS_VERSION),
       body: JSON.stringify({
         calendarId: RSVP_CALENDAR_ID,
         locationId,

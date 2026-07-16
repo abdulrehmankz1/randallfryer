@@ -96,7 +96,7 @@ export default function AboutPage() {
         number="Meet the candidate"
         title="Leadership built through service."
         intro="Randall Fryer is a retired physician, former software professional, and former enlisted member of the Army Medical Corps running for Oregon House District 28. After decades spent working through complex problems and making consequential decisions, Randall is ready to bring a disciplined, evidence-led, and accountable approach to Salem."
-        image="https://images.unsplash.com/photo-1573497019418-b400bb3ab074?w=900&h=1125&fit=crop&q=80"
+        image="/randall-fryer-about.jpg"
         imageAlt="Randall Fryer, candidate for Oregon House District 28"
       />
 
