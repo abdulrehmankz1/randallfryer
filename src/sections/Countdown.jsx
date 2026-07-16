@@ -28,17 +28,24 @@ export default function Countdown() {
           <>
             <m.div style={{ y: yBackdrop }} className="absolute inset-0">
               <Image
-                src="https://images.unsplash.com/photo-1612277795421-9bc7706a4a34?w=1800&h=1100&fit=crop&q=80"
+                src="/randall-fryer-ballot-bg.png"
                 alt=""
                 fill
                 priority={false}
                 aria-hidden
-                className="object-cover opacity-[0.18]"
+                className="object-cover object-right"
                 sizes="100vw"
-                style={{ filter: "grayscale(100%)" }}
               />
             </m.div>
-            <div aria-hidden className="duotone-radial absolute inset-0" />
+            {/* Darken for legibility — heaviest on the left where the copy sits */}
+            <div
+              aria-hidden
+              className="absolute inset-0 bg-gradient-to-r from-ink via-ink/80 to-ink/35"
+            />
+            <div
+              aria-hidden
+              className="absolute inset-0 bg-gradient-to-t from-ink/75 via-transparent to-ink/35"
+            />
           </>
         }
       >
