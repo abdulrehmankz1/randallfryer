@@ -21,6 +21,8 @@ export default function EventsPage() {
         number="Calendar / IV"
         title="Bring your questions to the events."
         intro="No gatekeepers. No carefully staged conversations. Team Fryer's town halls, neighborhood gatherings, canvasses, and community events are opportunities to meet Randall, ask direct questions, and talk honestly about what District 28 needs from Salem. Come as you are. Bring your questions. Bring a neighbor."
+        image="/randall-fryer-ballot.jpg"
+        imageAlt="Randall Fryer at a community park in District 28"
       />
 
       {/* UPCOMING */}
