@@ -6,23 +6,24 @@ import { m, useScroll, useTransform } from "motion/react";
 import SectionFrame from "@/animations/SectionFrame";
 import SplitReveal from "@/animations/SplitReveal";
 import Button from "@/components/ui/Button";
+import BrandIcon from "@/components/ui/BrandIcon";
 
 const APPROACH = [
   {
     no: "01",
-    icon: PulseIcon,
+    icon: "scales",
     title: "A Physician's Discipline",
     body: "Randall earned his Doctor of Osteopathic Medicine degree and completed a Family Medicine residency before beginning a career that included primary care, immediate care, and emergency medicine. That experience taught him to assess evidence carefully, communicate clearly, and keep the person affected by the decision at the center of the process.",
   },
   {
     no: "02",
-    icon: CrossIcon,
+    icon: "community",
     title: "Service in Rural Emergency Medicine",
     body: "Randall worked in rural emergency departments serving communities across Oregon and the broader region. In those settings, resources were not unlimited, delays carried consequences, and every decision required judgment, preparation, and accountability.",
   },
   {
     no: "03",
-    icon: NodesIcon,
+    icon: "columns",
     title: "A Systems-Based Mindset",
     body: "Randall's earlier professional experience in software development taught him to understand how complicated systems work — and why they fail. He will bring that same analytical mindset to budgets, agencies, regulations, and legislation in Salem.",
   },
@@ -95,7 +96,7 @@ export default function Endorsements() {
               >
                 <div className="flex items-center justify-between">
                   <span className="grid h-11 w-11 place-items-center rounded-full border border-ink/15 text-signal transition-colors duration-500 group-hover:border-signal/50 group-hover:text-signal-deep">
-                    <a.icon />
+                    <BrandIcon name={a.icon} className="h-5 w-5" />
                   </span>
                 </div>
                 <h3 className="display-serif text-[clamp(1.35rem,2vw,1.75rem)] font-medium leading-tight tracking-[-0.01em]">
@@ -113,49 +114,3 @@ export default function Endorsements() {
   );
 }
 
-/* Card icons — hand-drawn line style matching the Button arrow
-   (1.5 stroke, square caps, currentColor). */
-
-function PulseIcon() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <polyline
-        points="2 12.5 7 12.5 9.5 5.5 14 18.5 16.5 10.5 18 12.5 22 12.5"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="square"
-        strokeLinejoin="miter"
-      />
-    </svg>
-  );
-}
-
-function CrossIcon() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M9.25 3.5h5.5v5.75h5.75v5.5h-5.75v5.75h-5.5v-5.75H3.5v-5.5h5.75V3.5z"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="square"
-        strokeLinejoin="miter"
-      />
-    </svg>
-  );
-}
-
-function NodesIcon() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="6" cy="6" r="2.75" stroke="currentColor" strokeWidth="1.5" />
-      <circle cx="18" cy="6" r="2.75" stroke="currentColor" strokeWidth="1.5" />
-      <circle cx="12" cy="18" r="2.75" stroke="currentColor" strokeWidth="1.5" />
-      <path
-        d="M8.75 6h6.5M7.2 8.4l3.6 7.2M16.8 8.4l-3.6 7.2"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="square"
-      />
-    </svg>
-  );
-}

@@ -15,20 +15,24 @@ import {
   FormFieldset,
 } from "@/components/ui/Form";
 import { usePhoneConsent, SmsConsentFieldset } from "@/components/ui/SmsConsent";
+import BrandIcon from "@/components/ui/BrandIcon";
 
 const VALUE_CARDS = [
   {
     no: "01",
+    icon: "community",
     title: "Make a real difference",
     body: "Local campaigns are built one conversation at a time. The doors you knock, calls you make, and events you support help Randall connect directly with the people of District 28. Your contribution is practical — not symbolic.",
   },
   {
     no: "02",
+    icon: "volunteer-hands",
     title: "No experience needed",
     body: "New volunteers are always welcome. The campaign will provide clear instructions, useful materials, and the support you need to take your first shift with confidence.",
   },
   {
     no: "03",
+    icon: "flag",
     title: "A commitment that fits your schedule",
     body: "Give an hour, join a weekend shift, or volunteer regularly through Election Day. Whether you can help once or every week, Team Fryer will put your time and abilities to good use.",
   },
@@ -109,9 +113,14 @@ export default function VolunteerPage() {
               whileHover={{ y: -4 }}
               className="group flex flex-col gap-4 rounded-card border border-ink/15 bg-bone-soft/60 p-7 transition-colors duration-500 hover:border-ink"
             >
-              <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-ink-mute">
-                {v.no}
-              </span>
+              <div className="flex items-center justify-between">
+                <span className="grid h-11 w-11 place-items-center rounded-full border border-ink/15 text-signal transition-colors duration-500 group-hover:border-signal/50 group-hover:text-signal-deep">
+                  <BrandIcon name={v.icon} className="h-5 w-5" />
+                </span>
+                <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-ink-mute">
+                  {v.no}
+                </span>
+              </div>
               <h3 className="display-serif text-2xl font-medium leading-tight">
                 {v.title}
               </h3>

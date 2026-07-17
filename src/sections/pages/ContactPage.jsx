@@ -7,23 +7,28 @@ import SectionFrame from "@/animations/SectionFrame";
 import SplitReveal from "@/animations/SplitReveal";
 import PageHero from "@/components/ui/PageHero";
 import Button from "@/components/ui/Button";
+import BrandIcon from "@/components/ui/BrandIcon";
 import { FormField, FormTextarea } from "@/components/ui/Form";
 import { usePhoneConsent, SmsConsentFieldset } from "@/components/ui/SmsConsent";
 
 const TOPICS = [
   {
+    icon: "capitol",
     title: "Campaign information",
     body: "Looking for information about Randall, his experience, policy priorities, or the race for Oregon House District 28? Send us your question and a member of the campaign will help point you in the right direction.",
   },
   {
+    icon: "podium",
     title: "Events and invitations",
     body: "Invite Randall to a neighborhood gathering, candidate forum, civic meeting, local business, community organization, or public event. Please include the proposed date, location, audience, and event format.",
   },
   {
+    icon: "volunteer-hands",
     title: "Volunteer support",
     body: "Need help choosing a volunteer role, joining a canvass, requesting campaign materials, or organizing an activity in your area? Team Fryer will help you find a practical way to participate.",
   },
   {
+    icon: "megaphone",
     title: "Media and campaign operations",
     body: "Journalists, community publications, organizations, donors, and campaign partners may contact Team Fryer for interview requests, scheduling, contribution questions, and other official inquiries.",
   },
@@ -56,9 +61,14 @@ export default function ContactPage() {
               whileHover={{ y: -4 }}
               className="group flex flex-col gap-3 rounded-card border border-ink/15 bg-bone-soft/60 p-6 transition-colors duration-500 hover:border-ink"
             >
-              <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-ink-mute">
-                0{i + 1}
-              </span>
+              <div className="flex items-center justify-between">
+                <span className="grid h-11 w-11 place-items-center rounded-full border border-ink/15 text-signal transition-colors duration-500 group-hover:border-signal/50 group-hover:text-signal-deep">
+                  <BrandIcon name={t.icon} className="h-5 w-5" />
+                </span>
+                <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-ink-mute">
+                  0{i + 1}
+                </span>
+              </div>
               <h3 className="display-serif text-xl font-medium leading-tight">
                 {t.title}
               </h3>

@@ -9,6 +9,7 @@ import SectionFrame from "@/animations/SectionFrame";
 import SplitReveal from "@/animations/SplitReveal";
 import PageHero from "@/components/ui/PageHero";
 import Button from "@/components/ui/Button";
+import BrandIcon from "@/components/ui/BrandIcon";
 
 const BIO_BLOCKS = [
   {
@@ -40,19 +41,19 @@ const BIO_BLOCKS = [
 const VALUES = [
   {
     no: "01",
-    icon: BookIcon,
+    icon: "award",
     title: "Reclaim Educational Excellence",
     body: "Randall believes Oregon schools must return their focus to the fundamentals: reading, writing, mathematics, history, and civics. He will work to restore meaningful academic and graduation standards, strengthen parental and local school-board involvement, and direct more education resources toward teachers and classrooms. Professional teachers deserve the authority and support needed to maintain orderly classrooms and help students succeed. Oregon should measure education policy by whether students are learning—not simply by how much the state spends.",
   },
   {
     no: "02",
-    icon: HomeIcon,
+    icon: "scales",
     title: "Reduce the Burden on Working Families",
     body: "Randall believes Oregonians deserve greater value and accountability for the taxes and fees they pay. He will scrutinize spending before asking families to contribute more, oppose unnecessary new costs, and demand transparent reporting on whether public programs are producing results. Government should respect the people who earn every public dollar.",
   },
   {
     no: "03",
-    icon: GrowthIcon,
+    icon: "institution",
     title: "Rebuild Oregon's Business Climate",
     body: "Randall wants Oregon to be a place where employers can invest, expand, hire, and compete. He will pursue more competitive tax rates, simpler tax compliance, more predictable permitting, and fewer unnecessary regulatory barriers. A stronger business climate means more jobs, a broader tax base, healthier communities, and less pressure to continually increase costs for working families.",
   },
@@ -151,7 +152,7 @@ export default function AboutPage() {
             >
               <div className="flex items-center justify-between">
                 <span className="grid h-11 w-11 place-items-center rounded-full border border-ink/15 text-signal transition-colors duration-500 group-hover:border-signal/50 group-hover:text-signal-deep">
-                  <v.icon />
+                  <BrandIcon name={v.icon} className="h-5 w-5" />
                 </span>
               </div>
               <h3 className="display-serif text-2xl font-medium leading-tight">
@@ -386,47 +387,3 @@ function Journey() {
   );
 }
 
-/* Value-card icons — hand-drawn line style matching the Button arrow
-   (1.5 stroke, square caps, currentColor). */
-
-function BookIcon() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M12 6.5c-1.9-1.5-4.4-2-8.5-2v13.5c4.1 0 6.6.5 8.5 2 1.9-1.5 4.4-2 8.5-2V4.5c-4.1 0-6.6.5-8.5 2zM12 6.5V20"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="square"
-        strokeLinejoin="miter"
-      />
-    </svg>
-  );
-}
-
-function HomeIcon() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M3 11 12 3.5 21 11M5.5 9.5V20h13V9.5M10 20v-5.5h4V20"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="square"
-        strokeLinejoin="miter"
-      />
-    </svg>
-  );
-}
-
-function GrowthIcon() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M3 17.5 9 11l4 4 7.5-8M15 6.5h5.5V12"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="square"
-        strokeLinejoin="miter"
-      />
-    </svg>
-  );
-}
