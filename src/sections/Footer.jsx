@@ -42,12 +42,22 @@ const NAV_GROUPS = [
   },
 ];
 
-// Only Facebook is live for now — other handles stay hidden until they exist.
+// Live handles only — others stay hidden until they exist.
 const SOCIALS = [
   {
     name: "Facebook",
     href: "https://www.facebook.com/share/1EHvaKg7i5/",
     Icon: FacebookIcon,
+  },
+  {
+    name: "X (Twitter)",
+    href: "https://x.com/FryerRandall",
+    Icon: XIcon,
+  },
+  {
+    name: "LinkedIn",
+    href: "https://www.linkedin.com/in/randall-fryer-6215bb3b8",
+    Icon: LinkedInIcon,
   },
 ];
 

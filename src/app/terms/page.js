@@ -28,7 +28,7 @@ const SECTIONS = [
     body: [
       "Program and messages: When you opt in through a form on this site, you may receive SMS text messages from Randall Fryer For Representative. Informational messages include campaign updates, event reminders, and volunteer coordination; promotional messages include fundraising requests, donation drives, and special promotions. Consent to receive text messages is not a condition of any purchase or donation.",
       "Opt out: You can cancel the SMS service at any time. Simply text STOP to the number that messages you, and you will no longer receive SMS messages from us.",
-      "Help: If you experience any issues with the messaging program, reply with the keyword HELP for more assistance, or reach out directly to us at [PLACEHOLDER — support email or phone].",
+      "Help: If you experience any issues with the messaging program, reply with the keyword HELP for more assistance, or reach out directly to us at Randall@randallfororegon.com.",
       "Carriers are not liable for delayed or undelivered messages.",
       "As always, message and data rates may apply for messages sent to you from us and to us from you. Message frequency varies.",
       "For privacy-related inquiries, please refer to our Privacy Policy at randallfororegon.com/privacy.",
@@ -39,7 +39,7 @@ const SECTIONS = [
     title: "Donations",
     body: [
       "All donations are subject to federal contribution limits. You confirm that you are a U.S. citizen or lawfully admitted permanent resident, that the funds are your own, and that you are not a federal contractor or foreign national.",
-      "Donations are non-refundable except in cases of fraud or error. To request a refund, email [PLACEHOLDER — donations contact email] within 30 days of the contribution.",
+      "Donations are non-refundable except in cases of fraud or error. To request a refund, email Randall@randallfororegon.com within 30 days of the contribution.",
       "Political contributions are not tax-deductible.",
     ],
   },
@@ -47,7 +47,7 @@ const SECTIONS = [
     id: "content",
     title: "Content & accuracy",
     body: [
-      "We do our best to keep policy briefs, event dates, and platform pages accurate and current. Mistakes happen — if you spot one, let us know at [PLACEHOLDER — general contact email] and we will fix it on the record.",
+      "We do our best to keep policy briefs, event dates, and platform pages accurate and current. Mistakes happen — if you spot one, let us know at Randall@randallfororegon.com and we will fix it on the record.",
       "Quoted endorsements have been approved by the named endorser at the time of publication. If you are an endorser and would like your name removed, email us and we will do so within five business days.",
     ],
   },
@@ -69,7 +69,7 @@ const SECTIONS = [
     id: "contact",
     title: "Contact",
     body: [
-      "Questions about these terms can be sent to [PLACEHOLDER — legal contact email] or to: Randall Fryer For Representative, [PLACEHOLDER — mailing address].",
+      "Questions about these terms can be sent to Randall@randallfororegon.com or to: Randall Fryer For Representative, [PLACEHOLDER — mailing address].",
     ],
   },
 ];

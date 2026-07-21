@@ -30,7 +30,7 @@ const SECTIONS = [
       "We collect phone numbers only through our website forms (contact, volunteer, event RSVP, and Ask Randall), and only when you choose to provide one. Phone numbers are used to reach you about the campaign and, if you separately opt in, to send SMS text messages.",
       "Text messaging is opt-in and optional. Two separate consent options are offered: one for informational updates (campaign updates, event reminders, and volunteer coordination) and one for promotional messages (fundraising requests, donation drives, and special promotions). You may opt into either, both, or neither, and consent is never pre-checked or required to use the site.",
       "Message frequency varies, and message and data rates may apply. You can cancel SMS at any time by replying STOP, and reply HELP for assistance. Opt-out requests are honored within 10 business days.",
-      "We retain your phone number and consent records only as long as needed to operate the campaign and to document consent as required by law. To request deletion of your phone number, consent records, or other personal information, email [PLACEHOLDER — privacy contact email].",
+      "We retain your phone number and consent records only as long as needed to operate the campaign and to document consent as required by law. To request deletion of your phone number, consent records, or other personal information, email Randall@randallfororegon.com.",
       "We will not share or sell your text messaging opt-in data, consent, or related personal information with any third parties, unless required by law.",
     ],
   },
@@ -53,7 +53,7 @@ const SECTIONS = [
     id: "your-rights",
     title: "Your rights",
     body: [
-      "You can request a copy of any information we hold about you, ask us to delete it, or correct anything that is wrong. Email [PLACEHOLDER — privacy contact email] and we will respond within 30 days.",
+      "You can request a copy of any information we hold about you, ask us to delete it, or correct anything that is wrong. Email Randall@randallfororegon.com and we will respond within 30 days.",
       "If your donation is publicly disclosed under FEC rules, we cannot remove the public disclosure — but we can confirm exactly what was reported and when.",
     ],
   },
@@ -61,7 +61,7 @@ const SECTIONS = [
     id: "contact",
     title: "Contact",
     body: [
-      "Questions about this notice can be sent to [PLACEHOLDER — privacy contact email] or to: Randall Fryer For Representative, [PLACEHOLDER — mailing address].",
+      "Questions about this notice can be sent to Randall@randallfororegon.com or to: Randall Fryer For Representative, [PLACEHOLDER — mailing address].",
     ],
   },
 ];

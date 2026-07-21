@@ -13,7 +13,8 @@ export const LEGAL_BUSINESS_NAME = "Randall Fryer For Representative";
 // address, and they must match what is submitted during registration.
 export const CONTACT_PHONE = "[ADD BUSINESS PHONE]"; // e.g. "(503) 555-0100"
 export const CONTACT_PHONE_HREF = ""; // e.g. "tel:+15035550100" — leave "" until set
-export const CONTACT_EMAIL = "[ADD BUSINESS EMAIL]"; // e.g. "info@randallfororegon.com"
+// Business email assigned by Op1776.
+export const CONTACT_EMAIL = "Randall@randallfororegon.com";
 export const CONTACT_ADDRESS = "[ADD MAILING ADDRESS]"; // e.g. "PO Box 123, City, OR 97000"
 
 // Donations are handled off-site by WinRed — there is no on-site donate page.
