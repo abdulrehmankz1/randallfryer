@@ -450,7 +450,7 @@ function RSVPForm({ event }) {
           optional
           value={pc.phone}
           onChange={pc.onPhoneChange}
-          placeholder="+1 (503) 555-1234"
+          placeholder="+1 (503) 555-0123"
         />
       </div>
 

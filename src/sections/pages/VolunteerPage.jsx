@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/Form";
 import { usePhoneConsent, SmsConsentFieldset } from "@/components/ui/SmsConsent";
 import BrandIcon from "@/components/ui/BrandIcon";
+import { CONTACT_PHONE, CONTACT_EMAIL } from "@/constants/site";
 
 const VALUE_CARDS = [
   {
@@ -89,13 +90,12 @@ const OREGON_COUNTIES = [
   "Wheeler", "Yamhill",
 ];
 
-// Populate with the real Volunteer Coordinator details to reveal the contact
-// block below. Leave any value empty (or "To be announced") to keep the entire
-// section hidden until the information is ready.
+// Campaign contact for volunteering. A named volunteer coordinator can be added
+// here once assigned; empty (or "To be announced") values stay hidden.
 const COORDINATOR_CONTACT = [
   { k: "Volunteer coordinator", v: "" },
-  { k: "Call or text", v: "" },
-  { k: "Email", v: "" },
+  { k: "Call or text", v: CONTACT_PHONE },
+  { k: "Email", v: CONTACT_EMAIL },
 ].filter((c) => c.v && c.v.trim() && c.v.trim().toLowerCase() !== "to be announced");
 
 export default function VolunteerPage() {
