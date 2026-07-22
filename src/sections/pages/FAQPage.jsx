@@ -56,7 +56,7 @@ const GROUPS = [
       },
       {
         q: "Can I cancel a recurring donation?",
-        a: "Yes, anytime. Email donate@capitalwatch.vote or use the link in your receipt — we cancel the same business day.",
+        a: "Yes, anytime. Email Randall@randallfororegon.com or use the link in your WinRed receipt — we cancel the same business day.",
       },
     ],
   },

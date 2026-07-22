@@ -7,15 +7,13 @@
 // the A2P 10DLC registration EXACTLY. Verify before submitting registration.
 export const LEGAL_BUSINESS_NAME = "Randall Fryer For Representative";
 
-// ⚠️ A2P LAUNCH BLOCKER — replace these placeholders with the campaign's real,
-// verifiable contact details before submitting A2P 10DLC registration. Carriers
-// verify a working (non-VoIP) phone, a directly-contactable email, and a mailing
-// address, and they must match what is submitted during registration.
-export const CONTACT_PHONE = "[ADD BUSINESS PHONE]"; // e.g. "(503) 555-0100"
-export const CONTACT_PHONE_HREF = ""; // e.g. "tel:+15035550100" — leave "" until set
+// Contact details from the CI-0216 campaign intake — must match what is
+// submitted during A2P 10DLC registration exactly.
+export const CONTACT_PHONE = "(971) 404-6743";
+export const CONTACT_PHONE_HREF = "tel:+19714046743";
 // Business email assigned by Op1776.
 export const CONTACT_EMAIL = "Randall@randallfororegon.com";
-export const CONTACT_ADDRESS = "[ADD MAILING ADDRESS]"; // e.g. "PO Box 123, City, OR 97000"
+export const CONTACT_ADDRESS = "7308 SW 35th Ave, Portland, OR 97219";
 
 // Donations are handled off-site by WinRed — there is no on-site donate page.
 export const DONATE_URL =

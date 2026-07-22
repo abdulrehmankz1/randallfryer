@@ -354,24 +354,6 @@ function PostCard({ post }) {
         </div>
         </div>
       </div>
-
-      {/* Caption */}
-      <div>
-        <div className="flex items-baseline justify-between gap-3 font-mono text-[10px] uppercase tracking-[0.24em] text-ink-mute">
-          <span>
-            {isCarousel
-              ? `${fmt.label} · ${post.count} slides`
-              : `${fmt.label} · №${post.no}`}
-          </span>
-          <span>{fmt.sub}</span>
-        </div>
-        <h3 className="display-serif mt-2 text-lg font-medium leading-tight tracking-tight transition-colors duration-300 group-hover:text-signal">
-          {post.title}
-        </h3>
-        <p className="mt-1 text-[13px] leading-relaxed text-ink/70">
-          {post.concept}
-        </p>
-      </div>
     </Link>
   );
 }

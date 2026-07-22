@@ -1,4 +1,5 @@
 import LegalPage from "@/sections/pages/LegalPage";
+import { LEGAL_BUSINESS_NAME, CONTACT_ADDRESS } from "@/constants/site";
 
 export const metadata = {
   title: "Terms",
@@ -69,7 +70,7 @@ const SECTIONS = [
     id: "contact",
     title: "Contact",
     body: [
-      "Questions about these terms can be sent to Randall@randallfororegon.com or to: Randall Fryer For Representative, [PLACEHOLDER — mailing address].",
+      `Questions about these terms can be sent to Randall@randallfororegon.com or to: ${LEGAL_BUSINESS_NAME}, ${CONTACT_ADDRESS}.`,
     ],
   },
 ];
