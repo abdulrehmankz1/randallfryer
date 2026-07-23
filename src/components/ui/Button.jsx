@@ -8,6 +8,9 @@ const variants = {
   signal: "bg-signal text-bone hover:bg-ink",
   outline:
     "bg-transparent text-ink border border-ink/30 hover:border-ink hover:bg-ink hover:text-bone",
+  // Outline for dark (ink) surfaces
+  "outline-bone":
+    "bg-transparent text-bone border border-bone/35 hover:border-bone hover:bg-bone hover:text-ink",
   // Inverse of `outline` — starts filled, reveals the outline look on hover
   "outline-inverse":
     "border border-ink bg-ink text-bone hover:border-ink/30 hover:bg-transparent hover:text-ink",

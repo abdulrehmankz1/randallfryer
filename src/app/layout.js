@@ -4,6 +4,7 @@ import "./globals.css";
 import MotionProvider from "@/animations/MotionProvider";
 import Navbar from "@/components/ui/Navbar";
 import Footer from "@/sections/Footer";
+import CookieConsent from "@/components/ui/CookieConsent";
 
 // Heading typeface — Randall Fryer brand (Op1776 CI-0216)
 const plusJakarta = Plus_Jakarta_Sans({
@@ -58,6 +59,7 @@ export default function RootLayout({ children }) {
           <Navbar />
           {children}
           <Footer />
+          <CookieConsent />
         </MotionProvider>
       </body>
     </html>
