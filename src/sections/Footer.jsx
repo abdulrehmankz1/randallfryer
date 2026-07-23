@@ -229,37 +229,29 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Refined watermark */}
-        <m.div
+        {/* Refined watermark — giant outline marquee, drifts continuously */}
+        <div
           aria-hidden
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 1.2 }}
           className="pointer-events-none mt-12 select-none overflow-hidden"
         >
-          <svg
-            viewBox="0 0 1400 180"
-            className="h-auto w-full"
-            preserveAspectRatio="xMidYMid meet"
+          <m.div
+            className="flex w-max whitespace-nowrap"
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{ duration: 28, ease: "linear", repeat: Infinity }}
           >
-            <text
-              x="50%"
-              y="140"
-              textAnchor="middle"
-              fontSize="180"
-              fontFamily="var(--font-display)"
-              fontWeight="500"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="0.5"
-              className="text-ink/35"
-              style={{ letterSpacing: "-0.04em" }}
-            >
-              RANDALL FRYER
-            </text>
-          </svg>
-        </m.div>
+            {/* Two identical copies → seamless infinite loop at -50% */}
+            {[0, 1].map((copy) => (
+              <span
+                key={copy}
+                className="display-serif pr-[6vw] text-[11vw] font-medium leading-none tracking-[-0.04em] text-transparent"
+                style={{ WebkitTextStroke: "1.5px rgba(13, 21, 40, 0.55)" }}
+              >
+                RANDALL FRYER<span className="px-[3vw] text-signal/60">·</span>
+                FOR OREGON<span className="px-[3vw] text-signal/60">·</span>
+              </span>
+            ))}
+          </m.div>
+        </div>
       </div>
     </footer>
   );
