@@ -15,27 +15,11 @@
   body{background:#222;display:grid;place-items:center;min-height:100vh;padding:24px}
   .stage{width:1080px;height:1080px;position:relative;overflow:hidden;font-family:var(--sans);box-shadow:0 60px 120px -40px rgba(0,0,0,.5);
     background:linear-gradient(180deg,#fbf3df 0%, #f4ead0 55%, #eaddbe 100%)}
-  /* Bright classroom daylight (illustrative) */
-  .room{position:absolute;inset:0;z-index:1}
-  .window{position:absolute;top:120px;height:520px;width:150px;border-radius:8px;
-    background:linear-gradient(180deg, rgba(255,245,214,.95), rgba(203,224,214,.6));
-    box-shadow:0 30px 60px rgba(212,172,110,.25), inset 0 0 0 8px rgba(255,255,255,.5);opacity:.9}
-  .window::before,.window::after{content:"";position:absolute;background:rgba(255,255,255,.7)}
-  .window::before{left:50%;top:0;bottom:0;width:6px;transform:translateX(-50%)}
-  .window::after{top:50%;left:0;right:0;height:6px;transform:translateY(-50%)}
-  .w1{right:520px}.w2{right:330px}.w3{right:140px}
-  .sun{position:absolute;right:180px;top:80px;width:520px;height:520px;border-radius:50%;z-index:1;
-    background:radial-gradient(circle, rgba(255,244,208,.9) 0%, rgba(255,232,170,.4) 35%, transparent 68%);mix-blend-mode:screen}
-  /* chalkboard */
-  .board{position:absolute;right:120px;top:250px;width:430px;height:250px;border-radius:8px;z-index:2;
-    background:linear-gradient(160deg,#33463d,#25352e);border:10px solid #caa96e;
-    box-shadow:0 30px 50px rgba(10,19,38,.25), inset 0 0 40px rgba(0,0,0,.4)}
-  .board .chalk{position:absolute;left:28px;top:34px;right:28px;height:2px;background:rgba(243,237,224,.5);box-shadow:0 40px 0 rgba(243,237,224,.35),0 80px 0 rgba(243,237,224,.22);border-radius:2px}
-  .board .abc{position:absolute;left:28px;bottom:26px;font-family:var(--display);font-style:italic;font-size:44px;color:rgba(243,237,224,.85)}
-  /* shelf of books */
-  .books{position:absolute;right:150px;bottom:120px;display:flex;align-items:flex-end;gap:11px;z-index:2}
-  .books::after{content:"";position:absolute;left:-24px;right:-24px;bottom:-16px;height:12px;border-radius:4px;background:linear-gradient(180deg,#caa96e,#a9854f);box-shadow:0 16px 24px rgba(10,19,38,.25)}
-  .spine{width:36px;border-radius:5px 5px 2px 2px;box-shadow:0 14px 20px rgba(10,19,38,.2), inset 0 8px 0 rgba(255,255,255,.18)}
+  /* Documentary photo — Randall in an Oregon classroom */
+  .photo{position:absolute;inset:0;z-index:1;
+    background:url("/randall-fryer-education.png") no-repeat;
+    background-size:cover;background-position:60% 30%;
+    filter:saturate(.94) contrast(1.03)}
   /* grain */
   .stage::after{content:"";position:absolute;inset:0;z-index:40;pointer-events:none;
     background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .05 0 0 0 0 .1 0 0 0 0 .18 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");mix-blend-mode:multiply;opacity:.4}
@@ -55,18 +39,7 @@
 </head>
 <body>
   <div class="stage">
-    <div class="room" aria-hidden>
-      <div class="sun"></div>
-      <div class="window w1"></div><div class="window w2"></div><div class="window w3"></div>
-      <div class="board"><div class="chalk"></div><div class="abc">Aa Bb Cc</div></div>
-      <div class="books">
-        <div class="spine" style="height:190px;background:linear-gradient(180deg,#7a2422,#5a1a19)"></div>
-        <div class="spine" style="height:230px;background:linear-gradient(180deg,#33463d,#25352e)"></div>
-        <div class="spine" style="height:170px;background:linear-gradient(180deg,#d4ac6e,#b58a4a)"></div>
-        <div class="spine" style="height:210px;background:linear-gradient(180deg,#18223b,#0f1830)"></div>
-        <div class="spine" style="height:150px;background:linear-gradient(180deg,#9b2d2c,#7a2422)"></div>
-      </div>
-    </div>
+    <div class="photo" aria-hidden></div>
 
     <div class="panel">
       <div>
