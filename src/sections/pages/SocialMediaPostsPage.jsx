@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { m } from "motion/react";
 import PageHero from "@/components/ui/PageHero";
+import Button from "@/components/ui/Button";
 import LivePreview from "@/components/ui/LivePreview";
 import SectionFrame from "@/animations/SectionFrame";
 import {
@@ -210,24 +211,28 @@ export default function SocialMediaPostsPage() {
 
         {remaining > 0 && (
           <div className="mt-14 flex flex-col items-center gap-3">
-            <button
+            <Button
+              as="button"
               type="button"
               onClick={() => setShown((s) => s + PAGE_SIZE)}
-              className="group inline-flex items-center gap-3 rounded-pill border border-ink/25 px-6 py-3 font-mono text-[11px] uppercase tracking-[0.24em] text-ink transition-colors duration-300 hover:border-ink hover:bg-ink hover:text-bone"
+              variant="outline-inverse"
+              size="sm"
             >
-              Show more creatives
-              <span className="text-ink-mute transition-colors group-hover:text-bone/70">
-                {remaining} left
+              <span className="inline-flex items-center gap-3">
+                Show more creatives
+                <span className="text-bone/70 transition-colors group-hover:text-ink-mute">
+                  {remaining} left
+                </span>
+                <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden>
+                  <path
+                    d="M7 1v12M1 7h12"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="square"
+                  />
+                </svg>
               </span>
-              <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden>
-                <path
-                  d="M7 1v12M1 7h12"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="square"
-                />
-              </svg>
-            </button>
+            </Button>
             <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-ink-mute">
               Showing {shownItems.length} of {visible.length}
             </span>

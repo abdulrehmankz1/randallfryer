@@ -420,12 +420,12 @@ function SignupForm() {
         aria-busy={submitting}
         className="group/btn relative inline-flex items-center justify-center overflow-hidden rounded-pill bg-ink px-7 py-4 font-mono text-[12px] uppercase tracking-[0.22em] text-bone transition-colors duration-500 hover:bg-signal disabled:opacity-70"
       >
-        <span className="block transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/btn:-translate-y-[200%]">
+        <span className="block transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/btn:-translate-y-[200%]">
           {sent ? "Subscribed" : submitting ? "Sending…" : "Subscribe"}
         </span>
         <span
           aria-hidden
-          className="pointer-events-none absolute inset-0 flex translate-y-full items-center justify-center transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/btn:translate-y-0"
+          className="pointer-events-none absolute inset-0 flex translate-y-full items-center justify-center transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/btn:translate-y-0"
         >
           {sent ? "Subscribed" : submitting ? "Sending…" : "Subscribe"}
         </span>

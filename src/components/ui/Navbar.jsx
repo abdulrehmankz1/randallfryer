@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, m, useScroll, useTransform, useSpring } from "motion/react";
 import { cn } from "@/lib/cn";
+import Button from "@/components/ui/Button";
 import { DONATE_URL } from "@/constants/site";
 
 const NAV_LINKS = [
@@ -54,7 +55,7 @@ export default function Navbar() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
         className={cn(
-          "fixed inset-x-0 top-0 z-50 transition-[background,backdrop-filter,border] duration-500",
+          "fixed inset-x-0 top-0 z-50 transition-[background,backdrop-filter,border] duration-400",
           solid
             ? "border-b border-ink/10 bg-bone/85 backdrop-blur-xl"
             : "border-b border-transparent bg-transparent"
@@ -105,17 +106,22 @@ export default function Navbar() {
             </nav>
 
             <div className="flex items-center gap-2 sm:gap-3">
-              <a
-                href={DONATE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative hidden items-center gap-2 overflow-hidden rounded-pill bg-signal px-5 py-2.5 font-mono text-[11px] uppercase tracking-[0.24em] text-bone transition-colors hover:bg-ink sm:inline-flex"
-              >
-                <span className="relative z-10 flex items-center gap-2">
+              <div className="hidden sm:block">
+                <Button
+                  as="a"
+                  href={DONATE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  variant="signal"
+                  size="sm"
+                >
                   Donate
-                  <span className="block h-1.5 w-1.5 rounded-full bg-bone/90" />
-                </span>
-              </a>
+                  <span
+                    aria-hidden
+                    className="ml-2 inline-block h-1.5 w-1.5 rounded-full bg-bone/90 align-middle"
+                  />
+                </Button>
+              </div>
 
               <button
                 type="button"
@@ -216,15 +222,18 @@ function MobileMenu({ close }) {
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.45 }}
           className="mt-10 flex gap-3"
         >
-          <a
+          <Button
+            as="a"
             href={DONATE_URL}
             target="_blank"
             rel="noopener noreferrer"
             onClick={close}
-            className="inline-flex flex-1 items-center justify-center rounded-pill bg-signal px-5 py-3 font-mono text-[11px] uppercase tracking-[0.22em] text-bone"
+            variant="signal"
+            size="sm"
+            className="flex-1"
           >
             Donate
-          </a>
+          </Button>
         </m.div>
 
         <div className="mt-auto pb-10 pt-12">
