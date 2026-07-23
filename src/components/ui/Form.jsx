@@ -5,17 +5,17 @@ import { cn } from "@/lib/cn";
 
 /**
  * Standard legal line shown below every form's submit button.
- * Links route to the Terms (/terms) and Privacy (/privacy) pages.
+ * Links route to the Terms (/terms-of-service) and Privacy (/privacy-policy) pages.
  */
 export function FormDisclaimer({ className }) {
   return (
     <p className={cn("text-[12px] leading-relaxed text-ink-mute", className)}>
       By submitting you agree to the{" "}
-      <Link href="/terms" className="link-underline hover:text-ink">
+      <Link href="/terms-of-service" className="link-underline hover:text-ink">
         Terms of Service
       </Link>{" "}
       and{" "}
-      <Link href="/privacy" className="link-underline hover:text-ink">
+      <Link href="/privacy-policy" className="link-underline hover:text-ink">
         Privacy Policy
       </Link>
       .

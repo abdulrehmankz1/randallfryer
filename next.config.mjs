@@ -6,12 +6,13 @@ const nextConfig = {
       { protocol: "https", hostname: "i.pravatar.cc" },
     ],
   },
-  // A2P/TCR reviewers often check the standard policy URLs. Keep /privacy and
-  // /terms as canonical, but resolve the SOP-standard paths too.
+  // /privacy-policy and /terms-of-service are the canonical policy URLs
+  // (per the A2P Website Compliance SOP). Keep the older short paths working
+  // by redirecting them to the canonical ones.
   async redirects() {
     return [
-      { source: "/privacy-policy", destination: "/privacy", permanent: true },
-      { source: "/terms-of-service", destination: "/terms", permanent: true },
+      { source: "/privacy", destination: "/privacy-policy", permanent: true },
+      { source: "/terms", destination: "/terms-of-service", permanent: true },
     ];
   },
 };

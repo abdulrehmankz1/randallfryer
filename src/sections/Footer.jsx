@@ -6,6 +6,7 @@ import Link from "next/link";
 import { m, useScroll, useTransform } from "motion/react";
 import SplitReveal from "@/animations/SplitReveal";
 import Button from "@/components/ui/Button";
+import { openCookieSettings } from "@/lib/cookieConsent";
 import {
   DONATE_URL,
   LEGAL_BUSINESS_NAME,
@@ -220,12 +221,19 @@ export default function Footer() {
             Paid for by {LEGAL_BUSINESS_NAME}
           </p>
           <div className="col-span-12 flex flex-wrap items-center gap-x-5 gap-y-1 font-mono text-[10px] uppercase tracking-[0.28em] text-ink-mute lg:col-span-6 lg:justify-end">
-            <Link href="/privacy" className="link-underline hover:text-ink">
+            <Link href="/privacy-policy" className="link-underline hover:text-ink">
               Privacy Policy
             </Link>
-            <Link href="/terms" className="link-underline hover:text-ink">
+            <Link href="/terms-of-service" className="link-underline hover:text-ink">
               Terms of Service
             </Link>
+            <button
+              type="button"
+              onClick={openCookieSettings}
+              className="link-underline uppercase tracking-[0.28em] hover:text-ink"
+            >
+              Cookie Settings
+            </button>
           </div>
         </div>
 
