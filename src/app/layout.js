@@ -2,8 +2,7 @@ import { Plus_Jakarta_Sans, Figtree } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import MotionProvider from "@/animations/MotionProvider";
-import Navbar from "@/components/ui/Navbar";
-import Footer from "@/sections/Footer";
+import SiteChrome from "@/components/ui/SiteChrome";
 
 // Heading typeface — Randall Fryer brand (Op1776 CI-0216)
 const plusJakarta = Plus_Jakarta_Sans({
@@ -55,9 +54,7 @@ export default function RootLayout({ children }) {
     >
       <body className="relative min-h-full flex flex-col">
         <MotionProvider>
-          <Navbar />
-          {children}
-          <Footer />
+          <SiteChrome>{children}</SiteChrome>
         </MotionProvider>
       </body>
     </html>
