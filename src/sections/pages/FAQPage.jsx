@@ -5,6 +5,7 @@ import Link from "next/link";
 import { AnimatePresence, m } from "motion/react";
 import SectionFrame from "@/animations/SectionFrame";
 import SplitReveal from "@/animations/SplitReveal";
+import Reveal from "@/animations/Reveal";
 import PageHero from "@/components/ui/PageHero";
 import Button from "@/components/ui/Button";
 
@@ -18,7 +19,7 @@ const GROUPS = [
       },
       {
         q: "What is CapitalWatch?",
-        a: "CapitalWatch is the name of the campaign and the operating idea — that public money should be tracked, published, and audited in plain English. It is also the platform we will pursue if elected.",
+        a: "CapitalWatch is the name of the campaign and the operating idea that public money should be tracked, published, and audited in plain English. It is also the platform we will pursue if elected.",
       },
       {
         q: "When is the primary?",
@@ -35,10 +36,10 @@ const GROUPS = [
       },
       {
         q: "How much time does it take?",
-        a: "One hour a week is meaningful. Four hours a week is huge. Pick what fits your life — we&rsquo;ll find a role that uses it well.",
+        a: "One hour a week is meaningful. Four hours a week is huge. Pick what fits your life we&rsquo;ll find a role that uses it well.",
       },
       {
-        q: "I live outside District 14 — can I still help?",
+        q: "I live outside District 14 can I still help?",
         a: "Yes. Phone banking, digital outreach, and call-time fundraising can be done from anywhere. We pair out-of-district volunteers carefully.",
       },
     ],
@@ -56,7 +57,7 @@ const GROUPS = [
       },
       {
         q: "Can I cancel a recurring donation?",
-        a: "Yes, anytime. Email Randall@randallfororegon.com or use the link in your WinRed receipt — we cancel the same business day.",
+        a: "Yes, anytime. Email Randall@randallfororegon.com or use the link in your WinRed receipt we cancel the same business day.",
       },
     ],
   },
@@ -73,7 +74,7 @@ const GROUPS = [
       },
       {
         q: "How will you fund an Inspector General?",
-        a: "Roughly $640k annually — fully offset by the savings the office is statistically certain to recover in its first 18 months. The full math is in the policy brief.",
+        a: "Roughly $640k annually fully offset by the savings the office is statistically certain to recover in its first 18 months. The full math is in the policy brief.",
       },
     ],
   },
@@ -83,18 +84,17 @@ export default function FAQPage() {
   return (
     <main className="relative flex flex-1 flex-col">
       <PageHero
-        eyebrow="File №09 — Frequently asked"
+        eyebrow="File №09 Frequently asked"
         number="Help / IX"
         title="The questions we hear most."
-        intro="Pulled from coffees, doorsteps, and the inbox. Don't see your question? Send it over — Adrian replies personally."
+        intro="Pulled from coffees, doorsteps, and the inbox. Don't see your question? Send it over Adrian replies personally."
       />
 
       {GROUPS.map((g, gi) => (
         <SectionFrame
           key={g.title}
-          label={`0${gi + 2} — ${g.title}`}
+          label={`0${gi + 2} ${g.title}`}
           number={`Group / ${["II", "III", "IV", "V"][gi]}`}
-          withBottomLine={gi !== GROUPS.length - 1}
         >
           <div className="grid grid-cols-12 gap-y-8 lg:gap-x-12">
             <div className="col-span-12 lg:col-span-4">
@@ -118,7 +118,7 @@ export default function FAQPage() {
 
       {/* CTA */}
       <SectionFrame
-        label={`0${GROUPS.length + 2} — Still curious?`}
+        label={`0${GROUPS.length + 2} Still curious?`}
         number="Contact / Final"
       >
         <div className="grid grid-cols-12 items-end gap-y-10 lg:gap-x-12">
@@ -129,16 +129,15 @@ export default function FAQPage() {
             >
               Ask the question we missed.
             </SplitReveal>
-            <m.p
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.9, delay: 0.2 }}
+            <Reveal
+              as="p"
+              duration={0.9}
+              delay={0.2}
               className="mt-6 max-w-xl text-lg leading-relaxed text-ink/75"
             >
               Adrian reads every submission personally. We&rsquo;ll
               fold the best questions back into this page.
-            </m.p>
+            </Reveal>
           </div>
           <div className="col-span-12 flex flex-wrap items-center gap-3 lg:col-span-5 lg:justify-end">
             <Button as={Link} href="/contact" variant="primary" withArrow>
@@ -154,15 +153,10 @@ export default function FAQPage() {
 function FAQItem({ item, index }) {
   const [open, setOpen] = useState(false);
   return (
-    <m.li
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{
-        duration: 0.7,
-        ease: [0.16, 1, 0.3, 1],
-        delay: index * 0.06,
-      }}
+    <Reveal
+      as="li"
+      y={20}
+      delay={index * 0.06}
       className="border-b border-ink/15"
     >
       <button
@@ -206,6 +200,6 @@ function FAQItem({ item, index }) {
           </m.div>
         )}
       </AnimatePresence>
-    </m.li>
+    </Reveal>
   );
 }

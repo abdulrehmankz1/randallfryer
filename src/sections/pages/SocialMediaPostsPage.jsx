@@ -2,11 +2,11 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { m } from "motion/react";
 import PageHero from "@/components/ui/PageHero";
 import Button from "@/components/ui/Button";
 import LivePreview from "@/components/ui/LivePreview";
 import SectionFrame from "@/animations/SectionFrame";
+import Reveal from "@/animations/Reveal";
 import {
   SOCIAL_POSTS,
   CAROUSELS,
@@ -63,10 +63,9 @@ export default function SocialMediaPostsPage() {
   return (
     <main className="relative flex flex-1 flex-col">
       <PageHero
-        eyebrow="File №09 — Press Kit"
         number="Creatives / IX"
         title="Social media posts."
-        intro="The full visual campaign — editorial creatives across Instagram feed, stories, and multi-slide carousels. Every artboard renders live, exactly as designed."
+        intro="The full visual campaign editorial creatives across Instagram feed, stories, and multi-slide carousels. Every artboard renders live, exactly as designed."
       >
         <div className="mt-10 flex flex-wrap items-center gap-x-10 gap-y-4 font-mono text-[11px] uppercase tracking-[0.28em] text-ink-mute">
           <span className="flex items-baseline gap-2">
@@ -89,22 +88,11 @@ export default function SocialMediaPostsPage() {
             </span>
             Carousels
           </span>
-          <span className="hairline h-px w-8" />
-          <span className="flex items-baseline gap-2">
-            <span className="display-serif text-2xl font-medium tracking-tight text-signal">
-              0
-            </span>
-            Stock photos used
-          </span>
         </div>
       </PageHero>
 
       {/* CONTROLS */}
-      <SectionFrame
-        id="gallery"
-        label="02 — Gallery"
-        number={`${visible.length} of ${GALLERY_ITEMS.length}`}
-      >
+      <SectionFrame id="gallery">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           {/* Filter chips */}
           <div className="flex flex-wrap items-center gap-2">
@@ -193,19 +181,14 @@ export default function SocialMediaPostsPage() {
               up compositor layers. A simple in-view fade keeps it light and lets
               offscreen cards stay idle. */}
           {shownItems.map((post, i) => (
-            <m.li
+            <Reveal
+              as="li"
               key={post.slug}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.15, margin: "0px 0px -10% 0px" }}
-              transition={{
-                duration: 0.55,
-                ease: [0.16, 1, 0.3, 1],
-                delay: (i % 4) * 0.04,
-              }}
+              duration={0.55}
+              delay={(i % 4) * 0.04}
             >
               <PostCard post={post} />
-            </m.li>
+            </Reveal>
           ))}
         </ul>
 
@@ -250,49 +233,6 @@ export default function SocialMediaPostsPage() {
           </div>
         )}
       </SectionFrame>
-
-      {/* Usage block */}
-      <SectionFrame label="03 — Usage" number="Press notes / III">
-        <div className="grid grid-cols-12 gap-y-8 lg:gap-x-12">
-          <div className="col-span-12 lg:col-span-7">
-            <h2 className="display-serif text-balance text-[clamp(1.75rem,4vw,3rem)] font-medium leading-[1.05] tracking-[-0.02em]">
-              For press, partners, and{" "}
-              <span className="italic text-signal-deep">supporters.</span>
-            </h2>
-            <p className="mt-6 max-w-xl text-[1.05rem] leading-relaxed text-ink/75">
-              Every creative renders live in the browser — open one to inspect
-              the file in full, or use the share link in any post to embed it
-              directly on a partner site.
-            </p>
-          </div>
-          <ul className="col-span-12 grid gap-6 lg:col-span-5">
-            {[
-              {
-                t: "Source files",
-                d: "Each artboard is a standalone HTML file — no build step required.",
-              },
-              {
-                t: "Live preview",
-                d: "Click any tile to open the full creative at its native resolution.",
-              },
-              {
-                t: "Brand consistent",
-                d: "Palette, typography, and 3D treatments match the rest of CapitalWatch.",
-              },
-            ].map((item) => (
-              <li
-                key={item.t}
-                className="border-t border-ink/15 pt-5"
-              >
-                <span className="eyebrow">{item.t}</span>
-                <p className="mt-2 text-[0.95rem] leading-relaxed text-ink/80">
-                  {item.d}
-                </p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </SectionFrame>
     </main>
   );
 }
@@ -326,7 +266,7 @@ function PostCard({ post }) {
             poster={posterFor(post.file)}
             width={fmt.width}
             height={fmt.height}
-            title={`${post.title} — preview`}
+            title={`${post.title} preview`}
           />
 
           {/* Format chip */}

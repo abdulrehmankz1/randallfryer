@@ -2,9 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { m } from "motion/react";
 import SectionFrame from "@/animations/SectionFrame";
 import SplitReveal from "@/animations/SplitReveal";
+import Reveal from "@/animations/Reveal";
 import PageHero from "@/components/ui/PageHero";
 import Button from "@/components/ui/Button";
 import { EVENTS } from "@/data/events";
@@ -17,7 +17,7 @@ export default function EventsPage() {
   return (
     <main className="relative flex flex-1 flex-col">
       <PageHero
-        eyebrow="File No: 04 — Events"
+        eyebrow="File No: 04 Events"
         number="Calendar / IV"
         title="Bring your questions to the events."
         intro="No gatekeepers. No carefully staged conversations. Team Fryer's town halls, neighborhood gatherings, canvasses, and community events are opportunities to meet Randall, ask direct questions, and talk honestly about what District 28 needs from Salem. Come as you are. Bring your questions. Bring a neighbor."
@@ -26,7 +26,7 @@ export default function EventsPage() {
       />
 
       {/* UPCOMING */}
-      <SectionFrame label="02 — Upcoming events" number={`${upcoming.length} scheduled`}>
+      <SectionFrame label="02 Upcoming events" number={`${upcoming.length} scheduled`}>
         {upcoming.length === 0 ? (
           <EmptyState />
         ) : (
@@ -39,7 +39,7 @@ export default function EventsPage() {
       </SectionFrame>
 
       {past.length > 0 && (
-        <SectionFrame label="03 — Past events" number="Archive / III">
+        <SectionFrame label="03 Past events" number="Archive / III">
           <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {past.map((ev, i) => (
               <PastCard key={ev.slug} ev={ev} index={i} />
@@ -49,7 +49,7 @@ export default function EventsPage() {
       )}
 
       {/* NEVER MISS A CONVERSATION */}
-      <SectionFrame label="04 — Stay in the loop" number="Notifications / IV">
+      <SectionFrame label="04 Stay in the loop" number="Notifications / IV">
         <div className="grid grid-cols-12 items-end gap-y-10 lg:gap-x-12">
           <div className="col-span-12 lg:col-span-7">
             <SplitReveal
@@ -58,18 +58,17 @@ export default function EventsPage() {
             >
               Never miss a conversation.
             </SplitReveal>
-            <m.p
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.9, delay: 0.2 }}
+            <Reveal
+              as="p"
+              duration={0.9}
+              delay={0.2}
               className="mt-6 max-w-xl text-lg leading-relaxed text-ink/75"
             >
               Get notified when Randall announces a town hall, community
               gathering, volunteer canvass, candidate forum, or campaign
               appearance. Campaign emails may also include event reminders,
               schedule updates, and important election information.
-            </m.p>
+            </Reveal>
           </div>
           <div className="col-span-12 flex flex-wrap items-center gap-3 lg:col-span-5 lg:justify-end">
             <Button as={Link} href="/contact" variant="primary" withArrow>
@@ -85,12 +84,7 @@ export default function EventsPage() {
 
 function EventRow({ ev, index }) {
   return (
-    <m.li
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.15 }}
-      transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: index * 0.06 }}
-    >
+    <Reveal as="li" y={40} duration={0.9} delay={index * 0.06}>
       <Link
         href={`/events/${ev.slug}`}
         className="group grid grid-cols-12 gap-y-6 overflow-hidden rounded-card border border-ink/15 bg-bone-soft/40 transition-colors duration-500 hover:bg-bone-soft lg:gap-x-8"
@@ -150,18 +144,13 @@ function EventRow({ ev, index }) {
           </div>
         </div>
       </Link>
-    </m.li>
+    </Reveal>
   );
 }
 
 function PastCard({ ev, index }) {
   return (
-    <m.li
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: (index % 3) * 0.07 }}
-    >
+    <Reveal as="li" delay={(index % 3) * 0.07}>
       <Link
         href={`/events/${ev.slug}`}
         className="group flex flex-col gap-4"
@@ -184,7 +173,7 @@ function PastCard({ ev, index }) {
           {ev.title}
         </h3>
       </Link>
-    </m.li>
+    </Reveal>
   );
 }
 
@@ -199,7 +188,7 @@ function EmptyState() {
       </h3>
       <p className="max-w-xl text-[15px] leading-relaxed text-ink/75">
         The team is scheduling the next round of town halls, canvasses,
-        and meet-and-greets. Check back soon — new events will be posted
+        and meet-and-greets. Check back soon new events will be posted
         here as they are confirmed.
       </p>
     </div>

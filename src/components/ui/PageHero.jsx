@@ -25,6 +25,7 @@ export default function PageHero({
   imageAlt = "",
   className,
   children,
+  aside,
 }) {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -37,7 +38,10 @@ export default function PageHero({
     <section
       ref={ref}
       className={cn(
-        "relative isolate overflow-hidden pt-[88px]",
+        "relative isolate pt-[88px]",
+        // overflow-hidden clips the parallax image, but it also breaks the
+        // sticky left column — so only clip when there's no sticky aside.
+        aside && !image ? "overflow-visible" : "overflow-hidden",
         className
       )}
     >
@@ -49,10 +53,12 @@ export default function PageHero({
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
           className="flex flex-wrap items-baseline justify-between gap-y-3 text-ink/65"
         >
-          <span className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.28em]">
-            <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-signal" />
-            {eyebrow}
-          </span>
+          {eyebrow && (
+            <span className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.28em]">
+              <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-signal" />
+              {eyebrow}
+            </span>
+          )}
           {number && (
             <span className="font-mono text-[11px] uppercase tracking-[0.28em]">
               {number}
@@ -73,7 +79,16 @@ export default function PageHero({
         />
 
         <div className="mt-12 grid grid-cols-12 gap-y-12 lg:mt-16 lg:gap-x-10">
-          <div className={cn("col-span-12", image ? "lg:col-span-7" : "lg:col-span-9")}>
+          <div
+            className={cn(
+              "col-span-12",
+              image
+                ? "lg:col-span-7"
+                : aside
+                ? "lg:col-span-6 lg:sticky lg:top-28 lg:self-start"
+                : "lg:col-span-9"
+            )}
+          >
             <SplitReveal
               as="h1"
               className="display-serif block text-balance text-[clamp(2.2rem,5.2vw,4.6rem)] font-medium leading-[1] tracking-[-0.025em] text-ink"
@@ -96,6 +111,17 @@ export default function PageHero({
             )}
             {children}
           </div>
+
+          {aside && !image && (
+            <m.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
+              className="col-span-12 lg:col-span-6"
+            >
+              {aside}
+            </m.div>
+          )}
 
           {image && (
             <m.div

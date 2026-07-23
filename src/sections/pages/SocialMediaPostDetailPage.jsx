@@ -6,6 +6,7 @@ import { m } from "motion/react";
 import LivePreview from "@/components/ui/LivePreview";
 import SectionFrame from "@/animations/SectionFrame";
 import SplitReveal from "@/animations/SplitReveal";
+import Reveal from "@/animations/Reveal";
 import { FORMATS, getRelatedSocialPosts, posterFor } from "@/data/socialPosts";
 import { cn } from "@/lib/cn";
 
@@ -156,23 +157,23 @@ export default function SocialMediaPostDetailPage({ post }) {
           </div>
 
           {/* Spec strip */}
-          <m.dl
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+          <Reveal
+            as="dl"
+            y={16}
+            duration={0.8}
+            delay={0.2}
             className="mx-auto mt-10 grid max-w-3xl grid-cols-2 gap-y-4 border-t border-bone/15 pt-8 font-mono text-[11px] uppercase tracking-[0.24em] text-bone/65 sm:grid-cols-4"
           >
             <Spec label="Format" value={fmt.label} />
             <Spec label="Aspect" value={fmt.sub} />
             <Spec label="File" value={`№${post.no}`} />
             <Spec label="Type" value="HTML / CSS" />
-          </m.dl>
+          </Reveal>
         </div>
       </section>
 
       {/* CONCEPT NOTE */}
-      <SectionFrame label="03 — Concept" number={`File №${post.no}`}>
+      <SectionFrame label="03 Concept" number={`File №${post.no}`}>
         <div className="grid grid-cols-12 gap-y-8 lg:gap-x-12">
           <div className="col-span-12 lg:col-span-7">
             <h2 className="display-serif text-balance text-[clamp(1.6rem,3.5vw,2.6rem)] font-medium leading-[1.05] tracking-[-0.02em]">
@@ -180,7 +181,7 @@ export default function SocialMediaPostDetailPage({ post }) {
               <span className="italic text-signal-deep">.</span>
             </h2>
             <p className="mt-6 max-w-xl text-[1.05rem] leading-relaxed text-ink/75">
-              Rendered live from a standalone HTML file — no images, no
+              Rendered live from a standalone HTML file no images, no
               screenshots, no build step. Every layer (paper grain, lighting,
               3D depth) is pure CSS so the creative scales cleanly at any
               resolution.
@@ -190,7 +191,7 @@ export default function SocialMediaPostDetailPage({ post }) {
             {[
               {
                 t: "Native size",
-                d: `${fmt.width} × ${fmt.height} px — matches Instagram's ${fmt.label.toLowerCase()} spec.`,
+                d: `${fmt.width} × ${fmt.height} px matches Instagram's ${fmt.label.toLowerCase()} spec.`,
               },
               {
                 t: "Typography",
@@ -216,22 +217,12 @@ export default function SocialMediaPostDetailPage({ post }) {
       </SectionFrame>
 
       {/* RELATED */}
-      <SectionFrame label="04 — More creatives" number={`${related.length} next`}>
+      <SectionFrame label="04 More creatives" number={`${related.length} next`}>
         <ul className="grid grid-cols-2 gap-x-5 gap-y-10 sm:grid-cols-3 lg:grid-cols-4">
           {related.map((p, i) => {
             const f = FORMATS[p.format];
             return (
-              <m.li
-                key={p.slug}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{
-                  duration: 0.7,
-                  ease: [0.16, 1, 0.3, 1],
-                  delay: i * 0.06,
-                }}
-              >
+              <Reveal as="li" key={p.slug} delay={i * 0.06}>
                 <Link
                   href={`/social-media-posts/${p.slug}`}
                   className="group flex flex-col gap-3"
@@ -254,7 +245,7 @@ export default function SocialMediaPostDetailPage({ post }) {
                     {p.title}
                   </h3>
                 </Link>
-              </m.li>
+              </Reveal>
             );
           })}
         </ul>

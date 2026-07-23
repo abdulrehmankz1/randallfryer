@@ -166,7 +166,7 @@ export default function Hero() {
                   <span
                     className={`inline-block ${
                       i === HEADLINE_LINES.length - 1
-                        ? "italic text-signal"
+                        ? "text-signal"
                         : ""
                     }`}
                   >
@@ -310,7 +310,7 @@ function Marquee() {
   // Duplicate for seamless loop
   const items = [...words, ...words, ...words];
   return (
-    <div className="relative overflow-hidden border-y border-ink/15 bg-bone-soft/50 py-5">
+    <div className="relative overflow-hidden border-y border-signal-deep bg-signal py-5">
       <m.div
         animate={{ x: ["0%", "-33.333%"] }}
         transition={{ duration: 38, repeat: Infinity, ease: "linear" }}
@@ -319,10 +319,10 @@ function Marquee() {
         {items.map((w, i) => (
           <span
             key={i}
-            className="display-serif text-3xl font-medium italic tracking-tight text-ink sm:text-4xl"
+            className="display-serif text-3xl font-medium italic tracking-tight text-bone sm:text-4xl"
           >
             {w}
-            <span className="ml-12 inline-block h-2 w-2 -translate-y-1.5 rounded-full bg-ochre align-middle" />
+            <span className="ml-12 inline-block h-2 w-2 -translate-y-1.5 rounded-full bg-bone align-middle" />
           </span>
         ))}
       </m.div>

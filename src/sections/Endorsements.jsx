@@ -5,6 +5,8 @@ import Link from "next/link";
 import { m, useScroll, useTransform } from "motion/react";
 import SectionFrame from "@/animations/SectionFrame";
 import SplitReveal from "@/animations/SplitReveal";
+import Reveal from "@/animations/Reveal";
+import { useReveal } from "@/animations/useReveal";
 import Button from "@/components/ui/Button";
 import BrandIcon from "@/components/ui/BrandIcon";
 
@@ -25,7 +27,7 @@ const APPROACH = [
     no: "03",
     icon: "columns",
     title: "A Systems-Based Mindset",
-    body: "Randall's earlier professional experience in software development taught him to understand how complicated systems work — and why they fail. He will bring that same analytical mindset to budgets, agencies, regulations, and legislation in Salem.",
+    body: "Randall's earlier professional experience in software development taught him to understand how complicated systems work and why they fail. He will bring that same analytical mindset to budgets, agencies, regulations, and legislation in Salem.",
   },
 ];
 
@@ -41,7 +43,7 @@ export default function Endorsements() {
     <div ref={ref} className="relative">
       <SectionFrame
         id="approach"
-        label="03 — The Approach"
+        label="03 The Approach"
         number="Evidence / III"
         tone="light"
       >
@@ -55,11 +57,10 @@ export default function Endorsements() {
                 Decisions based on evidence, not slogans.
               </SplitReveal>
             </div>
-            <m.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+            <Reveal
+              y={20}
+              duration={0.8}
+              delay={0.2}
               className="col-span-12 lg:col-span-5 lg:pl-6"
             >
               <p className="max-w-md text-lg leading-relaxed text-ink/75">
@@ -72,7 +73,7 @@ export default function Endorsements() {
                   Meet Randall
                 </Button>
               </div>
-            </m.div>
+            </Reveal>
           </div>
 
           {/* Approach cards */}
@@ -81,36 +82,43 @@ export default function Endorsements() {
             className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-7"
           >
             {APPROACH.map((a, i) => (
-              <m.article
-                key={a.no}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{
-                  duration: 0.9,
-                  ease: [0.16, 1, 0.3, 1],
-                  delay: i * 0.1,
-                }}
-                whileHover={{ y: -6 }}
-                className="group relative flex h-full flex-col gap-5 overflow-hidden rounded-card border border-ink/15 bg-bone-soft/60 p-8 transition-colors duration-500 hover:border-ink sm:p-9"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="grid h-11 w-11 place-items-center rounded-full border border-ink/15 text-signal transition-colors duration-500 group-hover:border-signal/50 group-hover:text-signal-deep">
-                    <BrandIcon name={a.icon} className="h-5 w-5" />
-                  </span>
-                </div>
-                <h3 className="display-serif text-[clamp(1.35rem,2vw,1.75rem)] font-medium leading-tight tracking-[-0.01em]">
-                  {a.title}
-                </h3>
-                <p className="text-[15px] leading-relaxed text-ink/75">
-                  {a.body}
-                </p>
-              </m.article>
+              <ApproachCard key={a.no} a={a} index={i} />
             ))}
           </m.div>
         </div>
       </SectionFrame>
     </div>
+  );
+}
+
+function ApproachCard({ a, index }) {
+  const ref = useRef(null);
+  const inView = useReveal(ref);
+  return (
+    <m.article
+      ref={ref}
+      initial={{ opacity: 0, y: 40 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{
+        duration: 0.9,
+        ease: [0.16, 1, 0.3, 1],
+        delay: index * 0.1,
+      }}
+      whileHover={{ y: -6 }}
+      className="group relative flex h-full flex-col gap-5 overflow-hidden rounded-card border border-signal-deep bg-signal p-8 text-bone transition-colors duration-500 hover:border-bone/50 sm:p-9"
+    >
+      <div className="flex items-center justify-between">
+        <span className="grid h-20 w-20 place-items-center rounded-full border border-bone/40 bg-bone/10 text-bone transition-colors duration-500 group-hover:border-bone/70 group-hover:bg-bone/15">
+          <BrandIcon name={a.icon} className="h-11 w-11" bold />
+        </span>
+      </div>
+      <h3 className="display-serif text-[clamp(1.35rem,2vw,1.75rem)] font-medium leading-tight tracking-[-0.01em] text-bone">
+        {a.title}
+      </h3>
+      <p className="text-[15px] leading-relaxed text-bone/85">
+        {a.body}
+      </p>
+    </m.article>
   );
 }
 

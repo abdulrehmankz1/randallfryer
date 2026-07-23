@@ -19,7 +19,7 @@ export default function NotFound() {
         </h1>
         <p className="mt-6 max-w-xl text-balance text-lg leading-relaxed text-ink/80">
           The link may have changed or the page no longer exists. The
-          map back is below — or send the team a note and we&rsquo;ll
+          map back is below or send the team a note and we&rsquo;ll
           point you to the right place.
         </p>
 

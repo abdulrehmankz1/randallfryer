@@ -95,7 +95,10 @@ export default function SplitReveal({
   );
 
   return (
-    <Tag ref={ref} className={cn("inline-block", className)} {...rest}>
+    // w-full stops the inline-block from shrink-wrapping — with `text-balance`
+    // a shrunken box gets pushed along the inline flow and the heading no
+    // longer lines up with the eyebrow/body copy above and below it.
+    <Tag ref={ref} className={cn("inline-block w-full", className)} {...rest}>
       {children}
     </Tag>
   );

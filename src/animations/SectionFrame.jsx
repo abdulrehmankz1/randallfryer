@@ -1,8 +1,9 @@
 "use client";
 
 import { useRef } from "react";
-import { m, useInView } from "motion/react";
+import { m } from "motion/react";
 import { cn } from "@/lib/cn";
+import { useReveal } from "./useReveal";
 
 /**
  * SectionFrame — shared shell for every section.
@@ -24,12 +25,13 @@ export default function SectionFrame({
   children,
   className,
   innerClassName,
-  withBottomLine = true,
+  withBottomLine = false,
   tone = "light",
   backdrop = null,
+  allowOverflow = false,
 }) {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, amount: 0.15 });
+  const inView = useReveal(ref, { once: true });
 
   const isDark = tone === "dark" || tone === "signal";
   const surface =
@@ -47,7 +49,12 @@ export default function SectionFrame({
     <section
       ref={ref}
       id={id}
-      className={cn("relative overflow-hidden", surface, className)}
+      className={cn(
+        "relative",
+        allowOverflow ? "overflow-visible" : "overflow-hidden",
+        surface,
+        className
+      )}
     >
       {backdrop && (
         <div className="pointer-events-none absolute inset-0 z-0">{backdrop}</div>
@@ -96,7 +103,13 @@ export default function SectionFrame({
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.75 }}
-          className={cn("pt-10 sm:pt-14", innerClassName)}
+          className={cn(
+            "pt-10 sm:pt-14",
+            // When there is no bottom rule, keep the vertical rhythm the rule's
+            // margin used to provide so sections don't collapse together.
+            !withBottomLine && "pb-20 sm:pb-28",
+            innerClassName
+          )}
         >
           {children}
         </m.div>

@@ -6,6 +6,7 @@ import Link from "next/link";
 import { m, useScroll, useTransform } from "motion/react";
 import SectionFrame from "@/animations/SectionFrame";
 import SplitReveal from "@/animations/SplitReveal";
+import Reveal from "@/animations/Reveal";
 import Button from "@/components/ui/Button";
 
 export default function WhyRunning() {
@@ -21,7 +22,7 @@ export default function WhyRunning() {
     <div ref={ref} className="relative">
       <SectionFrame
         id="meet"
-        label="01 — Meet Randall"
+        label="01 Meet Randall"
         number="The Candidate / I"
       >
         <div className="grid grid-cols-12 gap-y-14 lg:gap-x-12">
@@ -46,12 +47,7 @@ export default function WhyRunning() {
               style={{ y }}
               className="mt-10 grid gap-7 text-lg leading-relaxed text-ink/85 sm:text-[1.075rem]"
             >
-              <m.p
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-              >
+              <Reveal as="p" y={30} duration={0.9}>
                 Randall Fryer has spent his professional life working in
                 environments where outcomes matter. As a physician, he
                 learned to listen carefully, identify the real problem, and
@@ -59,57 +55,36 @@ export default function WhyRunning() {
                 family medicine and rural emergency departments reinforced a
                 simple principle: people deserve systems that perform when
                 they need them.
-              </m.p>
-              <m.p
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{
-                  duration: 0.9,
-                  ease: [0.16, 1, 0.3, 1],
-                  delay: 0.12,
-                }}
-              >
+              </Reveal>
+              <Reveal as="p" y={30} duration={0.9} delay={0.12}>
                 Randall believes Oregon&rsquo;s government should meet the
                 same standard. Schools should prepare students to read,
                 write, reason, and participate in civic life. Taxes should
                 fund services that produce visible value. Regulations should
                 protect the public without preventing employers from
                 investing, expanding, and creating jobs.
-              </m.p>
-              <m.p
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{
-                  duration: 0.9,
-                  ease: [0.16, 1, 0.3, 1],
-                  delay: 0.24,
-                }}
-              >
+              </Reveal>
+              <Reveal as="p" y={30} duration={0.9} delay={0.24}>
                 Randall is running to bring discipline, accountability, and
                 practical problem-solving back to Salem.
-              </m.p>
+              </Reveal>
             </m.div>
 
-            <m.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.4 }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+            <Reveal
+              duration={0.8}
+              delay={0.3}
               className="mt-10 flex flex-wrap items-center gap-5"
             >
               <Button as={Link} href="/about" variant="primary" withArrow>
                 Read Randall&rsquo;s Story
               </Button>
-            </m.div>
+            </Reveal>
 
             {/* Signature */}
-            <m.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true, amount: 0.5 }}
-              transition={{ duration: 1.2, delay: 0.5 }}
+            <Reveal
+              y={0}
+              duration={1.2}
+              delay={0.5}
               className="mt-14 flex items-center gap-5"
             >
               <div className="leading-tight">
@@ -118,7 +93,7 @@ export default function WhyRunning() {
                   Candidate · Oregon House · District 28
                 </div>
               </div>
-            </m.div>
+            </Reveal>
           </div>
         </div>
       </SectionFrame>
@@ -129,11 +104,9 @@ export default function WhyRunning() {
 function PortraitCard() {
   return (
     <div className="relative">
-      <m.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+      <Reveal
+        y={30}
+        duration={1.1}
         className="relative aspect-[4/5] w-full overflow-hidden rounded-card border border-ink/15 bg-ink"
       >
         {/* Portrait photo */}
@@ -176,7 +149,7 @@ function PortraitCard() {
           <span className="block h-1.5 w-1.5 rounded-full bg-ochre" />
           On the Ballot
         </div>
-      </m.div>
+      </Reveal>
     </div>
   );
 }

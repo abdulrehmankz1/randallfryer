@@ -1,9 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { m } from "motion/react";
-import SectionFrame from "@/animations/SectionFrame";
-import SplitReveal from "@/animations/SplitReveal";
 import PageHero from "@/components/ui/PageHero";
 import Button from "@/components/ui/Button";
 import {
@@ -11,6 +8,7 @@ import {
   FormSelect,
   FormTextarea,
   FormDisclaimer,
+  FormPanel,
 } from "@/components/ui/Form";
 import { usePhoneConsent, SmsConsentFieldset } from "@/components/ui/SmsConsent";
 import { ISSUE_CATEGORIES } from "@/constants/issues";
@@ -19,42 +17,16 @@ export default function AskRandallPage() {
   return (
     <main className="relative flex flex-1 flex-col">
       <PageHero
-        eyebrow="File №06 — Ask Randall"
+        eyebrow="File №06 Ask Randall"
         number="Ask / VI"
         title="Join the conversation and Ask."
         intro="The strongest campaigns are built face to face. Join Randall Fryer at an upcoming community gathering, neighborhood meet-and-greet, volunteer event, or campaign forum. Hear directly from Randall, ask questions, and share what matters to you and your family."
-      />
-
-      {/* FORM */}
-      <SectionFrame label="02 — Leave Randall a note" number="Form / II">
-        <div className="grid grid-cols-12 gap-y-10 lg:gap-x-12">
-          <div className="col-span-12 lg:col-span-4">
-            <SplitReveal
-              as="h2"
-              className="display-serif block text-balance text-[clamp(1.7rem,3.5vw,2.85rem)] font-medium leading-[1.05] tracking-[-0.02em]"
-            >
-              Leave Randall a note.
-            </SplitReveal>
-            <m.p
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.9, delay: 0.2 }}
-              className="mt-6 max-w-sm text-[1.05rem] leading-relaxed text-ink/80"
-            >
-              A short, specific question helps Randall and the campaign
-              provide a clearer and more useful response. Please focus on
-              one concern at a time and include only the background
-              information needed to understand your question.
-            </m.p>
-          </div>
-
-          <div className="col-span-12 lg:col-span-8">
+        aside={
+          <FormPanel label="Ask Randall a question">
             <AskForm />
-          </div>
-        </div>
-      </SectionFrame>
-
+          </FormPanel>
+        }
+      />
     </main>
   );
 }
@@ -121,7 +93,7 @@ function AskForm() {
           Received
         </span>
         <h3 className="display-serif mt-3 text-3xl font-medium sm:text-4xl">
-          Thanks — Randall will see this.
+          Thanks Randall will see this.
         </h3>
         <p className="mt-4 max-w-md leading-relaxed text-bone/80">
           Your message has reached the campaign directly. Thanks for taking

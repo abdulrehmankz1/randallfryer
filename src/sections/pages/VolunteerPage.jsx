@@ -1,10 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import { m } from "motion/react";
 import SectionFrame from "@/animations/SectionFrame";
 import SplitReveal from "@/animations/SplitReveal";
+import Reveal from "@/animations/Reveal";
+import { useReveal } from "@/animations/useReveal";
 import PageHero from "@/components/ui/PageHero";
 import Button from "@/components/ui/Button";
 import {
@@ -15,6 +17,7 @@ import {
   FormCheckbox,
   FormFieldset,
   FormDisclaimer,
+  FormPanel,
   validateZip,
 } from "@/components/ui/Form";
 import { usePhoneConsent, SmsConsentFieldset } from "@/components/ui/SmsConsent";
@@ -26,7 +29,7 @@ const VALUE_CARDS = [
     no: "01",
     icon: "community",
     title: "Make a real difference",
-    body: "Local campaigns are built one conversation at a time. The doors you knock, calls you make, and events you support help Randall connect directly with the people of District 28. Your contribution is practical — not symbolic.",
+    body: "Local campaigns are built one conversation at a time. The doors you knock, calls you make, and events you support help Randall connect directly with the people of District 28. Your contribution is practical not symbolic.",
   },
   {
     no: "02",
@@ -102,80 +105,28 @@ export default function VolunteerPage() {
   return (
     <main className="relative flex flex-1 flex-col">
       <PageHero
-        eyebrow="File №05 — Volunteer"
+        eyebrow="File №05 Volunteer"
         number="Join the team / V"
         title="The campaign is built by neighbors."
         intro="Knock on a few doors. Make a few calls. Host a conversation with friends or help at a community event. Every hour you contribute helps Randall Fryer listen to more residents, reach more voters, and build a stronger campaign for Oregon House District 28. You do not need political experience to make a difference. You only need a willingness to help bring disciplined, accountable, and results-focused leadership to Salem."
+        aside={
+          <FormPanel label="Volunteer sign-up">
+            <VolunteerForm />
+          </FormPanel>
+        }
       />
 
       {/* VALUE CARDS */}
-      <SectionFrame label="02 — Why it matters" number="Impact / II">
+      <SectionFrame label="02 Why it matters" number="Impact / II">
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {VALUE_CARDS.map((v, i) => (
-            <m.div
-              key={v.no}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{
-                duration: 0.8,
-                ease: [0.16, 1, 0.3, 1],
-                delay: i * 0.1,
-              }}
-              whileHover={{ y: -4 }}
-              className="group flex flex-col gap-4 rounded-card border border-ink/15 bg-bone-soft/60 p-7 transition-colors duration-500 hover:border-ink"
-            >
-              <div className="flex items-center justify-between">
-                <span className="grid h-11 w-11 place-items-center rounded-full border border-ink/15 text-signal transition-colors duration-500 group-hover:border-signal/50 group-hover:text-signal-deep">
-                  <BrandIcon name={v.icon} className="h-5 w-5" />
-                </span>
-                <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-ink-mute">
-                  {v.no}
-                </span>
-              </div>
-              <h3 className="display-serif flex min-h-[2.5em] items-start text-2xl font-medium leading-tight">
-                {v.title}
-              </h3>
-              <p className="text-[15px] leading-relaxed text-ink/75">
-                {v.body}
-              </p>
-            </m.div>
+            <ValueCard key={v.no} v={v} index={i} />
           ))}
         </div>
       </SectionFrame>
 
-      {/* SIGNUP FORM */}
-      <SectionFrame label="03 — Sign up" number="Form / III">
-        <div className="grid grid-cols-12 gap-y-10 lg:gap-x-12">
-          <div className="col-span-12 lg:col-span-4">
-            <SplitReveal
-              as="h2"
-              className="display-serif block text-balance text-[clamp(1.7rem,3.5vw,2.85rem)] font-medium leading-[1.05] tracking-[-0.02em]"
-            >
-              Join Team Fryer.
-            </SplitReveal>
-            <m.p
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.9, delay: 0.2 }}
-              className="mt-6 max-w-sm text-[1.05rem] leading-relaxed text-ink/80"
-            >
-              Tell us a little about yourself and how you would like to
-              help. A member of the campaign team will contact you with
-              available volunteer opportunities and the information you
-              need to get started.
-            </m.p>
-          </div>
-
-          <div className="col-span-12 lg:col-span-8">
-            <VolunteerForm />
-          </div>
-        </div>
-      </SectionFrame>
-
       {/* EXPECTATIONS */}
-      <SectionFrame label="04 — What happens next" number="Process / IV">
+      <SectionFrame label="03 What happens next" number="Process / III">
         <ol className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {[
             {
@@ -199,16 +150,10 @@ export default function VolunteerPage() {
               d: "Volunteer once, join occasional campaign events, or become a regular member of Team Fryer. You choose the level of involvement that works for you.",
             },
           ].map((s, i) => (
-            <m.li
+            <Reveal
+              as="li"
               key={s.n}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{
-                duration: 0.7,
-                ease: [0.16, 1, 0.3, 1],
-                delay: i * 0.08,
-              }}
+              delay={i * 0.08}
               className="flex flex-col gap-3 border-t border-ink/15 pt-5"
             >
               <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-signal">
@@ -218,14 +163,14 @@ export default function VolunteerPage() {
                 {s.t}
               </h3>
               <p className="text-[14px] leading-relaxed text-ink/75">{s.d}</p>
-            </m.li>
+            </Reveal>
           ))}
         </ol>
       </SectionFrame>
 
       {/* CONTACT BLOCK — hidden until the coordinator's details are populated */}
       {COORDINATOR_CONTACT.length > 0 && (
-        <SectionFrame label="05 — Talk to a coordinator" number="Contact / V">
+        <SectionFrame label="04 Talk to a coordinator" number="Contact / IV">
           <div className="grid grid-cols-12 items-end gap-y-10 lg:gap-x-12">
             <div className="col-span-12 lg:col-span-7">
               <SplitReveal
@@ -234,18 +179,17 @@ export default function VolunteerPage() {
               >
                 Prefer to talk to a person first?
               </SplitReveal>
-              <m.p
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.9, delay: 0.2 }}
+              <Reveal
+                as="p"
+                duration={0.9}
+                delay={0.2}
                 className="mt-6 max-w-xl text-[1.05rem] leading-relaxed text-ink/80"
               >
                 Questions are welcome. Contact the campaign&rsquo;s volunteer
                 coordinator to learn more about available roles,
                 accessibility, scheduling, or what to expect during your
                 first volunteer activity.
-              </m.p>
+              </Reveal>
             </div>
             <div className="col-span-12 lg:col-span-5">
               <dl className="flex flex-col gap-4">
@@ -271,6 +215,40 @@ export default function VolunteerPage() {
   );
 }
 
+function ValueCard({ v, index }) {
+  const ref = useRef(null);
+  const inView = useReveal(ref);
+  return (
+    <m.div
+      ref={ref}
+      initial={{ opacity: 0, y: 30 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{
+        duration: 0.8,
+        ease: [0.16, 1, 0.3, 1],
+        delay: index * 0.1,
+      }}
+      whileHover={{ y: -4 }}
+      className="group flex flex-col gap-4 rounded-card border border-signal-deep bg-signal p-7 text-bone transition-colors duration-500 hover:border-bone/50"
+    >
+      <div className="flex items-center justify-between">
+        <span className="grid h-20 w-20 place-items-center rounded-full border border-bone/40 bg-bone/10 text-bone transition-colors duration-500 group-hover:border-bone/70 group-hover:bg-bone/15">
+          <BrandIcon name={v.icon} className="h-11 w-11" bold />
+        </span>
+        <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-bone/70">
+          {v.no}
+        </span>
+      </div>
+      <h3 className="display-serif flex min-h-[2.5em] items-start text-2xl font-medium leading-tight text-bone">
+        {v.title}
+      </h3>
+      <p className="text-[15px] leading-relaxed text-bone/85">
+        {v.body}
+      </p>
+    </m.div>
+  );
+}
+
 function VolunteerForm() {
   const [status, setStatus] = useState("idle"); // idle | submitting | success | error
   const [errorMsg, setErrorMsg] = useState("");
@@ -293,6 +271,8 @@ function VolunteerForm() {
       lastName: (data.get("lastName") || "").toString().trim(),
       email: (data.get("email") || "").toString().trim(),
       phone: pc.phone,
+      address: (data.get("address") || "").toString().trim(),
+      city: (data.get("city") || "").toString().trim(),
       zipCode: zip.trim(),
       county: (data.get("county") || "").toString(),
       region: (data.get("region") || "").toString(),
@@ -367,7 +347,7 @@ function VolunteerForm() {
           Welcome to the team
         </span>
         <h3 className="display-serif mt-3 text-3xl font-medium sm:text-4xl">
-          Got it — welcome to Team Fryer.
+          Got it welcome to Team Fryer.
         </h3>
         <p className="mt-4 max-w-md leading-relaxed text-bone/80">
           A member of the campaign team will contact you with available
@@ -404,7 +384,23 @@ function VolunteerForm() {
           placeholder="+1 (503) 555-0123"
         />
       </div>
+      <FormField
+        id="v-address"
+        name="address"
+        label="Street address"
+        optional
+        autoComplete="address-line1"
+        placeholder="123 Main St"
+      />
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+        <FormField
+          id="v-city"
+          name="city"
+          label="City"
+          optional
+          autoComplete="address-level2"
+          placeholder="Portland"
+        />
         <FormZip
           id="v-zip"
           name="zipCode"
@@ -417,6 +413,8 @@ function VolunteerForm() {
           }}
           error={zipError}
         />
+      </div>
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
         <FormSelect
           id="v-county"
           name="county"
@@ -424,8 +422,6 @@ function VolunteerForm() {
           optional
           options={OREGON_COUNTIES}
         />
-      </div>
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
         <FormSelect
           id="v-region"
           name="region"
@@ -433,14 +429,14 @@ function VolunteerForm() {
           required
           options={REGIONS}
         />
-        <FormSelect
-          id="v-voter"
-          name="registeredVoter"
-          label="Registered to vote in Oregon?"
-          required
-          options={["Yes", "No"]}
-        />
       </div>
+      <FormSelect
+        id="v-voter"
+        name="registeredVoter"
+        label="Registered to vote in Oregon?"
+        required
+        options={["Yes", "No"]}
+      />
       <FormSelect
         id="v-exp"
         name="campaignExperience"

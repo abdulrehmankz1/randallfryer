@@ -60,7 +60,7 @@ export function SmsConsentFieldset({
   return (
     <FormFieldset
       legend="Text message consent (optional)"
-      hint="These are optional. Check them only if you would like to receive texts — each is a separate choice, and you can reply STOP to opt out at any time."
+      hint="These are optional. Check them only if you would like to receive texts each is a separate choice, and you can reply STOP to opt out at any time."
     >
       {!hasPhone && (
         <p className="text-xs italic text-ink/50">

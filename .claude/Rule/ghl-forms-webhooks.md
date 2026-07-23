@@ -192,6 +192,8 @@ const anySuccess = results.some((r) => r.ok)
 | Last Name                     | text input                | Yes              |                                                                                                                                           |
 | Email                         | email input               | Yes              |                                                                                                                                           |
 | Phone                         | tel input                 | No               |                                                                                                                                           |
+| Street Address                | text input                | No               |                                                                                                                                           |
+| City                          | text input                | No               |                                                                                                                                           |
 | ZIP Code                      | text input                | No               |                                                                                                                                           |
 | County                        | select dropdown           | No               | 36 Oregon counties                                                                                                                        |
 | Region                        | select dropdown           | Yes              | Portland Metro, Willamette Valley, Oregon Coast, Central Oregon, Eastern Oregon, Southern Oregon                                          |
@@ -213,6 +215,8 @@ const anySuccess = results.some((r) => r.ok)
   lastName: string,
   email: string,
   phone: string,
+  address: string,                 // street address, may be empty
+  city: string,                    // may be empty
   zipCode: string,
   county: string,
   region: string,

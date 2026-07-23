@@ -65,7 +65,7 @@ export default function Navbar() {
           <div className="flex h-[72px] items-center justify-between">
             <Link
               href="/"
-              aria-label="Randall Fryer — for State Representative"
+              aria-label="Randall Fryer for State Representative"
               className="group flex items-center"
             >
               <Image

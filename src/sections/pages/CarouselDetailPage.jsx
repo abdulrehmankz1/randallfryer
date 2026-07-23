@@ -6,6 +6,7 @@ import { m } from "motion/react";
 import LivePreview from "@/components/ui/LivePreview";
 import SectionFrame from "@/animations/SectionFrame";
 import SplitReveal from "@/animations/SplitReveal";
+import Reveal from "@/animations/Reveal";
 import { FORMATS, CAROUSELS, posterFor } from "@/data/socialPosts";
 import { cn } from "@/lib/cn";
 
@@ -163,7 +164,7 @@ export default function CarouselDetailPage({ carousel }) {
                   width={fmt.width}
                   height={fmt.height}
                   interactive
-                  title={`${carousel.title} — slide ${index + 1}`}
+                  title={`${carousel.title} slide ${index + 1}`}
                 />
               </m.div>
 
@@ -237,23 +238,23 @@ export default function CarouselDetailPage({ carousel }) {
           </ul>
 
           {/* Spec strip */}
-          <m.dl
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+          <Reveal
+            as="dl"
+            y={16}
+            duration={0.8}
+            delay={0.2}
             className="mx-auto mt-12 grid max-w-3xl grid-cols-2 gap-y-4 border-t border-bone/15 pt-8 font-mono text-[11px] uppercase tracking-[0.24em] text-bone/65 sm:grid-cols-4"
           >
             <Spec label="Format" value={fmt.label} />
             <Spec label="Aspect" value={fmt.sub} />
             <Spec label="Slides" value={String(total)} />
             <Spec label="Type" value="HTML / CSS" />
-          </m.dl>
+          </Reveal>
         </div>
       </section>
 
       {/* CONCEPT NOTE */}
-      <SectionFrame label="03 — Concept" number={`Set №${carousel.no}`}>
+      <SectionFrame label="03 Concept" number={`Set №${carousel.no}`}>
         <div className="grid grid-cols-12 gap-y-8 lg:gap-x-12">
           <div className="col-span-12 lg:col-span-7">
             <h2 className="display-serif text-balance text-[clamp(1.6rem,3.5vw,2.6rem)] font-medium leading-[1.05] tracking-[-0.02em]">
@@ -261,7 +262,7 @@ export default function CarouselDetailPage({ carousel }) {
               <span className="italic text-signal-deep">.</span>
             </h2>
             <p className="mt-6 max-w-xl text-[1.05rem] leading-relaxed text-ink/75">
-              A {total}-slide sequence built to swipe — a cover, a run of point
+              A {total}-slide sequence built to swipe a cover, a run of point
               slides, and a closing call to action. Every slide is a standalone
               HTML file, rendered live, with no images or build step.
             </p>
@@ -270,7 +271,7 @@ export default function CarouselDetailPage({ carousel }) {
             {[
               {
                 t: "Swipeable set",
-                d: `${total} artboards at ${fmt.width} × ${fmt.height} px — Instagram's 4:5 carousel spec.`,
+                d: `${total} artboards at ${fmt.width} × ${fmt.height} px Instagram's 4:5 carousel spec.`,
               },
               {
                 t: "One system",
@@ -294,16 +295,10 @@ export default function CarouselDetailPage({ carousel }) {
 
       {/* MORE CAROUSELS */}
       {others.length > 0 && (
-        <SectionFrame label="04 — More carousels" number={`${others.length} sets`}>
+        <SectionFrame label="04 More carousels" number={`${others.length} sets`}>
           <ul className="grid grid-cols-2 gap-x-5 gap-y-10 sm:grid-cols-3 lg:grid-cols-4">
             {others.map((c, i) => (
-              <m.li
-                key={c.slug}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: i * 0.06 }}
-              >
+              <Reveal as="li" key={c.slug} delay={i * 0.06}>
                 <Link href={`/social-media-posts/${c.slug}`} className="group flex flex-col gap-3">
                   <div className="relative overflow-hidden rounded-card border border-ink/15 bg-ink shadow-[0_30px_50px_-30px_rgba(10,19,38,0.4)]">
                     <LivePreview file={c.cover} poster={posterFor(c.cover)} width={fmt.width} height={fmt.height} title={c.title} />
@@ -315,7 +310,7 @@ export default function CarouselDetailPage({ carousel }) {
                     {c.title}
                   </h3>
                 </Link>
-              </m.li>
+              </Reveal>
             ))}
           </ul>
         </SectionFrame>

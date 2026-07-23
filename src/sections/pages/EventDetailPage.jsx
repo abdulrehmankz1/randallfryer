@@ -7,6 +7,8 @@ import { m, useScroll, useTransform } from "motion/react";
 import { gsap, useGSAP } from "@/animations/gsap";
 import SectionFrame from "@/animations/SectionFrame";
 import SplitReveal from "@/animations/SplitReveal";
+import Reveal from "@/animations/Reveal";
+import { useReveal } from "@/animations/useReveal";
 import Button from "@/components/ui/Button";
 import { FormField, FormDisclaimer } from "@/components/ui/Form";
 import { usePhoneConsent, SmsConsentFieldset } from "@/components/ui/SmsConsent";
@@ -123,24 +125,14 @@ export default function EventDetailPage({ event }) {
       </section>
 
       {/* DETAILS / BODY */}
-      <SectionFrame label="02 — About this event" number="Brief / II">
+      <SectionFrame label="02 About this event" number="Brief / II">
         <div className="grid grid-cols-12 gap-y-12 lg:gap-x-12">
           <div className="col-span-12 lg:col-span-7">
             <div className="flex flex-col gap-6 text-[1.05rem] leading-relaxed text-ink/85">
               {event.body.map((p, i) => (
-                <m.p
-                  key={i}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.2 }}
-                  transition={{
-                    duration: 0.8,
-                    ease: [0.16, 1, 0.3, 1],
-                    delay: i * 0.08,
-                  }}
-                >
+                <Reveal as="p" key={i} duration={0.8} delay={i * 0.08}>
                   {p}
-                </m.p>
+                </Reveal>
               ))}
             </div>
           </div>
@@ -153,7 +145,7 @@ export default function EventDetailPage({ event }) {
       </SectionFrame>
 
       {/* LOCATION */}
-      <SectionFrame label="03 — Where to go" number="Location / III">
+      <SectionFrame label="03 Where to go" number="Location / III">
         <div className="grid grid-cols-12 gap-y-10 lg:gap-x-12">
           <div className="col-span-12 lg:col-span-5">
             <SplitReveal
@@ -162,11 +154,9 @@ export default function EventDetailPage({ event }) {
             >
               {event.locationName}
             </SplitReveal>
-            <m.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+            <Reveal
+              duration={0.8}
+              delay={0.2}
               className="mt-6 max-w-md text-[1.05rem] leading-relaxed text-ink/80"
             >
               <p>{event.locationAddress}</p>
@@ -174,7 +164,7 @@ export default function EventDetailPage({ event }) {
                 Free street parking on Wharf and Marina streets. The
                 building is ADA-accessible from the front entrance.
               </p>
-            </m.div>
+            </Reveal>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button
                 as="a"
@@ -195,11 +185,9 @@ export default function EventDetailPage({ event }) {
           </div>
 
           <div className="col-span-12 lg:col-span-7">
-            <m.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            <Reveal
+              y={30}
+              duration={1}
               className="relative aspect-[16/10] overflow-hidden rounded-card border border-ink/15 bg-ink"
             >
               <Image
@@ -223,14 +211,14 @@ export default function EventDetailPage({ event }) {
                   </svg>
                 </span>
               </div>
-            </m.div>
+            </Reveal>
           </div>
         </div>
       </SectionFrame>
 
       {/* RSVP — booking form */}
       <div id="rsvp" className="scroll-mt-24">
-        <SectionFrame label="04 — Reserve your seat" number="RSVP / IV">
+        <SectionFrame label="04 Reserve your seat" number="RSVP / IV">
           <div className="grid grid-cols-12 gap-y-10 lg:gap-x-12">
             <div className="col-span-12 lg:col-span-5">
               <SplitReveal
@@ -239,23 +227,21 @@ export default function EventDetailPage({ event }) {
               >
                 Save your seat. Bring a neighbor.
               </SplitReveal>
-              <m.p
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.9, delay: 0.2 }}
+              <Reveal
+                as="p"
+                duration={0.9}
+                delay={0.2}
                 className="mt-6 max-w-md text-[1.05rem] leading-relaxed text-ink/80"
               >
                 Free event. RSVP helps us order enough chairs, coffee,
-                and clipboards. Walk-ups are always welcome — no
+                and clipboards. Walk-ups are always welcome no
                 ticket required.
-              </m.p>
+              </Reveal>
 
-              <m.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.9, delay: 0.3 }}
+              <Reveal
+                y={30}
+                duration={0.9}
+                delay={0.3}
                 className="mt-8 rounded-card border border-ink/15 bg-bone-soft/50 p-6"
               >
                 <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-ink-mute">
@@ -289,7 +275,7 @@ export default function EventDetailPage({ event }) {
                   </svg>
                   Add to calendar (.ics)
                 </a>
-              </m.div>
+              </Reveal>
             </div>
 
             <div className="col-span-12 lg:col-span-7">
@@ -301,7 +287,7 @@ export default function EventDetailPage({ event }) {
 
       {/* RELATED */}
       {related.length > 0 && (
-        <SectionFrame label="05 — Related events" number="More / V">
+        <SectionFrame label="05 Related events" number="More / V">
           <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {related.map((ev, i) => (
               <RelatedCard key={ev.slug} ev={ev} index={i} />
@@ -420,13 +406,12 @@ function RSVPForm({ event }) {
   const submitting = status === "submitting";
 
   return (
-    <m.form
+    <Reveal
+      as="form"
       onSubmit={handleSubmit}
       noValidate
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.15 }}
-      transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+      y={30}
+      duration={0.9}
       className="flex flex-col gap-6 rounded-card border border-ink/15 bg-bone-soft/40 p-7 sm:p-8"
     >
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
@@ -478,12 +463,12 @@ function RSVPForm({ event }) {
           {submitting ? "Sending…" : "Confirm RSVP"}
         </Button>
         <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-ink-mute">
-          Free event — walk-ups always welcome.
+          Free event walk-ups always welcome.
         </span>
       </div>
 
       <FormDisclaimer />
-    </m.form>
+    </Reveal>
   );
 }
 
@@ -560,27 +545,7 @@ function Schedule({ items }) {
         />
         <ol className="flex flex-col gap-5">
           {items.map((step, i) => (
-            <m.li
-              key={step.time}
-              initial={{ opacity: 0, x: -16 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{
-                duration: 0.6,
-                ease: [0.16, 1, 0.3, 1],
-                delay: i * 0.07,
-              }}
-              className="relative pl-7"
-            >
-              <span
-                aria-hidden
-                className="absolute left-0 top-2 block h-3.5 w-3.5 rounded-full border border-ink/40 bg-bone"
-              />
-              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-ink-mute">
-                {step.time}
-              </div>
-              <div className="mt-1 text-[15px] text-ink/85">{step.title}</div>
-            </m.li>
+            <ScheduleStep key={step.time} step={step} index={i} />
           ))}
         </ol>
       </div>
@@ -588,14 +553,36 @@ function Schedule({ items }) {
   );
 }
 
-function RelatedCard({ ev, index }) {
+function ScheduleStep({ step, index }) {
+  const ref = useRef(null);
+  const inView = useReveal(ref);
   return (
     <m.li
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: index * 0.08 }}
+      ref={ref}
+      initial={{ opacity: 0, x: -16 }}
+      animate={inView ? { opacity: 1, x: 0 } : {}}
+      transition={{
+        duration: 0.6,
+        ease: [0.16, 1, 0.3, 1],
+        delay: index * 0.07,
+      }}
+      className="relative pl-7"
     >
+      <span
+        aria-hidden
+        className="absolute left-0 top-2 block h-3.5 w-3.5 rounded-full border border-ink/40 bg-bone"
+      />
+      <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-ink-mute">
+        {step.time}
+      </div>
+      <div className="mt-1 text-[15px] text-ink/85">{step.title}</div>
+    </m.li>
+  );
+}
+
+function RelatedCard({ ev, index }) {
+  return (
+    <Reveal as="li" y={30} duration={0.8} delay={index * 0.08}>
       <Link
         href={`/events/${ev.slug}`}
         className="group flex flex-col gap-4"
@@ -618,6 +605,6 @@ function RelatedCard({ ev, index }) {
           {ev.title}
         </h3>
       </Link>
-    </m.li>
+    </Reveal>
   );
 }

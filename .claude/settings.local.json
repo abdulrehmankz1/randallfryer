@@ -32,7 +32,20 @@
       "Bash(node run.js C:/Users/General/AppData/Local/Temp/playwright-test-social-page.js)",
       "Bash(node run.js /tmp/playwright-test-navbar-qa.js)",
       "PowerShell(Get-NetTCPConnection *)",
-      "PowerShell(Get-CimInstance *)"
+      "PowerShell(Get-CimInstance *)",
+      "Read(//c/Users/user/Documents/development/claude-projects/randallfryer/.claude/skills/playwright-skill/**)",
+      "Bash(node run.js \"C:/Users/user/AppData/Local/Temp/claude/C--Users-user-Documents-development-claude-projects-randallfryer/7b1de24f-ba36-4c31-9b43-0e7b067bbd41/scratchpad/playwright-legal.js\")",
+      "Bash(node run.js \"C:/Users/user/AppData/Local/Temp/claude/C--Users-user-Documents-development-claude-projects-randallfryer/7b1de24f-ba36-4c31-9b43-0e7b067bbd41/scratchpad/playwright-sms-shot.js\")",
+      "Read(//c/Users/user/Documents/development/claude-projects/randallfryer/**)",
+      "Bash(npx eslint *)",
+      "Bash(node run.js \"C:/Users/user/AppData/Local/Temp/claude/C--Users-user-Documents-development-claude-projects-randallfryer/7b1de24f-ba36-4c31-9b43-0e7b067bbd41/scratchpad/playwright-cookie.js\")",
+      "Bash(node run.js \"C:/Users/user/AppData/Local/Temp/claude/C--Users-user-Documents-development-claude-projects-randallfryer/7b1de24f-ba36-4c31-9b43-0e7b067bbd41/scratchpad/playwright-cookie2.js\")",
+      "Bash(node run.js \"C:/Users/user/AppData/Local/Temp/claude/C--Users-user-Documents-development-claude-projects-randallfryer/7b1de24f-ba36-4c31-9b43-0e7b067bbd41/scratchpad/playwright-hero.js\")",
+      "Bash(node rf-verify.mjs)",
+      "Bash(node rf-shots.mjs)",
+      "Bash(node rf-italic.mjs)",
+      "Bash(node -e ' *)",
+      "Bash(node rf-campaign.mjs)"
     ]
   }
 }

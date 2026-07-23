@@ -23,6 +23,31 @@ export function FormDisclaimer({ className }) {
   );
 }
 
+/**
+ * FormPanel — card shell that gives a form structure when it sits in open
+ * space (e.g. the right side of a page hero). Optional mono `label` eyebrow.
+ */
+export function FormPanel({ label, children, className }) {
+  return (
+    <div
+      className={cn(
+        "rounded-card border border-ink/15 bg-bone-soft/50 p-6 shadow-[0_24px_60px_-34px_rgba(13,21,40,0.35)] sm:p-8",
+        className
+      )}
+    >
+      {label && (
+        <div className="mb-7 flex items-center gap-2.5">
+          <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-signal" />
+          <span className="font-mono text-[11px] uppercase tracking-[0.28em] text-ink-mute">
+            {label}
+          </span>
+        </div>
+      )}
+      {children}
+    </div>
+  );
+}
+
 const baseField =
   "block w-full rounded-soft border border-ink/20 bg-bone/80 px-4 py-3.5 font-sans text-[15px] text-ink transition-colors duration-300 focus:border-ink focus:bg-bone focus:outline-none focus:ring-2 focus:ring-ink/20";
 

@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { m, useScroll, useTransform } from "motion/react";
 import SplitReveal from "@/animations/SplitReveal";
+import Reveal from "@/animations/Reveal";
 import Button from "@/components/ui/Button";
 import { openCookieSettings } from "@/lib/cookieConsent";
 import {
@@ -23,7 +24,7 @@ const NAV_GROUPS = [
       { label: "Home", href: "/" },
       { label: "Meet Randall", href: "/about" },
       { label: "Priorities", href: "/platform" },
-      { label: "Social posts", href: "/social-media-posts" },
+      // { label: "Social posts", href: "/social-media-posts" },
     ],
   },
   {
@@ -87,24 +88,23 @@ export default function Footer() {
             >
               Be part of the change.
             </SplitReveal>
-            <m.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+            <Reveal
+              as="p"
+              y={20}
+              duration={0.8}
+              delay={0.2}
               className="mt-6 max-w-xl text-balance text-base leading-relaxed text-ink/75 sm:text-lg"
             >
               Randall Fryer is running to restore educational excellence,
               reduce the burden on working families, strengthen Oregon&rsquo;s
               business climate, support safer communities, and bring greater
               accountability to Salem.
-            </m.p>
+            </Reveal>
           </div>
-          <m.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+          <Reveal
+            y={20}
+            duration={0.8}
+            delay={0.2}
             className="col-span-12 lg:col-span-5"
           >
             <div className="flex flex-wrap items-center gap-3 lg:justify-end">
@@ -121,7 +121,7 @@ export default function Footer() {
                 Donate
               </Button>
             </div>
-          </m.div>
+          </Reveal>
         </m.div>
 
         {/* NEWSLETTER ROW */}

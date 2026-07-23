@@ -24,7 +24,7 @@ export default function CreativeFrame({ post, format, sizes, className }) {
       {post.image ? (
         <Image
           src={post.image}
-          alt={`${post.title} — ${format.label} creative`}
+          alt={`${post.title} ${format.label} creative`}
           fill
           sizes={sizes}
           className="object-cover"

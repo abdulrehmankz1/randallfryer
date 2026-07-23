@@ -5,6 +5,7 @@ import { m, AnimatePresence } from "motion/react";
 import { gsap, useGSAP, ScrollTrigger } from "@/animations/gsap";
 import SectionFrame from "@/animations/SectionFrame";
 import SplitReveal from "@/animations/SplitReveal";
+import Reveal from "@/animations/Reveal";
 
 const PILLARS = [
   {
@@ -74,7 +75,7 @@ export default function Platform() {
     <div ref={wrap}>
       <SectionFrame
         id="platform"
-        label="02 — Three Commitments"
+        label="02 Three Commitments"
         number="Priorities / II"
       >
         <div className="grid grid-cols-12 gap-y-10 lg:gap-x-12">
@@ -85,17 +86,15 @@ export default function Platform() {
             >
               Three commitments. Clear goals. Measurable results.
             </SplitReveal>
-            <m.p
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+            <Reveal
+              duration={0.9}
+              delay={0.2}
               className="mt-8 max-w-md text-lg leading-relaxed text-ink/75"
             >
               Randall&rsquo;s agenda begins with three immediate priorities
               designed to strengthen opportunity, lower pressure on working
               families, and demand better results from state government.
-            </m.p>
+            </Reveal>
           </div>
 
           {/* Timeline column */}
@@ -129,15 +128,11 @@ function PillarCard({ p, index }) {
       : "bg-ink";
 
   return (
-    <m.article
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.25 }}
-      transition={{
-        duration: 0.9,
-        ease: [0.16, 1, 0.3, 1],
-        delay: index * 0.08,
-      }}
+    <Reveal
+      as="article"
+      y={40}
+      duration={0.9}
+      delay={index * 0.08}
       className="relative pl-12 sm:pl-16"
     >
       {/* Timeline node */}
@@ -197,6 +192,6 @@ function PillarCard({ p, index }) {
 
       {/* Hairline below */}
       <span className="mt-8 block h-px w-full bg-ink/10" />
-    </m.article>
+    </Reveal>
   );
 }

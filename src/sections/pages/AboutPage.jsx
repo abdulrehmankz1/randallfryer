@@ -6,6 +6,8 @@ import { m, useScroll, useTransform } from "motion/react";
 import { gsap, useGSAP } from "@/animations/gsap";
 import SectionFrame from "@/animations/SectionFrame";
 import SplitReveal from "@/animations/SplitReveal";
+import Reveal from "@/animations/Reveal";
+import { useReveal } from "@/animations/useReveal";
 import PageHero from "@/components/ui/PageHero";
 import BrandIcon from "@/components/ui/BrandIcon";
 
@@ -27,9 +29,10 @@ const BIO_BLOCKS = [
   {
     eyebrow: "The campaign",
     heading: "A campaign built by listening.",
-    body: "The best public policy does not begin in a conference room in Salem. It begins by listening to the people who live with the consequences. Across District 28, families are concerned about the quality of Oregon's schools, the rising burden of taxes, public safety, economic opportunity, and whether state government is delivering results for the money it spends. Randall is taking those concerns seriously. This campaign is built around direct conversations, careful listening, and a commitment to represent the priorities of District 28—not the demands of political insiders. Every conversation helps shape a clearer agenda for responsible leadership and measurable results.",
-    image: "/randall-fryer-listening.png",
+    body: "The best public policy does not begin in a conference room in Salem. It begins by listening to the people who live with the consequences. Across District 28, families are concerned about the quality of Oregon's schools, the rising burden of taxes, public safety, economic opportunity, and whether state government is delivering results for the money it spends. Randall is taking those concerns seriously. This campaign is built around direct conversations, careful listening, and a commitment to represent the priorities of District 28 not the demands of political insiders. Every conversation helps shape a clearer agenda for responsible leadership and measurable results.",
+    image: "/randall-fryer-campaign-v2.jpg",
     imageAlt: "Randall Fryer discussing District 28 plans with residents",
+    imageAspect: "aspect-[4/5]",
   },
 ];
 
@@ -38,7 +41,7 @@ const VALUES = [
     no: "01",
     icon: "award",
     title: "Reclaim Educational Excellence",
-    body: "Randall believes Oregon schools must return their focus to the fundamentals: reading, writing, mathematics, history, and civics. He will work to restore meaningful academic and graduation standards, strengthen parental and local school-board involvement, and direct more education resources toward teachers and classrooms. Professional teachers deserve the authority and support needed to maintain orderly classrooms and help students succeed. Oregon should measure education policy by whether students are learning—not simply by how much the state spends.",
+    body: "Randall believes Oregon schools must return their focus to the fundamentals: reading, writing, mathematics, history, and civics. He will work to restore meaningful academic and graduation standards, strengthen parental and local school-board involvement, and direct more education resources toward teachers and classrooms. Professional teachers deserve the authority and support needed to maintain orderly classrooms and help students succeed. Oregon should measure education policy by whether students are learning not simply by how much the state spends.",
   },
   {
     no: "02",
@@ -91,11 +94,11 @@ export default function AboutPage() {
   return (
     <main className="relative flex flex-1 flex-col">
       <PageHero
-        eyebrow="File №02 — About"
+        eyebrow="File №02 About"
         number="Meet the candidate"
         title="Leadership built through service."
         intro="Randall Fryer is a retired physician, former software professional, and former enlisted member of the Army Medical Corps running for Oregon House District 28. After decades spent working through complex problems and making consequential decisions, Randall is ready to bring a disciplined, evidence-led, and accountable approach to Salem."
-        image="/randall-fryer-about.jpg"
+        image="/randall-fryer-about-hero.jpg"
         imageAlt="Randall Fryer, candidate for Oregon House District 28"
       />
 
@@ -106,7 +109,7 @@ export default function AboutPage() {
 
       {/* Core values */}
       <SectionFrame
-        label="05 — The Agenda"
+        label="05 The Agenda"
         number="Priorities / V"
       >
         <div className="grid grid-cols-12 items-end gap-y-6 lg:gap-x-12">
@@ -118,45 +121,20 @@ export default function AboutPage() {
               A practical agenda for a stronger Oregon.
             </SplitReveal>
           </div>
-          <m.p
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.9, delay: 0.2 }}
+          <Reveal
+            as="p"
+            duration={0.9}
+            delay={0.2}
             className="col-span-12 max-w-xl text-lg leading-relaxed text-ink/75 lg:col-span-5 lg:pl-6"
           >
             Randall&rsquo;s campaign is centered on three areas where state
             leadership can produce meaningful change.
-          </m.p>
+          </Reveal>
         </div>
 
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:mt-16">
           {VALUES.map((v, i) => (
-            <m.div
-              key={v.no}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{
-                duration: 0.8,
-                ease: [0.16, 1, 0.3, 1],
-                delay: i * 0.1,
-              }}
-              whileHover={{ y: -4 }}
-              className="group relative flex flex-col gap-4 rounded-card border border-ink/15 bg-bone-soft/60 p-7 transition-colors duration-500 hover:border-ink"
-            >
-              <div className="flex items-center justify-between">
-                <span className="grid h-11 w-11 place-items-center rounded-full border border-ink/15 text-signal transition-colors duration-500 group-hover:border-signal/50 group-hover:text-signal-deep">
-                  <BrandIcon name={v.icon} className="h-5 w-5" />
-                </span>
-              </div>
-              <h3 className="display-serif flex min-h-[2.5em] items-start text-2xl font-medium leading-tight">
-                {v.title}
-              </h3>
-              <p className="text-[15px] leading-relaxed text-ink/75">
-                {v.body}
-              </p>
-            </m.div>
+            <AgendaCard key={v.no} v={v} index={i} />
           ))}
         </div>
       </SectionFrame>
@@ -164,6 +142,70 @@ export default function AboutPage() {
       {/* Journey timeline */}
       <Journey />
     </main>
+  );
+}
+
+function AgendaCard({ v, index }) {
+  const ref = useRef(null);
+  const inView = useReveal(ref);
+  return (
+    <m.div
+      ref={ref}
+      initial={{ opacity: 0, y: 30 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{
+        duration: 0.8,
+        ease: [0.16, 1, 0.3, 1],
+        delay: index * 0.1,
+      }}
+      whileHover={{ y: -4 }}
+      className="group relative flex flex-col gap-4 rounded-card border border-signal-deep bg-signal p-7 text-bone transition-colors duration-500 hover:border-bone/50"
+    >
+      <div className="flex items-center justify-between">
+        <span className="grid h-20 w-20 place-items-center rounded-full border border-bone/40 bg-bone/10 text-bone transition-colors duration-500 group-hover:border-bone/70 group-hover:bg-bone/15">
+          <BrandIcon name={v.icon} className="h-11 w-11" bold />
+        </span>
+      </div>
+      <h3 className="display-serif flex min-h-[2.5em] items-start text-2xl font-medium leading-tight text-bone">
+        {v.title}
+      </h3>
+      <p className="text-[15px] leading-relaxed text-bone/85">
+        {v.body}
+      </p>
+    </m.div>
+  );
+}
+
+function JourneyNode({ j, index }) {
+  const ref = useRef(null);
+  const inView = useReveal(ref);
+  return (
+    <m.div
+      ref={ref}
+      initial={{ opacity: 0, x: -30 }}
+      animate={inView ? { opacity: 1, x: 0 } : {}}
+      transition={{
+        duration: 0.8,
+        ease: [0.16, 1, 0.3, 1],
+        delay: index * 0.06,
+      }}
+      className="relative pl-12 sm:pl-16"
+    >
+      <span
+        aria-hidden
+        className="journey-node absolute left-0 top-1 grid h-[30px] w-[30px] place-items-center rounded-full bg-ink text-bone shadow-[0_0_0_4px_var(--color-bone)] sm:h-[40px] sm:w-[40px]"
+      >
+        <span className="font-mono text-[9px] uppercase tracking-[0.18em] sm:text-[10px]">
+          {j.year}
+        </span>
+      </span>
+      <h3 className="display-serif text-2xl font-medium leading-tight">
+        {j.title}
+      </h3>
+      <p className="mt-2 max-w-md text-[15px] leading-relaxed text-ink/75">
+        {j.body}
+      </p>
+    </m.div>
   );
 }
 
@@ -178,7 +220,7 @@ function BioBlock({ block, reverse, index }) {
   return (
     <div ref={ref}>
       <SectionFrame
-        label={`0${index + 2} — ${block.eyebrow}`}
+        label={`0${index + 2} ${block.eyebrow}`}
         number={`Chapter / ${["II", "III", "IV"][index] || "I"}`}
       >
         <div
@@ -190,12 +232,12 @@ function BioBlock({ block, reverse, index }) {
             style={{ y }}
             className="col-span-12 lg:col-span-5"
           >
-            <m.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
-              className="relative aspect-[5/4] w-full overflow-hidden rounded-card border border-ink/15 bg-ink"
+            <Reveal
+              y={30}
+              duration={1.1}
+              className={`relative w-full overflow-hidden rounded-card border border-ink/15 bg-ink ${
+                block.imageAspect || "aspect-[5/4]"
+              }`}
             >
               <Image
                 src={block.image}
@@ -205,7 +247,7 @@ function BioBlock({ block, reverse, index }) {
                 className="object-cover"
                 style={{ filter: "contrast(1.02) saturate(1.02)" }}
               />
-            </m.div>
+            </Reveal>
           </m.div>
 
           <div className="col-span-12 lg:col-span-7 lg:pl-6">
@@ -215,15 +257,15 @@ function BioBlock({ block, reverse, index }) {
             >
               {block.heading}
             </SplitReveal>
-            <m.p
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+            <Reveal
+              as="p"
+              y={30}
+              duration={0.9}
+              delay={0.15}
               className="mt-8 max-w-xl text-[1.05rem] leading-relaxed text-ink/80"
             >
               {block.body}
-            </m.p>
+            </Reveal>
           </div>
         </div>
       </SectionFrame>
@@ -268,7 +310,7 @@ function Journey() {
 
   return (
     <div ref={wrap}>
-      <SectionFrame label="06 — The Journey" number="Timeline / VI">
+      <SectionFrame label="06 The Journey" number="Timeline / VI">
         <div className="grid grid-cols-12 gap-y-10 lg:gap-x-12">
           <div className="col-span-12 lg:col-span-5">
             <SplitReveal
@@ -277,27 +319,25 @@ function Journey() {
             >
               From problem-solver to candidate.
             </SplitReveal>
-            <m.p
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.9, delay: 0.2 }}
+            <Reveal
+              as="p"
+              duration={0.9}
+              delay={0.2}
               className="mt-8 max-w-md text-lg leading-relaxed text-ink/75"
             >
               Six defining chapters in Randall&rsquo;s path to Oregon House
               District 28.
-            </m.p>
-            <m.p
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.9, delay: 0.3 }}
+            </Reveal>
+            <Reveal
+              as="p"
+              duration={0.9}
+              delay={0.3}
               className="mt-6 max-w-md text-[15px] leading-relaxed text-ink/70"
             >
               Randall&rsquo;s early experience included software development
               and service in the Army Medical Corps, forming the foundation
               of his systems-based and service-oriented approach.
-            </m.p>
+            </Reveal>
           </div>
 
           <div className="relative col-span-12 mt-2 lg:col-span-7">
@@ -308,33 +348,7 @@ function Journey() {
             />
             <div className="flex flex-col gap-12 sm:gap-14">
               {JOURNEY.map((j, i) => (
-                <m.div
-                  key={j.year}
-                  initial={{ opacity: 0, x: -30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{
-                    duration: 0.8,
-                    ease: [0.16, 1, 0.3, 1],
-                    delay: i * 0.06,
-                  }}
-                  className="relative pl-12 sm:pl-16"
-                >
-                  <span
-                    aria-hidden
-                    className="journey-node absolute left-0 top-1 grid h-[30px] w-[30px] place-items-center rounded-full bg-ink text-bone shadow-[0_0_0_4px_var(--color-bone)] sm:h-[40px] sm:w-[40px]"
-                  >
-                    <span className="font-mono text-[9px] uppercase tracking-[0.18em] sm:text-[10px]">
-                      {j.year}
-                    </span>
-                  </span>
-                  <h3 className="display-serif text-2xl font-medium leading-tight">
-                    {j.title}
-                  </h3>
-                  <p className="mt-2 max-w-md text-[15px] leading-relaxed text-ink/75">
-                    {j.body}
-                  </p>
-                </m.div>
+                <JourneyNode key={j.year} j={j} index={i} />
               ))}
             </div>
           </div>

@@ -17,7 +17,7 @@ export async function generateMetadata({ params }) {
   const item = getSocialPost(slug) || getCarousel(slug);
   if (!item) return { title: "Post not found" };
   return {
-    title: `${item.title} — Social Media Posts`,
+    title: `${item.title} Social Media Posts`,
     description: item.concept,
   };
 }

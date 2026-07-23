@@ -6,6 +6,7 @@ import Link from "next/link";
 import { m, useScroll, useTransform } from "motion/react";
 import SectionFrame from "@/animations/SectionFrame";
 import SplitReveal from "@/animations/SplitReveal";
+import Reveal from "@/animations/Reveal";
 import Button from "@/components/ui/Button";
 
 export default function Countdown() {
@@ -21,7 +22,7 @@ export default function Countdown() {
     <div ref={sectionRef} className="relative">
       <SectionFrame
         id="events"
-        label="04 — On the ballot"
+        label="04 On the ballot"
         number="Election / IV"
         tone="signal"
         backdrop={
@@ -59,18 +60,17 @@ export default function Countdown() {
           >
             Oregon&rsquo;s direction is on the ballot.
           </SplitReveal>
-          <m.p
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          <Reveal
+            as="p"
+            duration={0.9}
+            delay={0.2}
             className="mt-6 max-w-xl text-lg leading-relaxed text-bone/75"
           >
             This election is an opportunity to choose stronger schools,
             lower pressure on working families, a healthier business
             climate, safer communities, and government that answers for
             its performance.
-          </m.p>
+          </Reveal>
 
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <Button as={Link} href="#newsletter" variant="bone" withArrow>

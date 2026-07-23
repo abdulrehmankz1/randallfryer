@@ -40,6 +40,8 @@ export async function POST(request) {
     lastName,
     email,
     phone: normalizePhoneForSubmit(body.phone),
+    address: str(body.address),
+    city: str(body.city),
     zipCode: str(body.zipCode),
     county: str(body.county),
     region: str(body.region),

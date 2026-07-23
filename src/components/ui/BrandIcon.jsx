@@ -10,8 +10,16 @@ import { cn } from "@/lib/cn";
  *
  *   name  file basename in /public/icons (e.g. "award", "scales")
  */
-export default function BrandIcon({ name, className }) {
+export default function BrandIcon({ name, className, bold = false }) {
   const url = `url(/icons/${name}.svg)`;
+  // The SVGs are thin line art. Because they're rendered as a mask there is no
+  // stroke-width to increase, so `bold` fattens the strokes by stacking crisp
+  // drop-shadows of the masked shape in every direction (a mask "dilation").
+  const dilate =
+    "drop-shadow(0.6px 0 0 currentColor) drop-shadow(-0.6px 0 0 currentColor) " +
+    "drop-shadow(0 0.6px 0 currentColor) drop-shadow(0 -0.6px 0 currentColor) " +
+    "drop-shadow(0.6px 0.6px 0 currentColor) drop-shadow(-0.6px 0.6px 0 currentColor) " +
+    "drop-shadow(0.6px -0.6px 0 currentColor) drop-shadow(-0.6px -0.6px 0 currentColor)";
   return (
     <span
       aria-hidden
@@ -25,6 +33,7 @@ export default function BrandIcon({ name, className }) {
         WebkitMaskPosition: "center",
         maskSize: "contain",
         WebkitMaskSize: "contain",
+        ...(bold ? { filter: dilate } : null),
       }}
     />
   );
