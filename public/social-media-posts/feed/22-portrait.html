@@ -22,8 +22,14 @@
 .stage{background:radial-gradient(90% 80% at 50% 30%,#1a2440,#0a1326 65%,#050912)}
   .grain{content:"";position:absolute;inset:0;z-index:60;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 .95 0 0 0 0 .85 0 0 0 .14 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");mix-blend-mode:overlay;opacity:.6}
   .halo{position:absolute;left:50%;top:34%;transform:translate(-50%,-50%);width:760px;height:760px;border-radius:50%;background:radial-gradient(50% 50% at 50% 50%,rgba(255,232,180,.28),transparent 70%);z-index:3}
-  .sil{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:620px;height:820px;z-index:6;background:linear-gradient(180deg,#20304f,#0a1326);border-radius:300px 300px 0 0;box-shadow:inset 40px 0 80px rgba(0,0,0,.5),inset -30px 0 60px rgba(155,45,44,.4)}
-  .sil::after{content:"";position:absolute;left:0;top:0;bottom:0;width:60px;background:linear-gradient(90deg,rgba(255,232,180,.5),transparent);border-radius:300px 0 0 0}
+  .sil{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:620px;height:820px;z-index:6;overflow:hidden;
+    background:url("/randall-fryer-portrait-plaid.png") no-repeat;background-size:cover;background-position:50% 14%;
+    filter:saturate(.88) contrast(1.04);
+    border-radius:300px 300px 0 0;box-shadow:inset 40px 0 80px rgba(0,0,0,.5),inset -30px 0 60px rgba(155,45,44,.4),0 40px 90px rgba(0,0,0,.5)}
+  .sil::before{content:"";position:absolute;inset:0;border-radius:300px 300px 0 0;
+    background:linear-gradient(0deg, rgba(10,19,38,.92) 0%, rgba(10,19,38,.45) 22%, transparent 46%),
+    radial-gradient(80% 50% at 50% 0%, rgba(255,232,180,.14), transparent 60%)}
+  .sil::after{content:"";position:absolute;left:0;top:0;bottom:0;width:60px;background:linear-gradient(90deg,rgba(255,232,180,.3),transparent);border-radius:300px 0 0 0}
   .frame{position:absolute;inset:64px;border:1px solid rgba(243,237,224,.16);z-index:8}
   .meta{position:absolute;left:104px;right:104px;top:104px;display:flex;justify-content:space-between;font-family:var(--mono);font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:rgba(243,237,224,.65);z-index:20}
   .meta .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#9b2d2c;margin-right:10px;vertical-align:1px}

@@ -27,16 +27,15 @@
   h1 .it{font-style:italic;font-weight:500;color:var(--signal-deep)}
   .body{max-width:440px;font-size:18px;line-height:1.6;color:rgba(10,19,38,.78)}
   .body b{color:var(--ink);font-weight:600}
-  /* Two coffee cups */
-  .coffee{position:absolute;right:130px;bottom:200px;width:380px;height:300px;z-index:12}
-  .cup{position:absolute;bottom:0;width:150px;height:120px;border-radius:8px 8px 60px 60px;background:linear-gradient(180deg,#faf4e6,#e6dcc4);border:1px solid rgba(10,19,38,.18);box-shadow:0 22px 30px rgba(10,19,38,.2)}
-  .cup::before{content:"";position:absolute;top:16px;left:14px;right:14px;height:26px;border-radius:50%;background:radial-gradient(circle,#5a3a24,#3a2416)}
-  .cup::after{content:"";position:absolute;right:-34px;top:28px;width:44px;height:52px;border:12px solid #e6dcc4;border-radius:50%;border-left-color:transparent}
-  .c1{left:20px}
-  .c2{right:20px;width:130px;height:104px}
-  .saucer{position:absolute;left:0;right:0;bottom:-16px;height:20px;border-radius:50%;background:radial-gradient(closest-side,rgba(79,99,88,.35),transparent);z-index:-1}
-  .steam{position:absolute;bottom:118px;width:6px;height:56px;border-radius:6px;background:linear-gradient(0deg,rgba(122,36,34,.4),transparent);opacity:.55}
-  .s1{left:76px}.s2{left:104px;height:44px;bottom:128px}.s3{right:70px;bottom:126px;height:42px}
+  /* Snapshot — Randall listening over coffee, sidewalk table */
+  .snap{position:absolute;right:110px;bottom:112px;width:400px;height:470px;z-index:12;
+    background:#fbf6ea;padding:16px 16px 58px;transform:rotate(2.5deg);
+    box-shadow:0 30px 60px rgba(10,19,38,.28), 0 6px 16px rgba(10,19,38,.14)}
+  .snap .ph{width:100%;height:100%;
+    background:url("/randall-fryer-cafe-table.jpg") no-repeat;background-size:cover;background-position:45% 18%;
+    filter:saturate(.94) contrast(1.02)}
+  .snap .cap{position:absolute;left:16px;right:16px;bottom:16px;text-align:center;
+    font-family:var(--display);font-style:italic;font-size:21px;color:rgba(10,19,38,.72)}
   .foot{position:absolute;left:96px;bottom:96px;z-index:34;font-family:var(--mono);font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--signal-deep)}
   .foot b{color:var(--ink)}
 </style>
@@ -49,10 +48,9 @@
       <div class="eyebrow">Start By Listening</div>
       <h1>The best ideas don't come from political <span class="it">insiders.</span></h1>
     </div>
-    <div class="coffee" aria-hidden>
-      <div class="steam s1"></div><div class="steam s2"></div><div class="steam s3"></div>
-      <div class="cup c1"><div class="saucer"></div></div>
-      <div class="cup c2"><div class="saucer"></div></div>
+    <div class="snap" aria-hidden>
+      <div class="ph"></div>
+      <div class="cap">Over coffee, District 28</div>
     </div>
   </div>
 </body>

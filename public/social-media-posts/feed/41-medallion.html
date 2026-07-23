@@ -27,14 +27,15 @@
   h1 .it{font-style:italic;font-weight:500;color:var(--signal-deep)}
   .body{max-width:460px;font-size:18px;line-height:1.6;color:rgba(10,19,38,.78)}
   .body b{color:var(--ink);font-weight:600}
-  /* speech bubbles motif */
-  .talk{position:absolute;right:120px;bottom:200px;width:400px;height:340px;z-index:12}
-  .bub{position:absolute;border-radius:26px;box-shadow:0 22px 34px rgba(10,19,38,.2)}
-  .b1{left:0;top:40px;width:250px;height:150px;background:linear-gradient(160deg,#18223b,#0a1326);border-radius:26px 26px 26px 6px}
-  .b2{right:0;top:150px;width:230px;height:140px;background:linear-gradient(160deg,#9b2d2c,#7a2422);border-radius:26px 26px 6px 26px}
-  .bub .ln{position:absolute;left:26px;right:26px;height:8px;border-radius:4px;background:rgba(243,237,224,.5)}
-  .b1 .l1{top:38px}.b1 .l2{top:66px;right:70px}.b1 .l3{top:94px;right:110px}
-  .b2 .l1{top:36px;background:rgba(243,237,224,.6)}.b2 .l2{top:64px;right:60px;background:rgba(243,237,224,.5)}.b2 .l3{top:92px;right:90px;background:rgba(243,237,224,.4)}
+  /* Snapshot — a front-lawn conversation, not a boardroom */
+  .snap{position:absolute;right:104px;bottom:150px;width:430px;height:430px;z-index:12;
+    background:#fbf6ea;padding:16px 16px 58px;transform:rotate(-2deg);
+    box-shadow:0 30px 60px rgba(10,19,38,.28), 0 6px 16px rgba(10,19,38,.14)}
+  .snap .ph{width:100%;height:100%;
+    background:url("/randall-fryer-lawn-conversation.png") no-repeat;background-size:cover;background-position:72% 40%;
+    filter:saturate(.94) contrast(1.02)}
+  .snap .cap{position:absolute;left:16px;right:16px;bottom:16px;text-align:center;
+    font-family:var(--display);font-style:italic;font-size:21px;color:rgba(10,19,38,.72)}
   .foot{position:absolute;left:96px;bottom:96px;z-index:34;font-family:var(--mono);font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--signal-deep)}
 </style>
 </head>
@@ -46,9 +47,9 @@
       <div class="eyebrow">One Conversation At A Time</div>
       <h1>This campaign wasn't built in a <span class="it">boardroom.</span></h1>
     </div>
-    <div class="talk" aria-hidden>
-      <div class="bub b1"><span class="ln l1"></span><span class="ln l2"></span><span class="ln l3"></span></div>
-      <div class="bub b2"><span class="ln l1"></span><span class="ln l2"></span><span class="ln l3"></span></div>
+    <div class="snap" aria-hidden>
+      <div class="ph"></div>
+      <div class="cap">Front lawns, not boardrooms.</div>
     </div>
   </div>
 </body>
